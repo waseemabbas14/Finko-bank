@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>See My Refinance Savings</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+.commercial-page-container {
+  color: #0b1b33;
+  font-family: Rajdhani, system-ui, sans-serif;
+  max-width: 900px;
+  margin: auto;
+  padding: 0px !important;
+  background-color: antiquewhite;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+/* ===== TOP IMAGE ===== */
+.top-image-wrapper {
+  width: 100%;
+  height: 250px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  text-align: center;
+  padding-top: 50px !important;
+  background-color: #0b1b33;
+}
+
+.top-image-wrapper img {
+  width: 60px;
+  object-fit: cover;
+}
+
+/* ===== CONTENT ===== */
+.commercial-page-container h1 {
+  color: #ff8a00;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.commercial-page-container h2 {
+  margin-top: 22px;
+}
+
+.commercial-page-container p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.commercial-page-container ul {
+  padding-left: 18px;
+  font-size: 15px;
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 18px 0;
+}
+
+/* ===== FAQ ===== */
+.faq {
+  border: none;
+  padding: 6px 0;
+}
+
+.faq-question {
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  padding-right: 36px;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.faq-question::before {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  width: 34px;
+  text-align: center;
+}
+
+.faq.open .faq-question::before {
+  content: '-';
+}
+
+.main-contents {
+  width: 90%;
+  margin: -60px auto 30px auto !important;
+  padding: 60px;
+  background-color: white;
+}
+
+.faq-answer {
+  font-size: 14px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding-top: 0;
+  transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+              opacity 240ms,
+              padding-top 240ms;
+}
+</style>
+</head>
+
+<body>
+
+<div class="commercial-page-container" style="padding:0px;">
+
+  <!-- TOP DEMO IMAGE -->
+  <div class="top-image-wrapper">
+    <!-- Replace src with your own image -->
+    <img src="/assests/logo.png" alt="Key Image">
+  </div>
+
+  <div class="main-contents">
+
+  <h1>See My Refinance Savings</h1>
+
+  <p>Compare your current loan with potential refinance options to discover possible interest savings and monthly payment reductions.</p>
+
+  <h2>How we estimate savings</h2>
+  <p>We compare your current rate, remaining term and balance against a range of alternative rates to provide an estimate of annual and lifetime interest savings.</p>
+
+  <h2>Prepare for an accurate comparison</h2>
+  <ul>
+    <li>Enter your current loan balance and remaining term.</li>
+    <li>Provide your current interest rate and repayment type.</li>
+    <li>Consider fees and break costs — they can affect net savings.</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h2>Frequently Asked</h2>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+      Will refinancing always save me money?
+    </div>
+    <div class="faq-answer">
+      Not always. Savings depend on the difference in interest rates, loan balance, remaining term and applicable fees.
+    </div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
+      What costs should I consider?
+    </div>
+    <div class="faq-answer">
+      Consider exit costs, application and settlement fees, and any lender-specific charges.
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const questions = document.querySelectorAll('.faq-question');
+  questions.forEach(q => {
+    const faq = q.closest('.faq');
+    const answer = faq.querySelector('.faq-answer');
+    if(!answer) return;
+
+    function openFaq(){
+      faq.classList.add('open');
+      q.setAttribute('aria-expanded','true');
+      answer.style.display='block';
+      const h = answer.scrollHeight + 'px';
+      answer.style.maxHeight='0px';
+      answer.style.opacity='0';
+      answer.style.paddingTop='0px';
+      requestAnimationFrame(()=>{
+        answer.style.maxHeight=h;
+        answer.style.opacity='1';
+        answer.style.paddingTop='12px';
+      });
+    }
+
+    function closeFaq(){
+      answer.style.maxHeight='0px';
+      answer.style.opacity='0';
+      answer.style.paddingTop='0px';
+      faq.classList.remove('open');
+      q.setAttribute('aria-expanded','false');
+    }
+
+    function toggle(){
+      faq.classList.contains('open') ? closeFaq() : openFaq();
+    }
+
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+})();
+</script>
+
+  </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <meta http-equiv="Content-Security-Policy"
+      content="script-src 'self' https://cdn.jsdelivr.net"> -->
+  <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/calnew.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- header -->
+  <div class="top">
+    <div class="read-more">
+      <p><i class="fa-solid fa-circle-exclamation"></i>Finco Bank’s latest financial policies and customer support
+        guidelines</p>
+      <a href="./main-pages/read-more.html"><button class="more">Read More</button></a>
+    </div>
+    <div class="call">
+      <p><i class="fa-solid fa-phone-flip"></i>0123456789</p>
+      <p><i class="fa-solid fa-envelope"></i>service@abc.com</p>
+    </div>
+  </div>
+  <header>
+    <div class="image">
+      <img src="assests/finko-removebg-preview.png" alt="" decoding="async">
+    </div>
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="navbar" id="navbar">
+      <div class="nav-menu">
+        <div class="nav-item"><a href="index.html" class="nav-link">HOME</a></div>
+        <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
+          <button class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)">HOME LOAN</button>
+          <div class="dropdown-menu">
+
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'bridging')">Bridging Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'next-home')">Buy Your Next
+              Home</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'construction')">Construction
+              Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'custom-build')">Custom Build
+              House and Land Package</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'consolidate')">Debt
+              Consolidation</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'equity-release')">Equity
+              Release</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'expat')">Expat Home Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'first-home')">First Home
+              Buyer</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'home-loan')">Home Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'investment')">Investment
+              Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'refinance')">Refinancing</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'reverse')">Reverse
+              Mortgage</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'self-employed')">Self-Employed
+              Loans</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
+          <button class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)">COMMERCIAL LOAN</button>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'commercial', 'business-loc')">Business
+              Line of Credit</a>
+            <a href="#" class="dropdown-item"
+              onclick="selectFromDropdown(event, 'commercial', 'commercial-property')">Commercial Property Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'commercial', 'debtor-finance')">Debtor
+              Finance</a>
+            <a href="#" class="dropdown-item"
+              onclick="selectFromDropdown(event, 'commercial', 'equipment-finance')">Equipment Finance</a>
+            <a href="#" class="dropdown-item"
+              onclick="selectFromDropdown(event, 'commercial', 'secured-business')">Secured Business Loans</a>
+            <a href="#" class="dropdown-item"
+              onclick="selectFromDropdown(event, 'commercial', 'unsecured-business')">Unsecured Business Loans</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
+          <button class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)">SMSF LOAN</button>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item"
+              onclick="selectFromDropdown(event, 'smsf', 'residential-smsf')">Residential SMSF Loans</a>
+            <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'smsf', 'commercial-smsf')">Commercial
+              SMSF Loans</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="main-pages/About-us.html" class="nav-link">ABOUT US</a></div>
+        <div class="nav-item"><a href="main-pages/Blog.html" class="nav-link">BLOG</a></div>
+        <div class="nav-item"><a href="main-pages/FAQS.html" class="nav-link">FAQS</a></div>
+        <div class="nav-item"><a href="main-pages/Contact-us.html" class="nav-link">CONTACT</a></div>
+      </div>
+    </nav>
+    <div class="btnu">
+      <a href="main-pages/Contact-us.html" class="btn-enquire">Enquire Now</a>
+    </div>
+  </header>
+  <!-- header -->
+  <div class="section1">
+    <div class="container">
+      <div class="grid-3">
+        <!-- LEFT: Input panel -->
+        <aside class="card left-panel">
+
+          <div class="state-pill" id="statePill">
+            <div class="state-select-container" id="stateSelectContainer">
+              <label class="state-select-label">
+                <div id="sunny" style="margin-bottom: 8px;">Select your state</div>
+                <select id="stateSelect" required>
+                  <option value="">Select Your State</option>
+                  <option value="NSW">New South Wales</option>
+                  <option value="VIC">Victoria</option>
+                  <option value="QLD">Queensland</option>
+                  <option value="WA">Western Australia</option>
+                  <option value="SA">South Australia</option>
+                  <option value="TAS">Tasmania</option>
+                  <option value="ACT">Australian Capital Territory</option>
+                  <option value="NT">Northern Territory</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="state-name" id="stateName" style="display: none;"></div>
+          </div>
+
+          <div class="step">
+            <div class="step-title">
+              <h3 style="margin-bottom: 5px;">HELLO</h3>
+              <h4 style="background: rgba(255, 255, 255, 0.1);border-radius:10px; padding: 8px 0px;">What brings you
+                here today?</h4>
+            </div>
+          </div>
+
+          <form id="loanForm" autocomplete="off">
+            <div class="seg">
+              <div class="row">
+                <label>
+                  <select id="loanCategory" required>
+                    <option value="">Loan Type</option>
+                    <option value="home">Home Loan</option>
+                    <option value="commercial">Commercial Loan</option>
+                    <option value="smsf">SMSF Loan</option>
+                  </select>
+                </label>
+              </div>
+
+              <!-- Commercial Calculator Type Dropdown -->
+              <div class="row" id="commercialCalculatorTypeRow" style="display: none;">
+                <label>
+                  <select id="commercialCalculatorType">
+                    <option value="">Select Calculator</option>
+                    <option value="simple">Repayment Scenarios</option>
+                    <option value="financial">Decision Analysis</option>
+                  </select>
+                </label>
+              </div>
+              <!-- SMSF Calculator Type Dropdown -->
+              <div class="row" id="smsfCalculatorTypeRow" style="display: none;">
+                <label>
+                  <select id="smsfCalculatorType">
+                    <option value="">Select SMSF Calculator</option>
+                    <option value="simple">Repayment Scenarios</option>
+                    <option value="financial">Decision Analysis</option>
+                  </select>
+                </label>
+              </div>
+              <div class="row">
+                <label>
+                  <select id="loanPurpose" required>
+                    <option value="">Loan Purpose</option>
+                    <!-- Dynamic options will be populated here -->
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div id="dynamicFields"></div>
+            <div class="right">
+              <button type="submit" class="btn btn-primary">
+                <img src="assests/t-removebg-preview.png" alt="" style="width:16px; height:16px; vertical-align:middle;"
+                  loading="lazy" decoding="async">
+                Calculate
+              </button>
+            </div>
+          </form>
+        </aside>
+        <!-- RIGHT: Two-column span dashboard card -->
+
+        <section class="card big-panel" id="dashboardCard">
+          <div class="dash">
+            <div>
+              <div class="dash-col" id="summary">
+                <!-- Welcome message with animation will appear here -->
+              </div>
+              <!-- Repayment scenarios section - initially hidden -->
+              <div class="new-calculator" id="repaymentScenariosSection" style="display: none;">
+                <button type="button" class="repayment-scenarios-btn" onclick="toggleRepaymentScenarios()">
+                  <img src="./assests/teer.png" alt="" width=30px loading="lazy" decoding="async">
+                  Explore repayment scenarios
+                </button>
+                <div class="repayment-scenarios-calculator" id="repaymentScenariosCalculator">
+                  <div class="repayment-calc-content">
+                    <div class="repayment-input-group">
+                      <div class="repayment-input-row">
+                        <div>
+                          <label for="extraRepaymentAmount">Enter your extra repayment amount:</label>
+                          <input type="text" id="extraRepaymentAmount" placeholder="e.g. 200"
+                            oninput="calculateRepaymentScenarios()">
+                        </div>
+                        <div>
+                          <label for="extraRepaymentFrequency">Repayment frequency:</label>
+                          <select id="extraRepaymentFrequency" onchange="calculateRepaymentScenarios()">
+                            <option value="monthly">Monthly</option>
+                            <option value="fortnightly">Fortnightly</option>
+                            <option value="weekly">Weekly</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="repaymentScenariosResults"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dash-col" id="details">
+              <!-- Details will appear here after calculation -->
+            </div>
+            <div class="dash-col results" id="results">
+              <!-- Results will appear here after calculation -->
+            </div>
+          </div>
+          <div id="disclaimer" class="disclaimer">
+          </div>
+        </section>
+      </div>
+      <div class="flip-controls">
+        <button id="flipButton" class="btn btn-outline" type="button" aria-pressed="false" title="Flip panel">Flip
+          panel</button>
+      </div>
+    </div>
+  </div>
+  <section class="about-section">
+    <div class="about-container">
+
+      <!-- Left Content -->
+      <div class="about-content">
+        <span class="about-tag">ABOUT US</span>
+
+        <h2>We Are the Solution for<br>Your Financial Needs</h2>
+
+        <p>
+          <strong>Finco Bank</strong> is committed to delivering modern, secure, and
+          customer focused banking services. Our mission is to make financial
+          growth accessible for everyone from individuals to businesses. With
+          innovative solutions, transparent policies, and a dedicated team, we
+          empower you to manage your finances with confidence and ease.
+        </p>
+
+        <p>
+          We believe in building long term relationships based on trust,
+          reliability, and excellence. Whether it’s savings, loans, or
+          investments, <strong>Finco Bank</strong> is here to help you achieve your
+          goals every step of the way.
+        </p>
+
+        <a href="./main-pages/About-us.html" class="about-btn">Read More</a>
+      </div>
+
+      <!-- Right Image -->
+      <div class="about-image">
+        <img src="./assests/sec1.webp" alt="Finco Bank About Us">
+      </div>
+    </div>
+  </section>
+  <section class="why-section">
+    <div class="why-container">
+
+      <!-- LEFT IMAGE -->
+      <div class="why-image-left">
+        <img src="./assests/home1.webp" alt="Card Payment">
+      </div>
+
+      <!-- CONTENT -->
+      <div class="why-content">
+
+        <span class="why-tag">WHY YOU SHOULD CHOOSE FINCO BANK</span>
+
+        <!-- Item 1 -->
+        <div class="why-item">
+          <div class="why-icon">
+            <img src="./assests/1.webp" alt="Affordable Plans">
+          </div>
+          <div class="why-text">
+            <h3>Affordable and Flexible Financial Plans</h3>
+            <p>
+              Finco Bank offers secure and reliable financial services designed
+              to help you manage your money with confidence and ease.
+            </p>
+            <a href="./main-pages/Services.html">View Detail →</a>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="why-item">
+          <div class="why-icon">
+            <img src="./assests/2.webp" alt="Easy Loan">
+          </div>
+          <div class="why-text">
+            <h3>The Easiest Way to Get Your Loan with Finco Bank</h3>
+            <p>
+              At Finco Bank, we make applying for a loan simple, fast, and
+              secure. Our flexible plans and transparent process ensure you
+              get the financial support you need without any hassle.
+            </p>
+            <a href="./main-pages/Services.html">View Detail →</a>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="why-item">
+          <div class="why-icon">
+            <img src="./assests/3.webp" alt="24 Hour Support">
+          </div>
+          <div class="why-text">
+            <h3>24 Hour Call Service</h3>
+            <p>
+              Finco Bank offers round-the-clock support to help you manage
+              your finances quickly, securely, and with complete peace of
+              mind.
+            </p>
+            <a href="./main-pages/Services.html">View Detail →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT IMAGE -->
+      <div class="why-image-right">
+        <img class="image2" src="./assests/accent1.webp" alt="">
+        <img src="./assests/home2.webp" alt="ATM Service">
+      </div>
+
+    </div>
+  </section>
+  <section class="services-section">
+    <div class="services-container">
+
+      <!-- Header -->
+      <div class="services-header">
+        <div>
+          <span class="services-tag">SERVICES</span>
+          <h2>Our Services</h2>
+        </div>
+
+        <a href="./main-pages/Services.html" class="services-btn">View All Services</a>
+      </div>
+
+      <!-- Cards -->
+      <div class="services-cards">
+
+        <!-- Card 1 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="./assests/s1.webp" alt="Home Loan">
+          </div>
+
+          <h3>Home Loan</h3>
+
+          <p>
+            Finco Bank Home Loans help you buy your dream home with flexible
+            repayment plans, competitive interest rates, and hassle free
+            application. We make home ownership simple and achievable for
+            everyone.
+          </p>
+
+          <a href="./main-pages/Home-Loan.html">View Detail →</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="./assests/s2.webp" alt="Commercial Loan">
+          </div>
+
+          <h3>Commercial Loan</h3>
+
+          <p>
+            Finco Bank Commercial Loans provide businesses with flexible
+            financing solutions to grow, expand, and manage operations
+            efficiently. Enjoy competitive interest rates, tailored repayment
+            plans, and a smooth approval process.
+          </p>
+
+          <a href="./main-pages/commercial-loan.html">View Detail →</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="./assests/s3.webp" alt="SMSF Loan">
+          </div>
+
+          <h3>SMSF Loan</h3>
+
+          <p>
+            Finco Bank provides tailored financial solutions to meet your
+            unique needs. Whether it’s a personal, home, or commercial loan,
+            our expert team ensures a smooth, fast, and reliable application
+            process.Simple and customer-focused financing.
+          </p>
+
+          <a href="./main-pages/smsf-loan.html">View Detail →</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <section class="work-section">
+    <div class="work-container">
+
+      <!-- LEFT IMAGE -->
+      <div class="work-image">
+        <img src="./assests/work.webp" alt="Financial Meeting">
+      </div>
+
+      <!-- RIGHT CONTENT -->
+      <div class="work-content">
+        <span class="work-label">WORK</span>
+
+        <h2>
+          We Work With<br>
+          Experienced Financial<br>
+          Experts
+        </h2>
+
+        <p>
+          At Finco Bank, our team of experienced financial experts is dedicated
+          to providing you with personalized banking solutions. From home loans
+          to commercial financing, we guide you every step of the way to ensure
+          secure, reliable, and efficient financial services.
+        </p>
+
+        <p class="bold-text">
+          Provides reliable and secure financial solutions to help
+          you manage your finances with ease and confidence.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- anu testmorial hn -->
+  <section class="testimonials-section">
+    <div class="testimonials-container">
+
+      <!-- HEADER -->
+      <div class="testimonials-header">
+        <span class="section-label">TESTIMONIALS</span>
+        <h2>What Our Customer Say</h2>
+        <p>
+          Our customers appreciate our dedication to providing fast, reliable,
+          and secure financial services. From loans to account management,
+          we ensure every experience is smooth and hassle free.
+        </p>
+      </div>
+
+      <!-- CARDS -->
+      <div class="testimonials-cards">
+
+        <!-- CARD 1 -->
+        <div class="testimonial-card">
+
+
+          <p class="testimonial-text">
+            I had an excellent experience with the team. The process was smooth,
+            fast, and completely hassle free. I highly recommend their services
+            to anyone looking for reliable financial solutions.
+          </p>
+          <img class="user-img" src="./assests/testmorial2.jpeg" alt="user">
+          <h4>Mark Grant</h4>
+          <span class="role">Project Manager</span>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="testimonial-card">
+          <p class="testimonial-text">
+            I am extremely satisfied with the services provided. The team guided
+            me at every step and ensured everything was smooth, fast, and hassle free.Highly professional and
+            trustworthy team.
+          </p>
+          <img class="user-img" src="./assests/testmorial1.jpeg" alt="user">
+          <h4>Haris Chambers</h4>
+          <span class="role">Project Manager</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- anu testmorial hn -->
+  <section class="blog-section">
+    <div class="blog-container">
+
+      <!-- HEADER -->
+      <div class="blog-header">
+        <div>
+          <span class="section-label">BLOG</span>
+          <h2>Latest Blog</h2>
+        </div>
+
+        <a href="main-pages/Blog.html" class="blog-btn">View All Blog</a>
+      </div>
+
+      <!-- BLOG CARDS -->
+      <div class="blog-cards" id="blog-cards-home">
+        <!-- Blogs will be loaded dynamically here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- anu blog section -->
+  <!-- notice banner hn sho -->
+  <section class="notice-section">
+
+
+    <div class="notice-content">
+      <h2>Important Notice</h2>
+      <p>
+        The information provided on this website is intended for general
+        informational purposes only and has been prepared without consideration
+        of your personal objectives, financial situation, or needs. Before
+        relying on any information or deciding to act upon it, you should assess
+        its suitability carefully in light of your own circumstances.
+        Seek independent, professional advice from qualified legal, tax, or
+        financial advisors. Please note that your complete financial situation
+        must be reviewed thoroughly before acceptance of any financial product
+        or offer from Finco Capital.
+      </p>
+    </div>
+  </section>
+
+  <!-- notice banner hn sho -->
+  <!-- anu footer hn sho -->
+  <footer>
+    <div class="footer-content">
+      <!-- <div class="footer-con">
+        <div class="newsletter">
+          <h3>NEWSLETTER</h3>
+          <h1>Join Our Newsletter</h1>
+          <p>Stay connected with Finco Bank and never miss an update! Subscribe to our newsletter and get the latest
+            news, financial tips, exclusive offers, and banking insights</p>
+        </div>
+        <div class="foot-form">
+          <input type="email" placeholder="PLEASE ENTER YOUR EMAIL ADDRESS" />
+          <button type="submit"><i class="fa-solid fa-envelope"></i>Subscribe Now</button>
+        </div>
+      </div>    -->
+    </div>
+    <div class="footer-log">
+      <div class="fink">
+        <img src="../assests/logo.png" alt="" width="200px">
+        <p>
+          Finco Bank empowering your financial future with secure, smart, and seamless banking solutions</p>
+      </div>
+      <div class="footer-menu">
+        <h1>Menu</h1>
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./main-pages/About-us.html">About Us</a></li>
+          <li><a href="./main-pages/Blog.html">Blog</a></li>
+          <li><a href="./main-pages/FAQs.html">FAQs</a></li>
+          <li><a href="./main-pages/Contact-us.html">Contact Us</a></li>
+      </div>
+      <div class="footer-menu">
+        <h1>Services</h1>
+        <ul>
+          <li><a href="./main-pages/Home-Loan.html">Home Loan</a></li>
+          <li><a href="./main-pages/Commercial-Loan.html">Commercial Loan</a></li>
+          <li><a href="./main-pages/Smsf-Loan.html">Smsf Loan</a></li>
+      </div>
+      <div class="footer-menu">
+        <h1>Contact</h1>
+        <p class="ic"><i class="fa-solid fa-location-dot"></i> Sydney Austrilia</p>
+        <p class="ic"><i class="fa-solid fa-phone-flip"></i>12345678</p>
+        <p class="ic"><i class="fa-solid fa-envelope"></i> Abcdef@.com</p>
+        <div class="contact-icons">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© Copyright 2025 Technity Soultion</p>
+    </div>
+  </footer>
+  <!-- anu footer hn sho -->
+
+
+
+
+
+  <!-- Split modules; order matters -->
+  <script src="js/constants.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/calculations.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/home_extras.js" defer></script>
+  <script src="js/eventListeners.js" defer></script>
+
+  <!-- Financial Commercial Calculators -->
+  <script src="js/commercial_financial.js" defer></script>
+
+  <!-- SMSF Financial Calculators -->
+  <script src="js/smsf_financial.js" defer></script>
+
+  <!-- Blog Data -->
+  <script src="js/blog_data.js" defer></script>
+
+  <!-- EmailJS Library for Email Notifications (MUST load first, no defer) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+
+  <!-- Email Service Module - loads after EmailJS -->
+  <script src="js/email-service.js" defer></script>
+  <script>
+    // Position the flip button aligned under the right panel (#dashboardCard)
+    function positionFlipControls() {
+      const wrapper = document.querySelector('.flip-controls');
+      const dashboard = document.getElementById('dashboardCard');
+      const container = document.querySelector('.container');
+      if (!wrapper || !dashboard || !container) return;
+      const dashRect = dashboard.getBoundingClientRect();
+      const contRect = container.getBoundingClientRect();
+      const btn = wrapper.querySelector('button') || wrapper;
+      // Make wrapper visible first so measurements are correct
+      wrapper.style.position = 'absolute';
+      wrapper.style.display = 'flex';
+      wrapper.style.zIndex = 1200;
+      // ensure button has its computed width
+      const btnWidth = btn.offsetWidth || btn.getBoundingClientRect().width || 0;
+      // Align the button to the bottom-right of the dashboard card (just outside)
+      const offsetX = 12; // distance from right edge
+      const left = Math.max(8, dashRect.left - contRect.left + dashRect.width - btnWidth - offsetX);
+      const top = dashRect.bottom - contRect.top + 8; // slightly below panel
+      wrapper.style.left = left + 'px';
+      wrapper.style.top = top + 'px';
+    }
+
+    window.addEventListener('load', positionFlipControls);
+    window.addEventListener('resize', positionFlipControls);
+    // Also reposition after content loads into back panel
+    window.addEventListener('DOMContentLoaded', function () { setTimeout(positionFlipControls, 50); });
+
+    // Reposition after flip actions and transitions
+    const flipBtn = document.getElementById('flipButton');
+    const dashboard = document.getElementById('dashboardCard');
+    if (flipBtn) {
+      flipBtn.addEventListener('click', function () {
+        // Wait for the flip transition to start/finish (match CSS transition duration)
+        setTimeout(positionFlipControls, 420);
+      });
+    }
+
+    if (dashboard) {
+      dashboard.addEventListener('transitionend', function (e) {
+        if (e.propertyName === 'transform') positionFlipControls();
+      });
+
+      // Observe content changes inside dashboard and reposition when size changes
+      const debounced = (fn, wait) => {
+        let t;
+        return function () { clearTimeout(t); t = setTimeout(fn, wait); };
+      };
+      const mo = new MutationObserver(debounced(positionFlipControls, 80));
+      mo.observe(dashboard, { childList: true, subtree: true, attributes: true });
+    }
+  </script>
+  <script>
+    // Image fallback helper: if images fail due to folder-name/case mismatch
+    (function () {
+      function tryAlternateSrc(img) {
+        if (!img || img._triedAlternate) return;
+        var src = img.getAttribute('src') || '';
+        var alternates = [];
+        if (src.indexOf('assests/') !== -1) alternates.push(src.replace('assests/', 'assets/'));
+        if (src.indexOf('./assests/') !== -1) alternates.push(src.replace('./assests/', './assets/'));
+        if (src.indexOf('assets/') !== -1) alternates.push(src.replace('assets/', 'assests/'));
+        alternates.forEach(function (a) {
+          var probe = new Image();
+          probe.onload = function () { img._triedAlternate = true; img.src = a; };
+          probe.onerror = function () { };
+          probe.src = a;
+        });
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('img').forEach(function (img) {
+          img.addEventListener('error', function () { tryAlternateSrc(img); });
+          // If image already failed to load by the time scripts run
+          if (img.complete && img.naturalWidth === 0) { tryAlternateSrc(img); }
+        });
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

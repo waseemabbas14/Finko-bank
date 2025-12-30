@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Commercial Loan Information</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+
+            .main-contents {
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+</head>
+<body>
+<div class="commercial-page-container" style="padding:12px 30px;">
+        <div class="top-image-wrapper">
+            <img src="/assests/t-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="main-contents">
+  <h1>Commercial Loans – Grow Your Business</h1>
+  <p>Commercial loans provide businesses with capital to purchase property, equipment, expand operations, or meet working capital needs. With tailored terms and competitive rates, they're essential to business growth and success.</p>
+
+  <h2>Types of Commercial Loans</h2>
+  <ul>
+    <li><strong>Commercial Property Loans:</strong> Purchase office, retail, or industrial properties</li>
+    <li><strong>Equipment Finance:</strong> Acquire machinery and technology assets</li>
+    <li><strong>Business Overdrafts:</strong> Flexible working capital solutions</li>
+    <li><strong>Invoice Finance:</strong> Access funds against outstanding invoices</li>
+    <li><strong>Unsecured Business Loans:</strong> Fast capital without asset security</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h2>Why Finance with Finco Capital?</h2>
+  <p>Our commercial lending specialists work with Australia's major banks and non-bank lenders to deliver tailored finance solutions for businesses of all sizes. We understand business needs and match you with lenders offering the best terms.</p>
+
+  <strong>Commercial Lending Benefits</strong>
+  <ul>
+    <li>Expert assessment of your business finance needs</li>
+    <li>Access to multiple lenders and competitive rates</li>
+    <li>Flexible terms matched to business cash flow</li>
+    <li>Fast approval and funding processes</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What's the typical lending timeline?</div>
+    <div class="faq-answer">Most commercial loans are approved within 5-10 business days, depending on complexity and documentation completeness. Fast-track options are available for simple transactions.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Do I need security for a commercial loan?</div>
+    <div class="faq-answer">Many commercial loans require security (property, equipment, or business assets), though unsecured options are available for smaller amounts or well-established businesses with strong financials.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Can startups get commercial loans?</div>
+    <div class="faq-answer">Yes, though startups typically need to demonstrate a viable business plan, personal guarantees, and security. Speak with us about options tailored to new businesses.</div>
+  </div>
+</div>
+    </div>
+</body>
+</html>

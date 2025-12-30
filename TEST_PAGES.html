@@ -1,0 +1,91 @@
+<!-- Test file to verify dropdown pages are loading -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Loading Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-left: 4px solid #ccc; }
+        .success { border-color: green; background: #e8f5e9; }
+        .error { border-color: red; background: #ffebee; }
+    </style>
+</head>
+<body>
+    <h1>Page Loading Verification Test</h1>
+    <p>This page tests if all dropdown pages can be loaded successfully.</p>
+    
+    <h2>Home Loan Pages:</h2>
+    <div id="homeResults"></div>
+    
+    <h2>Commercial Pages:</h2>
+    <div id="commercialResults"></div>
+    
+    <h2>SMSF Pages:</h2>
+    <div id="smsfResults"></div>
+
+    <script>
+        const homePages = [
+            'pages/home-home-loans.html',
+            'pages/home-repayment.html',
+            'pages/home-refinancing.html',
+            'pages/home-upgrade.html',
+            'pages/home-equity.html',
+            'pages/home-consolidate.html',
+            'pages/home-bridging.html',
+            'pages/home-next-home.html',
+            'pages/home-construction.html',
+            'pages/home-investment-loans.html',
+            'pages/home-self-employed.html',
+            'pages/home-custom-build.html',
+            'pages/home-reverse-mortgage.html',
+            'pages/home-equity-release.html',
+            'pages/home-expat.html',
+            'pages/home-first-home-buyer.html',
+            'pages/home-loan.html'
+        ];
+
+        const commercialPages = [
+            'pages/commercial-loan.html',
+            'pages/commercial-pages/commercial-overdraft.html',
+            'pages/commercial-pages/commercial-repayment.html',
+            'pages/commercial-pages/commercial-invoice-finance.html',
+            'pages/commercial-pages/commercial-equipment-finance.html',
+            'pages/commercial-pages/commercial-secured-business.html',
+            'pages/commercial-pages/commercial-unsecured-business.html'
+        ];
+
+        const smsfPages = [
+            'pages/smsf-loan.html',
+            'pages/smsf-pages/smsf-commercial.html',
+            'pages/smsf-pages/smsf-residential.html'
+        ];
+
+        async function testPages(pages, resultContainer) {
+            for (const pageUrl of pages) {
+                try {
+                    const response = await fetch(pageUrl);
+                    const div = document.createElement('div');
+                    div.className = `test-result ${response.ok ? 'success' : 'error'}`;
+                    div.innerHTML = `
+                        <strong>${pageUrl}</strong>: ${response.ok ? '✓ OK' : '✗ NOT FOUND (Status: ' + response.status + ')'}
+                    `;
+                    resultContainer.appendChild(div);
+                } catch (error) {
+                    const div = document.createElement('div');
+                    div.className = 'test-result error';
+                    div.innerHTML = `
+                        <strong>${pageUrl}</strong>: ✗ ERROR - ${error.message}
+                    `;
+                    resultContainer.appendChild(div);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            testPages(homePages, document.getElementById('homeResults'));
+            testPages(commercialPages, document.getElementById('commercialResults'));
+            testPages(smsfPages, document.getElementById('smsfResults'));
+        });
+    </script>
+</body>
+</html>

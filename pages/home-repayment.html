@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Estimate My Loan Repayment</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+
+            .main-contents {
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+</head>
+<body>
+<div class="commercial-page-container" style="padding:12px 30px;">
+        <div class="top-image-wrapper">
+            <img src="/assests/t-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="main-contents">
+  <h1>Building Your Dream Home with Expert Construction Finance</h1>
+  <p>Embarking on the construction of your new home or a major renovation project is an exciting venture that demands specialised financing. Unlike standard home loans, Construction Loans feature a unique structure tailored to the build process. Finco Capital brings deep expertise to guide you through this complexity, connecting you with lenders offering progressive drawdowns—meaning you pay interest only on funds released as each stage of construction is completed.</p>
+  <p>Our experienced team manages every facet, from council approvals through builder contracts, ensuring your financing aligns perfectly with your project timeline, from the first slab to the final handover.</p>
+
+  <h2>Key Features</h2>
+  <ul>
+    <li>Progressive drawdowns with interest charged only on funds used</li>
+    <li>Interest-only repayments during the construction phase</li>
+    <li>Finance available for new builds, renovations, and house &amp; land packages</li>
+    <li>Loans tailored for single homes, duplexes, and major renovations</li>
+  </ul>
+
+  <div style="display:flex; gap:15px; margin:20px 0;">
+    <a href="#" onclick="try{ if(window.dashboardFlip && typeof window.dashboardFlip.showFront === 'function'){ window.dashboardFlip.showFront(); } }catch(e){}" style="padding:12px 24px; background:#0b1b33; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Plan Your Construction Loan</a>
+    <a href="#" style="padding:12px 24px; background:#ff8a00; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Speak to a Building Loan Specialist</a>
+  </div>
+
+  <div class="divider" style="height:1px; background:#eee; margin:18px 0;"></div>
+
+  <h2>Common Questions</h2>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How do Construction Loans differ from regular home loans?</div>
+    <div class="faq-answer">Construction Loans release funds progressively—typically staged across slab, framing, lock-up, fixing, and completion phases—based on builder certifications. You are charged interest only on the drawn amount, easing financial strain during construction.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What interest rates can I expect?</div>
+    <div class="faq-answer">Rates are competitive and generally variable, aligned with standard home loan benchmarks. Our lender panel includes experts like Macquarie Bank and La Trobe Financial who offer construction-specific products—interest is only applied to funds drawn.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What can Construction Loans be used for?</div>
+    <div class="faq-answer">Construction Loans can be used for building new single dwellings or duplexes, major renovations and extensions, house &amp; land packages, and knock-down and rebuild projects.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What is the typical LVR and loan size?</div>
+    <div class="faq-answer">Most lenders offer LVRs between 80-95%* for owner-occupiers, with maximum loans up to $25 million, suitable for a wide range of construction scales.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How long does the application process take?</div>
+    <div class="faq-answer">Due to necessary plans, valuations, and contracts, construction loan applications take 4 to 8 weeks on average. Finco Capital's streamlined process minimises delays.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What if my project exceeds budget?</div>
+    <div class="faq-answer">We advise maintaining a 5-10% contingency and help structure your loan to include buffers. Accessing additional funds involves lender reassessment.</div>
+  </div>
+
+  <div class="divider" style="height:1px; background:#eee; margin:18px 0;"></div>
+
+  <h2>The Finco Capital Advantage for Builders</h2>
+  <ul>
+    <li><strong>Specialist Knowledge:</strong> Deep understanding of construction milestones and lender documentation requirements.</li>
+    <li><strong>Dedicated Lender Panel:</strong> Partnered with lenders experienced in construction financing and progress payments.</li>
+    <li><strong>End-to-End Support:</strong> Guidance throughout planning, approvals, and final payments to your builder.</li>
+  </ul>
+
+  <div style="display:flex; gap:15px; margin:20px 0;">
+    <a href="#" style="padding:12px 24px; background:#0b1b33; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Get a Free Consultation</a>
+    <a href="#" style="padding:12px 24px; background:#ff8a00; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Download Construction Guide</a>
+  </div>
+
+  <div class="divider" style="height:1px; background:#eee; margin:18px 0;"></div>
+
+  <h2>Disclaimer</h2>
+  <p style="font-size:13px; color:#666;">This information is general and does not consider your personal objectives or circumstances. Loan amounts, interest rates, fees, and terms are subject to lender criteria and credit approval. Funding depends on council-approved plans and fixed-price contracts. Lenders may change products and rates without notice. Final terms confirmed after application.</p>
+
+</div>
+
+<script>
+(function(){
+  const questions = document.querySelectorAll('.faq-question');
+  questions.forEach(q => {
+    const faq = q.closest('.faq');
+    const answer = faq.querySelector('.faq-answer');
+    if(!answer) return;
+    answer.style.boxSizing = 'border-box';
+    function openFaq(){
+      faq.classList.add('open');
+      q.setAttribute('aria-expanded','true');
+      answer.style.display='block';
+      const h = answer.scrollHeight + 'px';
+      answer.style.maxHeight = '0px'; answer.style.opacity='0'; answer.style.paddingTop='0px';
+      requestAnimationFrame(()=>{ answer.style.maxHeight = h; answer.style.opacity='1'; answer.style.paddingTop='12px'; });
+      const onEnd = function(e){ if(e.propertyName==='max-height'){ answer.style.maxHeight='none'; answer.removeEventListener('transitionend', onEnd); } };
+      answer.addEventListener('transitionend', onEnd);
+    }
+    function closeFaq(){
+      const cur = answer.scrollHeight + 'px'; answer.style.maxHeight = cur; void answer.offsetHeight;
+      requestAnimationFrame(()=>{ answer.style.maxHeight='0px'; answer.style.opacity='0'; answer.style.paddingTop='0px'; });
+      faq.classList.remove('open'); q.setAttribute('aria-expanded','false');
+    }
+    function toggle(){ if(faq.classList.contains('open')) closeFaq(); else openFaq(); }
+    q.addEventListener('click', function(e){ document.querySelectorAll('.faq.open').forEach(openFaqEl=>{ if(openFaqEl!==faq){ const btn = openFaqEl.querySelector('.faq-question'); const a = openFaqEl.querySelector('.faq-answer'); openFaqEl.classList.remove('open'); if(btn) btn.setAttribute('aria-expanded','false'); if(a){ a.style.maxHeight='0px'; a.style.opacity='0'; a.style.paddingTop='0px'; } } }); toggle(); });
+    q.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+  });
+})();
+</script>
+
+        </div>
+    </div>
+</body>
+</html>
+
+

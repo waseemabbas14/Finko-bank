@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/calnew.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'rajdhani', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #222;
+        }
+
+        @media(max-width:900px) {
+            .top-contact {
+                display: none;
+            }
+        }
+
+        /* HEADER */
+
+        /* HERO */
+
+        .hero {
+            height: 600px;
+            background: url('/assests/conatct-banner.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding-left: 40px;
+            color: #fff;
+            position: relative;
+            z-index: -100;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        /* CONTACT */
+        .contact-section {
+            max-width: 1200px;
+            margin: -80px auto 80px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            padding: 0 20px;
+            background-color: #ffffff;
+            padding: 20px 20px 20px 20px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        /* LEFT CARD */
+        .contact-left {
+            background: #fff;
+            padding: 35px;
+            font-size: 14px;
+
+        }
+
+        .contact-left h3 {
+            margin-bottom: 15px;
+            color: #001b38;
+        }
+
+        .contact-left p {
+            color: #555;
+            margin-bottom: 20px;
+            color: #001b38;
+            font-size: 17px;
+            line-height: 1.7em;
+            font-weight: 500;
+        }
+
+        .contact-left ul {
+            list-style: none;
+            color: #001b38;
+            line-height: 1.75em;
+            font-size: 19px;
+            font-weight: 500;
+            letter-spacing: px;
+
+        }
+
+        .contact-left li {
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-size: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            background: #fc8b02;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .social-icons svg {
+            width: 18px;
+            height: 18px;
+            fill: #061a2f;
+        }
+
+        .con {
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: 700;
+            color: #ff8a00;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .con::before {
+            content: "";
+            width: 4px;
+            height: 14px;
+            background-color: #ff8a00;
+
+        }
+
+        /* FORM CARD */
+        .contact-form {
+            background: #061a2f;
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #fa8d01;
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .contact-form p {
+            margin-bottom: 25px;
+            line-height: 1.75;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            ;
+
+        }
+
+        .btn-group button {
+            flex: 1;
+            padding: 15px;
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .btn-group button:hover {
+            background: #c4c4c4;
+            color: #ffffff;
+            opacity: 100%;
+        }
+
+        .contact-form input {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+                        background-color: white;
+            color: black;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #ff9800;
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .form-box {
+            display: none;
+            margin-top: 20px;
+            padding: 1px;
+        }
+
+        .btn-wrapper button {
+            margin-right: 10px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 13px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+                        background-color: white;
+            color: black;
+        }
+
+
+
+        /* NEWSLETTER */
+
+        /* FOOTER */
+
+        /* RESPONSIVE */
+        @media(max-width:425px) {
+            .btn-group button {
+                flex: 1;
+                padding: 10px;
+                background: #fff;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                border-radius: 10px;
+                font-size: 10px;
+                line-height: 1.75;
+            }
+        }
+
+        @media(max-width:900px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .newsletter .news-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!-- header container - dynamically loaded -->
+<div id="header-container"></div>
+
+    <!-- main code -->
+ <!-- TOP BAR -->
+
+    <!-- HEADER -->
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Contact Us</h1>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+        <div class="contact-left">
+            <image src="../assests/finko-removebg-preview.png" alt="Contact Icon"
+                style="width:210px; margin-bottom:20px; height: 100px;">
+                <p>At Finco Bank, we’re here to assist you with all your banking needs. Whether you have questions, need
+                    support, or want to learn more about our services, our team is ready to help</p>
+                <h3 class="con">Contact Us</h3>
+                <ul>
+                    <li>📍 Sydney Australia</li>
+                    <li>📞 0123456789</li>
+                    <li>✉️ abcdef@.com</li>
+                </ul>
+                <h3 class="con">Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M22 12C22 6.48 17.52 2 12 2S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H8.9V12h1.54V9.79c0-1.52.9-2.37 2.28-2.37.66 0 1.35.12 1.35.12v1.49h-.76c-.75 0-.98.47-.98.95V12h1.66l-.27 2.89h-1.39v6.99C18.34 21.12 22 16.99 22 12z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter" title="Twitter">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.29 3.9A12.14 12.14 0 0 1 3.15 4.6a4.28 4.28 0 0 0 1.33 5.72c-.66-.02-1.28-.2-1.82-.5v.05c0 2.13 1.51 3.9 3.51 4.3-.37.1-.76.15-1.16.15-.28 0-.55-.03-.81-.08.55 1.72 2.15 2.97 4.05 3a8.6 8.6 0 0 1-5.33 1.84c-.35 0-.7-.02-1.04-.06a12.14 12.14 0 0 0 6.57 1.92c7.89 0 12.22-6.54 12.22-12.22l-.01-.56A8.7 8.7 0 0 0 22.46 6z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M6.94 8.5H4.79V20h2.15V8.5zM5.86 6.95a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm3.8 1.55h2.06v1.55h.03c.29-.55 1-1.13 2.05-1.13 2.19 0 2.6 1.44 2.6 3.31V20h-2.15v-5.13c0-1.22-.02-2.78-1.69-2.78-1.7 0-1.96 1.33-1.96 2.7V20H9.66V8.5z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path
+                                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 7.5A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18.5 6.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
+                        </svg>
+                    </a>
+                </div>
+        </div>
+
+        <div class="contact-form">
+            <h3>Apply Online for Finco Bank Loans & Services</h3>
+            <p>Finco Bank is dedicated to providing smart, secure, and reliable financial solutions that help you
+                achieve your dreams with confidence.</p>
+            <p>Application Type</p>
+
+            <div class="btn-group">
+                <button class="active" onclick="showForm(1)">Home Loan</button>
+                <button onclick="showForm(2)">Commercial Loan</button>
+                <button onclick="showForm(3)">SMSF Loan</button>
+            </div>
+            <form id="form1" class="form-box">
+                <select>
+                    <option value="purchase">BRIDGING LOANS</option>
+                    <option value="refinance">BUYING YOUR NEXT HOME - UPGRADE</option>
+                    <option value="construction">CONSTRUCTION LOANS</option>
+                    <option value="construction">CUSTOM-BUILT HOUSE & LAND PACKAGE</option>
+                    <option value="construction">DEBT CONSOLIDATION</option>
+                    <option value="construction">EQUITY RELEASE</option>
+                    <option value="construction">EXPAT HOME LOANS</option>
+                    <option value="construction">FIRST HOME BUYER</option>
+                    <option value="construction">HOME LOANS</option>
+                    <option value="construction">INVESTMENT LOANS</option>
+                    <option value="construction">REFINANCING</option>
+                    <option value="construction">REVERSE MORTGAGE</option>
+                    <option value="construction">SELF-EMPLOYED LOANS</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+            <form id="form2" class="form-box">
+
+                <select>
+                    <option value="purchase">Business Line of Credit</option>
+                    <option value="refinance">Commercial Property Loans</option>
+                    <option value="construction">Debtor Finance</option>
+                    <option value="construction">Equipment Finance</option>
+                    <option value="construction">Secured Business Loans</option>
+                    <option value="construction">Unsecured Business Loans</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+            <form id="form3" class="form-box">
+                <select>
+                    <option value="purchase">COMMERCIAL SMSF LOANS</option>
+                    <option value="refinance">RESIDENTIAL SMSF LOANS</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+        </div>
+    </section>
+
+ <!-- main code -->
+
+<!-- footer container - dynamically loaded -->
+<div id="footer-container"></div>
+
+    <!-- Scripts (same as index, adjusted paths) -->
+    <script src="../js/constants.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/calculations.js" defer></script>
+    <script src="../js/ui.js" defer></script>
+    <script src="../js/home_extras.js" defer></script>
+    <script src="../js/eventListeners.js" defer></script>
+
+<script>
+  function showForm(formNumber) {
+
+            // Sab forms hide
+            document.getElementById("form1").style.display = "none";
+            document.getElementById("form2").style.display = "none";
+            document.getElementById("form3").style.display = "none";
+
+            // Selected form show
+            document.getElementById("form" + formNumber).style.display = "block";
+        }
+
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        function home() {
+            document.getElementById("content").style.display = "block";
+        }
+
+        // 🔥 Page load par Form 1 show hoga
+        window.onload = function () {
+            showForm(1);
+        };
+</script>
+<script src="../js/load-components.js"></script>
+
+</body>
+
+</html>
+
+
+

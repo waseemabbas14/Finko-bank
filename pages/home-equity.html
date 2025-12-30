@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Access Equity From My Home</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+
+            .main-contents {
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+</head>
+<body>
+<div class="commercial-page-container" style="padding:12px 30px;">
+        <div class="top-image-wrapper">
+            <img src="/assests/t-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="main-contents">
+  <h1>Buy Your Next Home Upgrade</h1>
+  <h2>Unlock Your Home's Potential with Tailored Equity Loan Solutions</h2>
+  <p>Accessing the equity in your home opens up a world of financial possibilities—from renovations and investments to debt consolidation. Finco Capital specialises in bespoke home equity loan solutions designed to maximise your property's value while aligning with your financial goals.</p>
+  <p>Our expert brokers guide you through a range of options, leveraging your existing equity with competitive rates and personalised structures.</p>
+
+  <h2>Key Benefits</h2>
+  <ul>
+    <li>Access funds using your home's equity as security</li>
+    <li>Flexible repayment options including interest-only payments</li>
+    <li>Competitive interest rates, often from mid-6% p.a. range</li>
+    <li>Suitable for owner-occupied and investment properties</li>
+  </ul>
+
+  <div style="display:flex; gap:15px; margin:20px 0;">
+    <a href="#" onclick="try{ if(window.dashboardFlip && typeof window.dashboardFlip.showFront === 'function'){ window.dashboardFlip.showFront(); } }catch(e){}" style="padding:12px 24px; background:#0b1b33; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Calculate Your Equity</a>
+    <a href="#" style="padding:12px 24px; background:#ff8a00; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold;">Speak to a Home Equity Specialist</a>
+  </div>
+
+  <h2>How Home Equity Loans Work</h2>
+  <p>A home equity loan enables you to borrow against the difference between your property's current market value and your outstanding mortgage balance. This value—your equity—can be accessed as a lump sum or a revolving line of credit, ideal for both planned expenses and contingency funding.</p>
+  <p>Rates and terms vary by lender and purpose but generally require serviceability assessments and may involve Lenders Mortgage Insurance if LVR exceeds 80%.</p>
+
+  <h2>Why Choose Finco Capital?</h2>
+  <ul>
+    <li><strong>Comprehensive Market Access:</strong> Partnerships with competitive Australian lenders offering innovative equity loan products</li>
+    <li><strong>Personalised Assessment:</strong> We evaluate your financial position to structure loans that optimise your borrowing capacity and repayment flexibility</li>
+    <li><strong>End-to-End Support:</strong> From initial equity calculation through application and settlement, experience seamless advisory and facilitation</li>
+  </ul>
+
+  <div class="divider" style="height:1px; background:#eee; margin:18px 0;"></div>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How do I calculate available equity?</div>
+    <div class="faq-answer">Equity is the market value of your home minus the mortgage balance. We provide tools and expert advice to precisely estimate your usable equity.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Can I access equity for investment property purchases?</div>
+    <div class="faq-answer">Yes. Many clients refinance to harness equity for investment purposes, subject to lender serviceability and LVR limits.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What repayment options are available?</div>
+    <div class="faq-answer">Loan structures include principal & interest or interest-only repayments, tailored to your cash flow needs.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How quickly can I access funds?</div>
+    <div class="faq-answer">Approval times vary, but we streamline the process to expedite access to your equity-backed funds.</div>
+  </div>
+
+  <div class="divider" style="height:1px; background:#eee; margin:18px 0;"></div>
+
+  <h2>Disclaimer</h2>
+  <p style="font-size:13px; color:#666;">This information is general and does not constitute personal financial advice. Loan eligibility, amounts, rates, and fees are subject to lender criteria and credit approval. Consult professionals to ensure the appropriateness of your chosen product.</p>
+
+</div>
+
+<script>
+(function(){
+  const questions = document.querySelectorAll('.faq-question');
+  questions.forEach(q => {
+    const faq = q.closest('.faq');
+    const answer = faq.querySelector('.faq-answer');
+    if(!answer) return;
+    answer.style.boxSizing = 'border-box';
+    function openFaq(){
+      faq.classList.add('open');
+      q.setAttribute('aria-expanded','true');
+      answer.style.display='block';
+      const h = answer.scrollHeight + 'px';
+      answer.style.maxHeight = '0px'; answer.style.opacity='0'; answer.style.paddingTop='0px';
+      requestAnimationFrame(()=>{ answer.style.maxHeight = h; answer.style.opacity='1'; answer.style.paddingTop='12px'; });
+      const onEnd = function(e){ if(e.propertyName==='max-height'){ answer.style.maxHeight='none'; answer.removeEventListener('transitionend', onEnd); } };
+      answer.addEventListener('transitionend', onEnd);
+    }
+    function closeFaq(){
+      const cur = answer.scrollHeight + 'px'; answer.style.maxHeight = cur; void answer.offsetHeight;
+      requestAnimationFrame(()=>{ answer.style.maxHeight='0px'; answer.style.opacity='0'; answer.style.paddingTop='0px'; });
+      faq.classList.remove('open'); q.setAttribute('aria-expanded','false');
+    }
+    function toggle(){ if(faq.classList.contains('open')) closeFaq(); else openFaq(); }
+    q.addEventListener('click', function(e){ document.querySelectorAll('.faq.open').forEach(openFaqEl=>{ if(openFaqEl!==faq){ const btn = openFaqEl.querySelector('.faq-question'); const a = openFaqEl.querySelector('.faq-answer'); openFaqEl.classList.remove('open'); if(btn) btn.setAttribute('aria-expanded','false'); if(a){ a.style.maxHeight='0px'; a.style.opacity='0'; a.style.paddingTop='0px'; } } }); toggle(); });
+    q.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+  });
+})();
+</script>
+
+        </div>
+    </div>
+</body>
+</html>
+
+

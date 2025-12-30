@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home Loan Information</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+
+            .main-contents {
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+</head>
+<body>
+<div class="commercial-page-container" style="padding:12px 30px;">
+        <div class="top-image-wrapper">
+            <img src="/assests/t-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="main-contents">
+  <h1>Home Loans – Finance Your Dream Home</h1>
+  <p>A home loan is the primary financing vehicle for purchasing residential property. Whether you're a first-time buyer, investor, or upgrading to your next home, we connect you with lenders offering competitive rates and flexible structures tailored to your situation.</p>
+
+  <h2>Types of Home Loans</h2>
+  <ul>
+    <li><strong>Owner-Occupied:</strong> Finance your primary residence</li>
+    <li><strong>Investment Loans:</strong> Purchase rental properties with tailored terms</li>
+    <li><strong>Construction Loans:</strong> Build new homes with progressive release of funds</li>
+    <li><strong>Refinancing:</strong> Switch to better rates or restructure your debt</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h2>Why Choose Finco Capital for Home Loans?</h2>
+  <p>We understand that buying a home is one of life's biggest decisions. Our mortgage brokers work with major banks and lenders to find the right loan product, competitive rates, and favourable terms for your unique circumstances.</p>
+
+  <strong>Our Home Loan Advantages</strong>
+  <ul>
+    <li>Access to competitive rates from multiple lenders</li>
+    <li>Expert advice on loan structures and repayment options</li>
+    <li>Assistance with serviceability assessments</li>
+    <li>Support through the entire approval process</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How much can I borrow?</div>
+    <div class="faq-answer">Most lenders assess borrowing capacity based on your income, expenses, and existing commitments. Typically, this ranges from 4-6 times your annual income, though this varies by lender and individual circumstances.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What documents do I need?</div>
+    <div class="faq-answer">Lenders typically require payslips, tax returns, bank statements, and proof of identity. Self-employed applicants may need additional documentation. We'll guide you through the full requirements.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Can I get a home loan with bad credit?</div>
+    <div class="faq-answer">Yes. While credit history matters, many lenders assess applications holistically. We work with lenders who consider your overall situation, including reasons for past issues.</div>
+  </div>
+</div>
+    </div>
+</body>
+</html>

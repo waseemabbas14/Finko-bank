@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/calnew.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'rajdhani', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #222;
+        }
+
+        @media(max-width:900px) {
+            .top-contact {
+                display: none;
+            }
+        }
+        .hero {
+            height: 550px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/assests/homeloan1.webp");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding-left: 40px;
+            color: #fff;
+            position: relative;
+            z-index: -100;
+        }
+        .section1{
+          background: transparent !important;
+          margin: 0;
+          background-color: rgb(253, 245, 200) !important;
+        }
+        .container{
+          margin-top: -150px !important;
+        }
+                .hero h1 {
+            font-size: 72px;
+            z-index: 1;
+            font-weight: 600;
+        }
+        
+
+
+    </style>
+</head>
+
+
+<!-- header container - dynamically loaded -->
+<div id="header-container"></div>
+<!-- header -->
+    <!-- <div class="top">
+        <div class="read-more">
+            <p><i class="fa-solid fa-circle-exclamation"></i>Finco Bank’s latest financial policies and customer support
+                guidelines</p>
+            <button class="more">Read More</button>
+        </div>
+        <div class="call">
+            <p><i class="fa-solid fa-phone-flip"></i>0123456789</p>
+            <p><i class="fa-solid fa-envelope"></i>service@abc.com</p>
+        </div>
+    </div> -->
+    
+    <!-- sections-->
+    <section class="hero">
+        <h1>Home Loan</h1>
+    </section>
+
+    <!-- Hero calculator (same as home page hero calculator). Shows state selection on the left and welcome/results on the right. -->
+    <div class="section1">
+      <div class="container" id="aleemhaider">
+        <div class="grid-3">
+          <!-- LEFT: Input panel -->
+          <aside class="card left-panel">
+
+            <div class="state-pill" id="statePill">
+              <div class="state-select-container" id="stateSelectContainer">
+                <label class="state-select-label">
+                  <div id="sunny" style="margin-bottom: 8px;">Select your state</div>
+                  <select id="stateSelect" required>
+                    <option value="">Select Your State</option>
+                    <option value="NSW">New South Wales</option>
+                    <option value="VIC">Victoria</option>
+                    <option value="QLD">Queensland</option>
+                    <option value="WA">Western Australia</option>
+                    <option value="SA">South Australia</option>
+                    <option value="TAS">Tasmania</option>
+                    <option value="ACT">Australian Capital Territory</option>
+                    <option value="NT">Northern Territory</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="state-name" id="stateName" style="display: none;"></div>
+            </div>
+
+            <div class="step">
+              <div class="step-title">
+                <h3 style="margin-bottom: 5px;">HELLO</h3>
+                <h4 style="background: rgba(255, 255, 255, 0.1);border-radius:10px; padding: 8px 0px;">What brings you
+                  here today?</h4>
+              </div>
+            </div>
+
+            <form id="loanForm" autocomplete="off">
+              <div class="seg">
+                <div class="row">
+                  <label>
+                    <select id="loanCategory" required>
+                      <option value="">Loan Type</option>
+                      <option value="home">Home Loan</option>
+                      <option value="commercial">Commercial Loan</option>
+                      <option value="smsf">SMSF Loan</option>
+                    </select>
+                  </label>
+                </div>
+
+                <!-- Commercial Calculator Type Dropdown -->
+                <div class="row" id="commercialCalculatorTypeRow" style="display: none;">
+                  <label>
+                    <select id="commercialCalculatorType">
+                      <option value="">Select Calculator</option>
+                      <option value="simple">Repayment Scenarios</option>
+                      <option value="financial">Decision Analysis</option>
+                    </select>
+                  </label>
+                </div>
+                <!-- SMSF Calculator Type Dropdown -->
+                <div class="row" id="smsfCalculatorTypeRow" style="display: none;">
+                  <label>
+                    <select id="smsfCalculatorType">
+                      <option value="">Select SMSF Calculator</option>
+                      <option value="simple">Repayment Scenarios</option>
+                      <option value="financial">Decision Analysis</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="row">
+                  <label>
+                    <select id="loanPurpose" required>
+                      <option value="">Loan Purpose</option>
+                      <!-- Dynamic options will be populated here -->
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div id="dynamicFields"></div>
+              <div class="right">
+                <button type="submit" class="btn btn-primary">
+                  <img src="../assests/t-removebg-preview.png" alt="" style="width:16px; height:16px; vertical-align:middle;"
+                    loading="lazy" decoding="async">
+                  Calculate
+                </button>
+              </div>
+            </form>
+          </aside>
+          <!-- RIGHT: Two-column span dashboard card -->
+
+        <section class="card big-panel" id="dashboardCard">
+            <div class="dash">
+              <div>
+                <div class="dash-col" id="summary">
+                  <!-- Welcome message with animation will appear here -->
+                </div>
+                <!-- Repayment scenarios section - initially hidden -->
+                <div class="new-calculator" id="repaymentScenariosSection" style="display: none;">
+                  <button type="button" class="repayment-scenarios-btn" onclick="toggleRepaymentScenarios()">
+                    <img src="../assests/teer.png" alt="" width=30px loading="lazy" decoding="async">
+                    Explore repayment scenarios
+                  </button>
+                  <div class="repayment-scenarios-calculator" id="repaymentScenariosCalculator">
+                    <div class="repayment-calc-content">
+                      <div class="repayment-input-group">
+                        <div class="repayment-input-row">
+                          <div>
+                            <label for="extraRepaymentAmount">Enter your extra repayment amount:</label>
+                            <input type="text" id="extraRepaymentAmount" placeholder="e.g. 200"
+                              oninput="calculateRepaymentScenarios()">
+                          </div>
+                          <div>
+                            <label for="extraRepaymentFrequency">Repayment frequency:</label>
+                            <select id="extraRepaymentFrequency" onchange="calculateRepaymentScenarios()">
+                              <option value="monthly">Monthly</option>
+                              <option value="fortnightly">Fortnightly</option>
+                              <option value="weekly">Weekly</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="repaymentScenariosResults"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-col" id="details">
+                <!-- Details will appear here after calculation -->
+              </div>
+              <div class="dash-col results" id="results">
+                <!-- Results will appear here after calculation -->
+              </div>
+            </div>
+            <div id="disclaimer" class="disclaimer">
+            </div>
+        </section>
+        </div>
+        <div class="flip-controls" style="display: flex; justify-content: end;">
+         <a href="#aleemhaider" style="text-decoration: none;"> <button id="flipButton" class="btn btn-outline" type="button" aria-pressed="false" title="Flip panel">Flip
+            panel</button></a>
+        </div>
+      </div>
+    </div>
+
+ 
+
+
+    
+    <script>
+  function showForm(formNumber) {
+
+            // Sab forms hide
+            document.getElementById("form1").style.display = "none";
+            document.getElementById("form2").style.display = "none";
+            document.getElementById("form3").style.display = "none";
+
+            // Selected form show
+            document.getElementById("form" + formNumber).style.display = "block";
+        }
+
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        function home() {
+            document.getElementById("content").style.display = "block";
+        }
+
+        // 🔥 Page load par Form 1 show hoga
+        window.onload = function () {
+            showForm(1);
+        };
+</script>
+
+
+    <!-- If this page is opened with '?purpose=...' we preselect the calculator and optionally open the back view -->
+    <script>
+      window.addEventListener('load', function() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const purpose = params.get('purpose');
+          const category = params.get('category') || 'home';
+          const openBack = params.get('openBack') === '1';
+          if (!purpose) return;
+
+          const loanCategory = document.getElementById('loanCategory');
+          if (loanCategory) {
+            loanCategory.value = category;
+            loanCategory.dispatchEvent(new Event('change', { bubbles: true }));
+            // If navigating to Home page from another category, ensure any specialized calculator type is set
+            try {
+              // Some home purpose options are driven by auxiliary controls; set defaults to encourage immediate population
+              const commercialCalc = document.getElementById('commercialCalculatorType');
+              if (commercialCalc) { commercialCalc.value = 'simple'; commercialCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured commercial calc default during Home init'); }
+              const smsfCalc = document.getElementById('smsfCalculatorType');
+              if (smsfCalc) { smsfCalc.value = 'simple'; smsfCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured smsf calc default during Home init'); }
+            } catch (e) {}
+          }
+
+          const frontPurpose = params.get('frontPurpose');
+          const friendlyFront = params.get('friendlyFront') || params.get('friendly');
+          const waitForState = params.get('waitForState') === '1';
+
+          // If destination asked us to wait for a state selection before setting the front calculator,
+          // set a pending selection and ensure the back content loads immediately.
+          try {
+            const stateVal = (document.getElementById('stateSelect') && document.getElementById('stateSelect').value) || '';
+            if (waitForState && !stateVal) {
+              window.pendingDropdownSelection = { category, purpose: frontPurpose || purpose, originalPurpose: friendlyFront || params.get('friendly'), equityOnlyCategory: false };
+              if (openBack && window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function') {
+                try { if (!window.dashboardFlip.isFlipped()) window.dashboardFlip.showBack(); } catch (e) {}
+              }
+              if (openBack && window.loadCategoryPage) {
+                try { window.loadCategoryPage(category, purpose); } catch (e) {}
+              }
+              return;
+            }
+          } catch (e) {}
+
+          let attempts = 0;
+          function trySetPurpose() {
+            attempts++;
+            console.debug('Home-Loan trySetPurpose attempt', attempts, 'frontPurpose', frontPurpose, 'purpose', purpose, 'openBack', openBack);
+            const loanPurpose = document.getElementById('loanPurpose');
+            if (loanPurpose && loanPurpose.options && loanPurpose.options.length > 0) {
+              const friendly = (friendlyFront || '').toLowerCase();
+              const opt = Array.from(loanPurpose.options).find(o => {
+                const text = (o.textContent || '').trim().toLowerCase();
+                const val = (o.value || '').trim();
+                return val === (frontPurpose || purpose) || (o.dataset && o.dataset.key === (frontPurpose || purpose)) || text.includes((frontPurpose || purpose).replace(/[_-]/g,' ')) || (friendly && text.includes(friendly));
+              });
+              if (opt) {
+                console.debug('Home-Loan trySetPurpose: found option', opt.value, opt.textContent);
+                loanPurpose.value = opt.value;
+              } else {
+                console.debug('Home-Loan trySetPurpose: no matching option, falling back to', (frontPurpose || purpose));
+                loanPurpose.value = (frontPurpose || purpose);
+              }
+              loanPurpose.dispatchEvent(new Event('change', { bubbles: true }));
+
+              if (openBack && window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function') {
+                try { if (!window.dashboardFlip.isFlipped()) window.dashboardFlip.showBack(); } catch (e) {}
+              }
+
+              if (openBack && window.loadCategoryPage) {
+                try { window.loadCategoryPage(category, purpose); } catch (e) {}
+              }
+              return;
+            }
+            if (attempts < 10) setTimeout(trySetPurpose, 120);
+            else {
+              const lp = document.getElementById('loanPurpose'); if (lp) { try { lp.value = (frontPurpose || purpose); lp.dispatchEvent(new Event('change', { bubbles: true })); } catch(e){} }
+              if (openBack && window.loadCategoryPage) { try { window.loadCategoryPage(category, purpose); } catch(e){} }
+            }
+          }
+          setTimeout(trySetPurpose, 80);
+        } catch (e) { console.warn(e); }
+      });
+    </script>
+
+    <!-- Scripts (same as index, adjusted paths) -->
+    <script src="../js/constants.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/calculations.js" defer></script>
+    <script src="../js/ui.js" defer></script>
+    <script src="../js/home_extras.js" defer></script>
+    <script src="../js/eventListeners.js" defer></script>
+
+    <script src="../js/commercial_financial.js" defer></script>
+    <script src="../js/smsf_financial.js" defer></script>
+
+    <!-- EmailJS library (must be available globally, no defer) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Email service module (loads after EmailJS) -->
+    <script src="../js/email-service.js" defer></script>
+
+
+<!-- footer container - dynamically loaded -->
+<div id="footer-container"></div>
+<script src="../js/load-components.js"></script>
+</body>
+
+</html>
+
+
+

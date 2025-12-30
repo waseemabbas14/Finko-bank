@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flexible Capital. Strategic Control.</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+
+            .main-contents {
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+</head>
+<body>
+<div class="commercial-page-container" style="padding:12px 30px;">
+        <div class="top-image-wrapper">
+            <img src="/assests/t-removebg-preview.png" alt="Logo">
+        </div>
+        <div class="main-contents">
+<h1>Flexible Capital. Strategic Control.</h1>
+  <p>A Business Line of Credit gives your company immediate access to working capital, helping you manage cash flow with precision and flexibility. Similar to a corporate credit card, this facility allows you to draw funds as needed, up to your approved limit—while paying interest only on the amount you use.</p>
+  <p>Through Finco Capital’s network of leading banks and specialist lenders, we can arrange both secured and unsecured lines of credit designed around your unique business profile and growth strategy.</p>
+  <strong>At a Glance</strong>
+  <ul>
+    <li>Borrowing capacity up to $5,000,000</li>
+    <li>Enhances and stabilises cash flow</li>
+    <li>Flexible access to funds on demand</li>
+    <li>Interest charged only on drawn amounts</li>
+  </ul>
+  <div class="btn-wrap">
+    <a href="#" class="btn btn-dark" onclick="window.dashboardFlip.showFront()">Apply Now</a>
+    <a href="#" class="btn btn-orange">Speak with an Advisor</a>
+  </div>
+  <div class="divider"></div>
+  <h2>Why Choose a Business Line of Credit</h2>
+  <p>A line of credit is an elegant solution for businesses seeking fluid access to capital without the rigidity of traditional loans. Whether managing seasonal fluctuations, covering short-term funding gaps, or seizing new opportunities, it provides continuous financial agility—keeping your business in control.</p>
+  <div class="divider"></div>
+  <h2>Eligibility &amp; Process</h2>
+  <p>At Finco Capital, we take a tailored approach to every facility. Our team analyses your business structure, financial performance, and funding objectives before matching you with the most suitable lender from our panel of major banks and non-bank specialists.</p>
+  <strong>Typical Lender Assessment Criteria</strong>
+  <ul>
+    <li><strong>Business Financials:</strong> Review of bank statements, financial reports, and balance sheets.</li>
+    <li><strong>Time in Business:</strong> Demonstrated trading history and operational stability.</li>
+    <li><strong>Serviceability:</strong> Evidence of consistent cash flow capable of servicing the facility.</li>
+    <li><strong>Credit Profile:</strong> Lenders accommodate a wide range of credit histories—from prime through to complex.</li>
+  </ul>
+  <p>Our process ensures each recommendation is transparent, efficient, and aligned with your business's long-term goals.</p>
+  <div class="divider"></div>
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Are there any fees?</div>
+    <div class="faq-answer">Associated fees may include application, account maintenance, or facility management costs. Finco Capital presents all possible charges from our lender partners upfront, ensuring full transparency before you proceed.</div>
+  </div>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How long can I access the funds for?</div>
+    <div class="faq-answer">Most lines of credit are ongoing and subject to annual review. Many lenders provide multi-year terms with renewal flexibility to ensure continuous access to funds as your business evolves.</div>
+  </div>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What can I use it for?</div>
+    <div class="faq-answer">A Business Line of Credit is ideal for managing working capital, purchasing inventory, covering operating expenses, or funding growth and expansion initiatives.</div>
+  </div>
+  <div class="faq">
+    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Is this the right solution for my business?</div>
+    <div class="faq-answer">If your business experiences variable cash flow or you prefer financial flexibility to act on opportunities, this facility can provide a decisive edge. Contact Finco Capital to arrange a complimentary eligibility review and discuss tailored options.</div>
+  </div>
+</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/calnew.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    .hero {
+        padding: 225px 70px;
+        background: linear-gradient(#0a19318e, #0a193170), url("/assests/f2.webp");
+        background-size: cover;
+        background-position: top-center;
+        background-repeat: no-repeat;
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 72px;
+        z-index: 1;
+        font-weight: 600;
+        color: white;
+        width: 100%;
+        text-align: start;
+    }
+
+    .intro {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 70px;
+    }
+
+    .intro h6 {
+        width: 6%;
+        padding-left: 16px;
+        border-left: #FD8D01 5px solid;
+        color: #001233;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.5em;
+        letter-spacing: 0.3px;
+        margin: 0;
+    }
+
+    .intro h2 {
+        width: 100%;
+        font-size: 58px;
+        font-weight: 600;
+        text-align: center;
+        /* margin-bottom: 15px; */
+        padding-top: 32px;
+        color: #0A1931;
+        line-height: 1em;
+        letter-spacing: -3px;
+    }
+
+    .intro p {
+        width: 51%;
+        font-size: 18px;
+        font-weight: 500;
+        color: #0A1931;
+        text-align: center;
+        line-height: 1.5em;
+        padding-top: 20px;
+    }
+    .apply-section {
+  padding: 100px 0px;
+  /* BACKGROUND IMAGE YAHAN LAGAO */
+
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.apply-container {
+width: 100%;
+  margin: auto;
+  display: flex;
+  gap: 60px;
+  padding: 0px 70px;
+    background: url(/assests/background-gradient.jpeg) center/cover no-repeat;
+  /* IMPORTANT */
+
+}
+
+/* LEFT */
+.apply-left {
+ width: 45%;
+ display: flex;
+ flex-direction: column;
+ align-items: start;
+ justify-content: center;
+}
+
+.section-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #001233;
+  line-height: 1.5em;
+  letter-spacing: 0.3px;
+  padding-left: 14px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.section-label::before {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background: #f7941d;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.apply-left h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.33em;
+  letter-spacing: -0.3px;
+  color: #0b2c5d;
+  margin-bottom: 16px;
+}
+
+
+.apply-left p {
+ font-size: 18px;
+  color:  #001333;
+  font-weight: 500;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+/* RIGHT FORM */
+   .contact-form {
+            background: #061a2f;
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            width: 45%;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #fa8d01;
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .contact-form p {
+            margin-bottom: 25px;
+            line-height: 1.75;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            ;
+
+        }
+
+        .btn-group button {
+            flex: 1;
+            padding: 15px;
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .btn-group button:hover {
+            background: #c4c4c4;
+            color: #ffffff;
+            opacity: 100%;
+        }
+
+        .contact-form input {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            background-color: white;
+            color: black;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #ff9800;
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .form-box {
+            display: none;
+            margin-top: 20px;
+            padding: 1px;
+        }
+
+        .btn-wrapper button {
+            margin-right: 10px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 13px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            background-color: white;
+            color: black;
+        }
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .apply-container {
+    flex-direction: column;
+  }
+  .apply-left,.contact-form{
+    width: 100%;
+  }
+  .apply-container {
+    padding: 50px 20px 50px 20px;
+  }
+  .apply-left h2 {
+    font-size: 25px;
+  }
+    .btn-group button {
+        font-size: 12px;
+        width: 100%;
+    }
+    .hero h1 {
+        text-align: center;
+    }
+
+}
+ @media (max-width: 1024px) {
+
+      /* Hero Section */
+      .hero {
+        padding: 150px 50px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero h3 {
+        width: 30%;
+        font-size: 18px;
+      }
+
+      /* Intro Section */
+      .intro {
+        padding: 60px 0px;
+        text-align: center;
+      }
+      .intro h6 {
+        width: 13%;
+        padding-left: 10px;
+        font-size: 14px;
+      }
+
+      .intro h2 {
+        font-size: 40px;
+      }
+
+      .intro h3 {
+        width: 10%;
+        font-size: 16px;
+      }
+
+      .intro p {
+        width: 70%;
+        font-size: 16px;
+      }
+    }
+
+</style>
+
+<body>
+    <!-- header container - dynamically loaded -->
+    <div id="header-container"></div>
+    <!-- header -->
+    <!-- sections -->
+    <section class="hero">
+        <h1>Services</h1>
+    </section>
+    <section class="intro">
+        <h6>SERVICE</h6>
+        <h2>Our Financial Services &<br> Loan Solutions</h2>
+        <p>
+            we offer a wide range of financial services and loan solutions tailored to your needs. From personal loans
+            to business financing, our expert team ensures a smooth, secure, and hassle free experience.
+        </p>
+    </section>
+      <section class="services-section">
+    <div class="services-container">
+
+      <!-- Header -->
+      
+      
+
+      <!-- Cards -->
+      <div class="services-cards">
+
+        <!-- Card 1 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="/assests/s1.webp" alt="Home Loan">
+          </div>
+
+          <h3>Home Loan</h3>
+
+          <p>
+            Finco Bank Home Loans help you buy your dream home with flexible
+            repayment plans, competitive interest rates, and hassle free
+            application. We make home ownership simple and achievable for
+            everyone.
+          </p>
+
+          <a href="Home-Loan.html">View Detail →</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="/assests/s2.webp" alt="Commercial Loan">
+          </div>
+
+          <h3>Commercial Loan</h3>
+
+          <p>
+            Finco Bank Commercial Loans provide businesses with flexible
+            financing solutions to grow, expand, and manage operations
+            efficiently. Enjoy competitive interest rates, tailored repayment
+            plans, and a smooth approval process.
+          </p>
+
+          <a href="commercial-loan.html">View Detail →</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="/assests/s3.webp" alt="SMSF Loan">
+          </div>
+
+          <h3>SMSF Loan</h3>
+
+          <p>
+            Finco Bank provides tailored financial solutions to meet your
+            unique needs. Whether it’s a personal, home, or commercial loan,
+            our expert team ensures a smooth, fast, and reliable application
+            process.Simple and customer-focused financing.
+          </p>
+
+          <a href="smsf-loan.html">View Detail →</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <section class="apply-section">
+  <div class="apply-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="apply-left">
+      <span class="section-label">WE ARE</span>
+
+      <h2>Competitive Financial Solutions</h2>
+      <p>
+        We provide tailored financial solutions with competitive rates and flexible plans.
+        Whether you need a personal, home, or business loan, our expert team ensures
+        a smooth and hassle-free experience.
+      </p>
+
+      <h2>The Easiest Way to Get Your Loan</h2>
+      <p>
+        We make applying for a loan fast, easy, and secure. Our flexible plans,
+        transparent process, and dedicated support ensure you get the financial
+        assistance you need without any hassle.
+      </p>
+
+      <h2>24 Hour Call Service</h2>
+      <p>
+        Our dedicated customer support team is available 24/7 to assist you with
+        all your financial needs. Whether it’s loan inquiries, account management,
+        or general banking assistance, we ensure fast, reliable, and secure support
+        whenever you need it.
+      </p>
+    </div>
+
+    <!-- RIGHT FORM -->
+   <div class="contact-form">
+            <h3>Apply Online for Finco Bank Loans & Services</h3>
+            <p>Finco Bank is dedicated to providing smart, secure, and reliable financial solutions that help you
+                achieve your dreams with confidence.</p>
+            <p>Application Type</p>
+
+            <div class="btn-group">
+                <button class="active" onclick="showForm(1)">Home Loan</button>
+                <button onclick="showForm(2)">Commercial Loan</button>
+                <button onclick="showForm(3)">SMSF Loan</button>
+            </div>
+            <form id="form1" class="form-box">
+                <select>
+                    <option value="purchase">BRIDGING LOANS</option>
+                    <option value="refinance">BUYING YOUR NEXT HOME - UPGRADE</option>
+                    <option value="construction">CONSTRUCTION LOANS</option>
+                    <option value="construction">CUSTOM-BUILT HOUSE & LAND PACKAGE</option>
+                    <option value="construction">DEBT CONSOLIDATION</option>
+                    <option value="construction">EQUITY RELEASE</option>
+                    <option value="construction">EXPAT HOME LOANS</option>
+                    <option value="construction">FIRST HOME BUYER</option>
+                    <option value="construction">HOME LOANS</option>
+                    <option value="construction">INVESTMENT LOANS</option>
+                    <option value="construction">REFINANCING</option>
+                    <option value="construction">REVERSE MORTGAGE</option>
+                    <option value="construction">SELF-EMPLOYED LOANS</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+            <form id="form2" class="form-box">
+
+                <select>
+                    <option value="purchase">Business Line of Credit</option>
+                    <option value="refinance">Commercial Property Loans</option>
+                    <option value="construction">Debtor Finance</option>
+                    <option value="construction">Equipment Finance</option>
+                    <option value="construction">Secured Business Loans</option>
+                    <option value="construction">Unsecured Business Loans</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+            <form id="form3" class="form-box">
+                <select>
+                    <option value="purchase">COMMERCIAL SMSF LOANS</option>
+                    <option value="refinance">RESIDENTIAL SMSF LOANS</option>
+
+                </select>
+                <input type="date">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Phone Number">
+                <button class="submit-btn">SUBMIT</button>
+            </form>
+        </div>
+
+  </div>
+</section>
+
+    <script>
+  function showForm(formNumber) {
+
+            // Sab forms hide
+            document.getElementById("form1").style.display = "none";
+            document.getElementById("form2").style.display = "none";
+            document.getElementById("form3").style.display = "none";
+
+            // Selected form show
+            document.getElementById("form" + formNumber).style.display = "block";
+        }
+
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        function home() {
+            document.getElementById("content").style.display = "block";
+        }
+
+        // 🔥 Page load par Form 1 show hoga
+        window.onload = function () {
+            showForm(1);
+        };
+</script>
+
+    <!-- Scripts (same as index, adjusted paths) -->
+    <script src="../js/load-components.js" defer></script>
+    <script src="../js/eventListeners.js" defer></script>
+    <script src="../js/constants.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/calculations.js" defer></script>
+    <script src="../js/ui.js" defer></script>
+    <script src="../js/home_extras.js" defer></script>
+</body>
+</html>

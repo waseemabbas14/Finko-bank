@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Equipment Finance — Fast access to essential assets</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <style>
+            .commercial-page-container {
+                color: #0b1b33;
+                font-family: Rajdhani, system-ui, sans-serif;
+                max-width: 900px;
+                margin: auto;
+                padding: 0px !important;
+                background-color: antiquewhite;
+                overflow: hidden;
+                border-radius: 15px;
+
+            }
+
+            /* ===== TOP IMAGE ===== */
+            .top-image-wrapper {
+                width: 100%;
+                height: 250px;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 50px !important;
+
+
+                background-color: #0b1b33;
+            }
+
+            .top-image-wrapper img {
+                width: 60px;
+
+
+                object-fit: cover;
+            }
+
+            /* ===== CONTENT ===== */
+            .commercial-page-container h1 {
+                color: #ff8a00;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .commercial-page-container h2 {
+                margin-top: 22px;
+            }
+
+            .commercial-page-container p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .commercial-page-container ul {
+                padding-left: 18px;
+                font-size: 15px;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 18px 0;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                border: none;
+                padding: 6px 0;
+            }
+
+            .faq-question {
+                font-weight: 600;
+                cursor: pointer;
+                position: relative;
+                padding-right: 36px;
+                font-size: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .faq-question::before {
+                content: '+';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+                width: 34px;
+                text-align: center;
+            }
+
+            .faq.open .faq-question::before {
+                content: '-';
+            }
+            .main-contents{
+                width: 90%;
+                margin: -60px auto 30px auto !important;
+                padding: 60px;
+                background-color: white;
+                
+            }
+
+            .faq-answer {
+                font-size: 14px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                padding-top: 0;
+                transition: max-height 240ms cubic-bezier(.2, .9, .2, 1),
+                    opacity 240ms,
+                    padding-top 240ms;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="commercial-page-container" style="padding:12px 30px;">
+
+            <div class="top-image-wrapper">
+                <img src="/assests/t-removebg-preview.png" alt="Equipment Finance">
+            </div>
+            <div class="main-contents">
+
+                <h1>Equipment Finance — Fast access to essential assets</h1>
+                <p>Equipment Finance is the strategic solution for acquiring machinery, vehicles, or technology vital to
+                    business efficiency and growth. As an asset-based loan, it’s secured against the equipment
+                    itself—allowing for accelerated approvals and easier access compared to unsecured facilities.</p>
+
+                <p>Through Finco Capital’s panel of major banks and specialist lenders, Australian businesses gain
+                    access to finance up to $25,000,000—structured to match operational needs and long-term objectives.
+                </p>
+
+                <strong>At a Glance</strong>
+                <ul>
+                    <li>Finance amounts up to $25,000,000</li>
+                    <li>Fast, streamlined application and approval process</li>
+                    <li>Flexible repayment terms from 1 to 10 years*</li>
+                    <li>Options for both new and used equipment</li>
+                </ul>
+                <p style="font-size:0.9em">*Terms depend on asset type and lender policy.</p>
+
+                <div class="btn-wrap">
+                    <a href="#" class="btn btn-dark" onclick="window.dashboardFlip.showFront()">Get a Quote</a>
+                    <a href="#" class="btn btn-orange">Speak with a Specialist</a>
+                </div>
+
+                <div class="divider"></div>
+
+                <h2>Why Choose Equipment Finance</h2>
+                <p>Asset financing helps preserve business cash flow while providing rapid access to essential equipment
+                    for expansion or operational improvements. Finco Capital ensures your facility is aligned with your
+                    cash flow profile, tax position, and business strategy—delivering a competitive edge.</p>
+
+                <div class="divider"></div>
+
+                <h2>Eligibility &amp; Application Process</h2>
+                <p>At Finco Capital, we simplify asset funding by matching your profile to the best-fit lender.
+                    Eligibility varies, but typical criteria include:</p>
+                <ul>
+                    <li>GST-Registered ABN: Must be actively trading</li>
+                    <li>Business Purpose: Asset for business operation</li>
+                    <li>Business History: Preferred minimum 12–24 months trading</li>
+                    <li>Credit Profile: Solutions available for a wide range of credit backgrounds</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq">
+                    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What types of Equipment
+                        Finance are available?</div>
+                    <div class="faq-answer">Finco Capital offers Chattel Mortgage, Finance Lease, Hire Purchase and
+                        Commercial Bill of Sale structures depending on the asset and your commercial needs.</div>
+                </div>
+
+                <div class="faq">
+                    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Can I finance used
+                        equipment?</div>
+                    <div class="faq-answer">Yes—finance is available for new or used assets, subject to valuation and
+                        condition.</div>
+                </div>
+
+                <div class="faq">
+                    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Are there tax benefits?
+                    </div>
+                    <div class="faq-answer">Depending on structure, you may claim GST, interest, and depreciation.
+                        Consult with your accountant.</div>
+                </div>
+
+                <div class="faq">
+                    <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How quickly can I get
+                        approved?</div>
+                    <div class="faq-answer">Finco Capital’s lender relationships enable rapid pre-approval; timing
+                        varies by facility complexity.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            (function () {
+                const questions = document.querySelectorAll('.faq-question');
+                questions.forEach(q => {
+                    const faq = q.closest('.faq');
+                    const answer = faq.querySelector('.faq-answer');
+                    if (!answer) return;
+
+                    function openFaq() {
+                        faq.classList.add('open');
+                        q.setAttribute('aria-expanded', 'true');
+                        answer.style.display = 'block';
+                        const h = answer.scrollHeight + 'px';
+                        answer.style.maxHeight = '0px';
+                        answer.style.opacity = '0';
+                        answer.style.paddingTop = '0px';
+                        requestAnimationFrame(() => {
+                            answer.style.maxHeight = h;
+                            answer.style.opacity = '1';
+                            answer.style.paddingTop = '12px';
+                        });
+                    }
+
+                    function closeFaq() {
+                        answer.style.maxHeight = '0px';
+                        answer.style.opacity = '0';
+                        answer.style.paddingTop = '0px';
+                        faq.classList.remove('open');
+                        q.setAttribute('aria-expanded', 'false');
+                    }
+
+                    function toggle() {
+                        faq.classList.contains('open') ? closeFaq() : openFaq();
+                    }
+
+                    q.addEventListener('click', toggle);
+                    q.addEventListener('keydown', e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggle();
+                        }
+                    });
+                });
+            })();
+        </script>
+
+    </body>
+
+    </html>
+
+
+
+</body>
+
+</html>
