@@ -79,11 +79,11 @@
 header {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   height: auto;
   min-height: 90px;
-  padding: 10px 0;
+  padding: 10px 70px;
   flex-wrap: wrap;
   background-color: white;
 }
@@ -142,8 +142,9 @@ header h1 {
 .navbar {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   margin-left: 0;
+  width: 64% !important;
 }
 
 @media (max-width: 1024px) {
@@ -169,7 +170,7 @@ header h1 {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .top {
     display: none;
   }
@@ -362,7 +363,7 @@ header h1 {
   align-items: center;
   gap: 30px;
   margin-left: 0;
-  width: 59%;
+  width: 70% !important;
 }
 
 .nav-menu {
@@ -460,6 +461,12 @@ header h1 {
   font-weight: 900;
   font-size: 16px;
   text-decoration: none;
+}
+
+@media (min-width: 200px) and (max-width: 1024px) {
+  .btn-enquire {
+    display: none !important;
+  }
 }
 
 
@@ -783,6 +790,11 @@ input[readonly] {
   position: relative; /* positioning context for external flip-controls */
 }
 
+/* allow grid children to shrink below their content width so they don't force overflow */
+.grid-3 > * {
+  min-width: 0;
+}
+
 @media(min-width:980px) {
   .grid-3 {
     grid-template-columns: 32% 34% 34%;
@@ -797,6 +809,67 @@ input[readonly] {
 @media(min-width:980px) {
   .big-panel {
     grid-column: 2 / span 2;
+  }
+}
+
+/* Force mobile-like single-column layout for widths <= 1000px
+   so the calculator stacks like it does under 464px. This keeps
+   desktop (over 1000px) layout unchanged. */
+@media (max-width: 1000px) {
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .big-panel {
+    grid-column: 1 / -1 !important;
+  }
+
+  .left-panel {
+    width: 100% !important;
+  }
+
+  /* Ensure dashboard card doesn't exceed its container and can shrink */
+  #dashboardCard {
+    max-width: 100%;
+    box-sizing: border-box;
+    /* padding: 20px 16px !important; */
+    /* overflow: hidden; */
+  }
+  .top-image-wrapper {
+    width: 100%;
+    height: 250px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 50px !important;
+    background-color: #0b1b33;
+    flex-direction: row;
+}
+.top-image-wrapper img{
+  width: 120px;
+}
+
+  .dash-col,
+  .card {
+    min-width: 0;
+  }
+
+  /* Constrain large images or elements inside panels */
+  #dashboardCard img,
+  .dash img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ensure flip control flows below the stacked panels */
+  .grid-3 .flip-controls {
+    position: static;
+    margin-top: 8px;
   }
 }
 
@@ -2146,7 +2219,16 @@ select#extraRepaymentFrequency:focus {
   .about-section {
     padding: 50px 0px;
   }
+
 }
+.commercial-page-container h1 {
+    color: #ff8a00;
+    margin-bottom: 12px;
+    text-align: start !important;
+}
+  .main-contents{
+    padding: 20px !important;
+  }
 /* why section */
 .why-section {
   padding: 0px 0px 100px 0px;
@@ -2155,13 +2237,14 @@ select#extraRepaymentFrequency:focus {
 }
 
 .why-container {
-
-  margin: auto;
-  padding: 0 70px;
-  display: flex;
-  align-items: stretch;
-  gap: 60px;
-  width: 100%;
+    margin: 0;
+    padding: 0 70px;
+    display: flex;
+    align-items: stretch;
+    gap: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* LEFT IMAGE */
@@ -3240,6 +3323,9 @@ footer{
     padding: 40px 15px 0px 15px;
     margin-top: 80px;
   }
+    .main-contents{
+    padding: 20px !important;
+  }
 
   .footer-con{
     width: 95%;
@@ -3366,5 +3452,36 @@ footer{
 
 /* footer css */
 
-
-
+/* email popup*/
+#emailModal .modal-header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 8px !important;
+}
+#emailModal .modal-content {
+    background: #ffffff !important;
+    padding: 20px !important;
+    border-radius: 15px !important;
+    max-width: 460px !important;
+    width: 100% !important;
+    box-shadow: 0 12px 30px rgba(3, 10, 30, 0.18) !important;
+    border: 3px solid orange !important;
+    font-family: inherit !important;
+}
+#emailModal input[type="text"], #emailModal input[type="email"]
+ {
+    width: 100% !important;
+    padding: 15px 10px !important;
+    border: 2px solid orange !important;
+    border-radius: 8px !important;
+    color: black !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    background: transparent !important;
+    color: inherit !important;
+    outline: none !important;
+    transition: box-shadow 160ms ease, border-color 160ms ease !important;
+}
