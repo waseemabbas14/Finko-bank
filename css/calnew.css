@@ -1870,6 +1870,15 @@ button[type="submit"] {
   align-items: center;
   justify-content: center;
 }
+@media screen and (max-width: 660px) {
+  .commercial-page-container .btn-wrap
+{
+    flex-direction: column;
+}
+ 
+
+}
+
 
 @media screen and (max-width: 480px) {
   .welcome-message-static {
