@@ -37,6 +37,52 @@ function loadHeader(containerId = 'header-container') {
       
       // Header ke scripts ko initialize krey
       initializeHeaderFunctionality();
+      // If available, attach dropdown click/touch handlers (for mobile) added by eventListeners.js
+      if (typeof initNavbarDropdowns === 'function') initNavbarDropdowns();
+      // Prevent tapping the dropdown toggle from immediately closing the mobile menu
+      // and attach mobile click/touch handlers that toggle the dropdown menu.
+      try {
+        const dropdownToggles = (container || document).querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(btn => {
+          btn.addEventListener('click', function (e) {
+            const isMobile = window.innerWidth <= 768;
+            if (!isMobile) return; // let desktop clicks be ignored (hover handles it)
+            try { e.preventDefault(); } catch (err) {}
+            try { e.stopPropagation(); } catch (err) {}
+            const menu = btn.nextElementSibling;
+            if (!menu) return;
+            const isActive = menu.classList.contains('active');
+            if (!isActive) {
+              // close other dropdowns
+              document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+              menu.classList.add('active');
+              btn.setAttribute('aria-expanded', 'true');
+            } else {
+              menu.classList.remove('active');
+              btn.setAttribute('aria-expanded', 'false');
+            }
+          }, { passive: false });
+
+          // Handle touchstart for responsiveness on some devices
+          btn.addEventListener('touchstart', function (e) {
+            const isMobile = window.innerWidth <= 768;
+            if (!isMobile) return;
+            try { e.preventDefault(); } catch (err) {}
+            try { e.stopPropagation(); } catch (err) {}
+            const menu = btn.nextElementSibling;
+            if (!menu) return;
+            const isActive = menu.classList.contains('active');
+            if (!isActive) {
+              document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+              menu.classList.add('active');
+              btn.setAttribute('aria-expanded', 'true');
+            } else {
+              menu.classList.remove('active');
+              btn.setAttribute('aria-expanded', 'false');
+            }
+          }, { passive: false });
+        });
+      } catch (err) { /* ignore if header markup not present */ }
     })
     .catch(error => console.error('Error loading header:', error));
 }
@@ -79,8 +125,8 @@ function initializeHeaderFunctionality() {
     });
   }
 
-  // Close menu when link is clicked
-  const navLinks = document.querySelectorAll('.nav-link');
+  // Close menu when link is clicked (ignore clicks on dropdown toggles)
+  const navLinks = document.querySelectorAll('.nav-link:not(.dropdown-toggle)');
   navLinks.forEach(link => {
     link.addEventListener('click', function () {
       if (navbar) {
