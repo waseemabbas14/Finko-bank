@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Custom-Built House & Land Package Finance</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../css/calnew.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 <style>
             .commercial-page-container {
                 color: #0b1b33;
@@ -94,7 +98,25 @@
                 width: 90%;
                 margin: -60px auto 30px auto !important;
                 padding: 60px;
-                background-color: white;
+                background-color: rgb(242,243,252); /* match dropdown back panel background */
+                border-radius: 12px;
+            }
+
+            /* Use site accent for headings and primary actions to match other dropdown content */
+            .commercial-page-container h1 {
+                color: var(--accent);
+            }
+
+            .action-buttons .btn-primary {
+                background: var(--accent);
+                color: #fff;
+                border-color: var(--accent);
+            }
+
+            .action-buttons .btn-secondary {
+                background: transparent;
+                color: var(--accent);
+                border: 1px solid var(--accent);
             }
 
             .faq-answer {
@@ -129,7 +151,7 @@
 
   <div class="action-buttons">
     <a href="#" onclick="try{ if(window.dashboardFlip && typeof window.dashboardFlip.showFront === 'function'){ window.dashboardFlip.showFront(); } }catch(e){}" class="btn btn-primary">Calculate Your Budget</a>
-    <a href="#" class="btn btn-secondary">Start Your Build Journey</a>
+    <a href="http://127.0.0.1:5504/main-pages/Contact-us.html" class="btn btn-secondary">Start Your Build Journey</a>
   </div>
 
   <h2>Common Questions</h2>

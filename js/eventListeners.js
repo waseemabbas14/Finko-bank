@@ -53,37 +53,29 @@ function initHamburgerMenu() {
 }
 
 function toggleDropdown(event) {
+  event.preventDefault();
   const button = event.currentTarget;
   const dropdownMenu = button.nextElementSibling;
   const isMobile = window.innerWidth <= 768;
-
-  // Respect event type: ignore hover on touch/mobile devices and ignore click on desktop
-  if (event.type === 'mouseover' && isMobile) return;
-  if (event.type === 'click' && !isMobile) return;
-
-  // For click events on mobile, prevent navigation and stop propagation so the menu stays open
-  if (event.type === 'click' || event.type === 'touchstart') {
-    try { event.preventDefault(); } catch (e) {}
-    try { event.stopPropagation(); } catch (e) {}
-  }
-
-  // Close all dropdowns first (but allow re-opening same menu)
+  
+  // Close all dropdowns first
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
-    if (menu !== dropdownMenu) menu.classList.remove('active');
+    if (menu !== dropdownMenu) {
+      menu.classList.remove('active');
+    }
   });
   document.querySelectorAll('.dropdown-toggle').forEach(btn => {
-    if (btn !== button) btn.setAttribute('aria-expanded', 'false');
+    if (btn !== button) {
+      btn.setAttribute('aria-expanded', 'false');
+    }
   });
-
-  // On desktop mouseover: open
-  if (!isMobile && event.type === 'mouseover') {
+  
+  // On hover (desktop), always open
+  if (!isMobile) {
     dropdownMenu.classList.add('active');
     button.setAttribute('aria-expanded', 'true');
-    return;
-  }
-
-  // On mobile click/touch: toggle
-  if (isMobile && (event.type === 'click' || event.type === 'touchstart')) {
+  } else {
+    // On mobile, toggle
     const isActive = dropdownMenu.classList.contains('active');
     if (!isActive) {
       dropdownMenu.classList.add('active');
@@ -112,56 +104,6 @@ function closeDropdown(event) {
       button.setAttribute('aria-expanded', 'false');
     }
   }
-}
-
-// Attach mobile click/touch handlers to dropdown toggles (works for inline header like index.html)
-function initNavbarDropdowns() {
-  try {
-    const buttons = document.querySelectorAll('.dropdown-toggle');
-    console.debug('initNavbarDropdowns: found', buttons.length, 'dropdown toggles');
-    buttons.forEach(btn => {
-      // If already wired, skip
-      if (btn._dropdownInitialized) return;
-
-      // Click handler for mobile devices
-      btn.addEventListener('click', function (e) {
-        console.debug('dropdown toggle click on:', btn.textContent.trim());
-        const isMobile = window.innerWidth <= 768;
-        if (!isMobile) return;
-        try { e.preventDefault(); } catch (err) {}
-        try { e.stopPropagation(); } catch (err) {}
-
-        // If navbar is collapsed (hamburger menu), open it so dropdown becomes visible
-        const navbar = document.getElementById('navbar');
-        const hamburger = document.getElementById('hamburger');
-        if (navbar && !navbar.classList.contains('active')) {
-          navbar.classList.add('active');
-          if (hamburger) hamburger.classList.add('active');
-        }
-
-        toggleDropdown.call(btn, e);
-      }, { passive: false });
-
-      // Touchstart for responsiveness
-      btn.addEventListener('touchstart', function (e) {
-        const isMobile = window.innerWidth <= 768;
-        if (!isMobile) return;
-        try { e.preventDefault(); } catch (err) {}
-        try { e.stopPropagation(); } catch (err) {}
-
-        const navbar = document.getElementById('navbar');
-        const hamburger = document.getElementById('hamburger');
-        if (navbar && !navbar.classList.contains('active')) {
-          navbar.classList.add('active');
-          if (hamburger) hamburger.classList.add('active');
-        }
-
-        toggleDropdown.call(btn, e);
-      }, { passive: false });
-
-      btn._dropdownInitialized = true;
-    });
-  } catch (err) { /* ignore if DOM not ready */ }
 }
 
 // Function to read URL parameters and wait for user to select state, then auto-populate category/purpose
@@ -674,7 +616,7 @@ function ensureEmailModalExists() {
   modal.innerHTML = `
     <div class="modal-content" role="document">
       <div class="modal-header">
-        <h3>Send Results to Email</h3>
+        <h3>Get a Free Consultation</h3>
         <button id="emailModalClose" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
@@ -755,12 +697,112 @@ function ensureHomeExtrasLoaded() {
   });
 }
 
+// Attach 'Get a Free Consultation' handler — behave like 'Send Results to Email'
+function initConsultationButtons() {
+  // Delegated handler: match elements related to consultation (flexible matching)
+  // Use capture phase so we intercept before other handlers or navigation
+  document.addEventListener('click', function (e) {
+    try {
+      const el = e.target.closest('a,button');
+      if (!el) return;
+
+      const txt = ((el.textContent || el.innerText) || '').replace(/\s+/g, ' ').trim();
+      const isConsultationText = /free\s*consultation|book\s*a\s*consultation|get\s*a\s*free\s*consultation|consultation/i.test(txt);
+      const isMarked = el.dataset && el.dataset.action === 'consultation';
+      const hasClass = el.classList && (el.classList.contains('btn-consultation') || el.classList.contains('consultation-btn'));
+
+      if (!isConsultationText && !isMarked && !hasClass) return;
+
+      // Intercept the click and prevent other handlers/navigation
+      try { e.preventDefault(); } catch (err) {}
+      try { e.stopPropagation(); } catch (err) {}
+      try { e.stopImmediatePropagation(); } catch (err) {}
+
+      console.debug('initConsultationButtons: intercepted consultation click ->', txt, el);
+
+      // Prevent double clicks
+      if (el._sending) return;
+      el._sending = true;
+      const origHTML = el.innerHTML;
+
+      // Open modal to collect name & email, then send
+      showEmailModal({}, async function (details) {
+        try {
+          el.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>Sending...`;
+          const success = await window.sendResultsToEmailNow({ userFullName: details.fullName, userEmail: details.email });
+          if (success) {
+            el.innerHTML = `<i class="fa-solid fa-check" style="margin-right:8px; color: #01eb5a;"></i>Email Sent!`;
+          } else {
+            el.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Failed - Check Console`;
+          }
+        } catch (err) {
+          console.error('Error sending consultation email:', err);
+          el.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Error`;
+        } finally {
+          setTimeout(function () {
+            try { el.innerHTML = origHTML; } catch (e) {}
+            el._sending = false;
+          }, 3000);
+        }
+      });
+
+      // If user closes modal without submitting, re-enable the button and restore text
+      const modal = document.getElementById('emailModal');
+      if (modal) {
+        const observer = new MutationObserver((mutations) => {
+          if (!modal.classList.contains('show')) {
+            try { el._sending = false; el.innerHTML = origHTML; } catch (e) {}
+            observer.disconnect();
+          }
+        });
+        observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+
+        // In case modal was already closed quickly
+        if (!modal.classList.contains('show')) {
+          try { el._sending = false; el.innerHTML = origHTML; } catch (e) {}
+          observer.disconnect();
+        }
+      }
+
+    } catch (err) {
+      console.error('initConsultationButtons handler error:', err);
+    }
+  }, true);
+}
+
+function initDownloadGuideButtons() {
+  // Delegated handler for download guide buttons (captures phrases like 'download' + 'construction' or 'building')
+  document.addEventListener('click', function (e) {
+    try {
+      const el = e.target.closest('a,button');
+      if (!el) return;
+      const txt = ((el.textContent || el.innerText) || '').replace(/\s+/g, ' ').trim();
+      const isDownloadGuide = /download/i.test(txt) && /(construction|building|guide|building guide|construction guide)/i.test(txt);
+      const hasClass = el.classList && (el.classList.contains('btn-download-guide') || el.classList.contains('btn-orange'));
+      if (!isDownloadGuide && !hasClass) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      try { e.stopImmediatePropagation(); } catch (err) {}
+
+      // Ensure there are results to include
+      if (!window.lastCalc || Object.keys(window.lastCalc).length === 0) {
+        alert('Please run a calculation first — the download includes current calculation results.');
+        return;
+      }
+
+      const filename = 'construction_results_' + (new Date()).toISOString().slice(0,19).replace(/[:T]/g, '-') ;
+      const success = window.downloadResultsDocument(filename);
+      if (!success) alert('Failed to create download. Check the console for details.');
+    } catch (err) {
+      console.error('initDownloadGuideButtons error:', err);
+    }
+  }, true);
+}
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize hamburger menu for mobile
   initHamburgerMenu();
-  // Initialize dropdown handlers (attach mobile click/touch handlers for inline header pages)
-  if (typeof initNavbarDropdowns === 'function') initNavbarDropdowns();
   
   // Apply URL parameters if page was navigated with query parameters (from dropdown selection)
   applyURLParametersToForm();
@@ -770,6 +812,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize results panel with ANIMATED welcome message
   initializeResultsPanel();
+
+  // Attach 'Get a Free Consultation' handler to behave like 'Send Results to Email'
+  initConsultationButtons();
+
+  // Attach 'Download Guide' buttons (e.g., Download Construction Guide) to download a document with current results
+  initDownloadGuideButtons();
 
   // Setup state change listener (does not reset gate; same scenario)
   document.getElementById('stateSelect').addEventListener('change', (e) => {
@@ -932,7 +980,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
         <div class="btn-wrap">
           <a href="#" class="btn btn-dark">Apply Now</a>
-          <a href="#" class="btn btn-orange">Speak With An Advisor</a>
+          <button type="button" class="btn btn-dark btn-consultation" data-action="consultation" style="margin-left:8px">Get a Free Consultation</button>
         </div>
         <div class="divider"></div>
         <h2>Why Choose a Business Line of Credit</h2>
@@ -2620,61 +2668,8 @@ document.getElementById('loanForm').addEventListener('submit', async function (e
       renderStep4(loanPurpose);
     }
     
-    // Add "Send Results to Email" button
-    const sendEmailBtn = document.createElement('button');
-    sendEmailBtn.className = 'cta-btn';
-    sendEmailBtn.type = 'button';
-    sendEmailBtn.style.marginRight = '10px';
-    sendEmailBtn.innerHTML = `<i class="fa-solid fa-envelope" style="margin-right: 8px;"></i>Send Results to Email`;
-    sendEmailBtn.onclick = function(e) {
-      e.preventDefault();
-      // Open modal to collect name & email, then send
-      sendEmailBtn.disabled = true;
-      showEmailModal({}, async function (details) {
-        const origHTML = sendEmailBtn.innerHTML;
-        sendEmailBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i>Sending...`;
-        try {
-          const success = await window.sendResultsToEmailNow({ userFullName: details.fullName, userEmail: details.email });
-          if (success) {
-            sendEmailBtn.innerHTML = `<i class="fa-solid fa-check" style="margin-right: 8px; color: #01eb5a;"></i>Email Sent!`;
-            setTimeout(() => {
-              sendEmailBtn.disabled = false;
-              sendEmailBtn.innerHTML = origHTML;
-            }, 3000);
-          } else {
-            sendEmailBtn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right: 8px; color: #ef4444;"></i>Failed - Check Console`;
-            setTimeout(() => {
-              sendEmailBtn.disabled = false;
-              sendEmailBtn.innerHTML = origHTML;
-            }, 3000);
-          }
-        } catch (err) {
-          console.error('Error in send button:', err);
-          sendEmailBtn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right: 8px; color: #ef4444;"></i>Error - Check Console`;
-          setTimeout(() => {
-            sendEmailBtn.disabled = false;
-            sendEmailBtn.innerHTML = origHTML;
-          }, 3000);
-        }
-      });
-      // If user closes the modal without submitting, re-enable the button
-      const modal = document.getElementById('emailModal');
-      if (modal) {
-        const onHide = function () {
-          sendEmailBtn.disabled = false;
-          modal.removeEventListener('click', onHide);
-        };
-        // Listen briefly for modal click (backdrop or cancel) and re-enable
-        modal.addEventListener('click', function hb(e) {
-          // If modal hidden, re-enable (we check computed style)
-          if (!modal.classList.contains('show')) {
-            sendEmailBtn.disabled = false;
-            modal.removeEventListener('click', hb);
-          }
-        });
-      }
-    };
-    resultsEl.appendChild(sendEmailBtn);
+    // Consultation CTA moved to the back panel (results front remains focused on outputs)
+    // Back panel contains a dedicated 'Get a Free Consultation' button which is handled by the delegated handler.
     
     const ctaBtn = document.createElement('button');
     ctaBtn.className = 'cta-btn';
