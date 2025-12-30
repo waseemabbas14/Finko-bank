@@ -53,29 +53,37 @@ function initHamburgerMenu() {
 }
 
 function toggleDropdown(event) {
-  event.preventDefault();
   const button = event.currentTarget;
   const dropdownMenu = button.nextElementSibling;
   const isMobile = window.innerWidth <= 768;
-  
-  // Close all dropdowns first
+
+  // Respect event type: ignore hover on touch/mobile devices and ignore click on desktop
+  if (event.type === 'mouseover' && isMobile) return;
+  if (event.type === 'click' && !isMobile) return;
+
+  // For click events on mobile, prevent navigation and stop propagation so the menu stays open
+  if (event.type === 'click' || event.type === 'touchstart') {
+    try { event.preventDefault(); } catch (e) {}
+    try { event.stopPropagation(); } catch (e) {}
+  }
+
+  // Close all dropdowns first (but allow re-opening same menu)
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
-    if (menu !== dropdownMenu) {
-      menu.classList.remove('active');
-    }
+    if (menu !== dropdownMenu) menu.classList.remove('active');
   });
   document.querySelectorAll('.dropdown-toggle').forEach(btn => {
-    if (btn !== button) {
-      btn.setAttribute('aria-expanded', 'false');
-    }
+    if (btn !== button) btn.setAttribute('aria-expanded', 'false');
   });
-  
-  // On hover (desktop), always open
-  if (!isMobile) {
+
+  // On desktop mouseover: open
+  if (!isMobile && event.type === 'mouseover') {
     dropdownMenu.classList.add('active');
     button.setAttribute('aria-expanded', 'true');
-  } else {
-    // On mobile, toggle
+    return;
+  }
+
+  // On mobile click/touch: toggle
+  if (isMobile && (event.type === 'click' || event.type === 'touchstart')) {
     const isActive = dropdownMenu.classList.contains('active');
     if (!isActive) {
       dropdownMenu.classList.add('active');
@@ -104,6 +112,56 @@ function closeDropdown(event) {
       button.setAttribute('aria-expanded', 'false');
     }
   }
+}
+
+// Attach mobile click/touch handlers to dropdown toggles (works for inline header like index.html)
+function initNavbarDropdowns() {
+  try {
+    const buttons = document.querySelectorAll('.dropdown-toggle');
+    console.debug('initNavbarDropdowns: found', buttons.length, 'dropdown toggles');
+    buttons.forEach(btn => {
+      // If already wired, skip
+      if (btn._dropdownInitialized) return;
+
+      // Click handler for mobile devices
+      btn.addEventListener('click', function (e) {
+        console.debug('dropdown toggle click on:', btn.textContent.trim());
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) return;
+        try { e.preventDefault(); } catch (err) {}
+        try { e.stopPropagation(); } catch (err) {}
+
+        // If navbar is collapsed (hamburger menu), open it so dropdown becomes visible
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        if (navbar && !navbar.classList.contains('active')) {
+          navbar.classList.add('active');
+          if (hamburger) hamburger.classList.add('active');
+        }
+
+        toggleDropdown.call(btn, e);
+      }, { passive: false });
+
+      // Touchstart for responsiveness
+      btn.addEventListener('touchstart', function (e) {
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) return;
+        try { e.preventDefault(); } catch (err) {}
+        try { e.stopPropagation(); } catch (err) {}
+
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        if (navbar && !navbar.classList.contains('active')) {
+          navbar.classList.add('active');
+          if (hamburger) hamburger.classList.add('active');
+        }
+
+        toggleDropdown.call(btn, e);
+      }, { passive: false });
+
+      btn._dropdownInitialized = true;
+    });
+  } catch (err) { /* ignore if DOM not ready */ }
 }
 
 // Function to read URL parameters and wait for user to select state, then auto-populate category/purpose
@@ -701,6 +759,8 @@ function ensureHomeExtrasLoaded() {
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize hamburger menu for mobile
   initHamburgerMenu();
+  // Initialize dropdown handlers (attach mobile click/touch handlers for inline header pages)
+  if (typeof initNavbarDropdowns === 'function') initNavbarDropdowns();
   
   // Apply URL parameters if page was navigated with query parameters (from dropdown selection)
   applyURLParametersToForm();
