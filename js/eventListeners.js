@@ -53,9 +53,14 @@ function initHamburgerMenu() {
 }
 
 function toggleDropdown(event) {
-  event.preventDefault();
-  const button = event.currentTarget;
-  const dropdownMenu = button.nextElementSibling;
+  try { event.preventDefault(); } catch(e) {}
+  // Ensure we operate on the button element even if the event target was an inner element
+  let button = event.currentTarget;
+  if (button && button.tagName && button.tagName.toLowerCase() !== 'button') {
+    button = (button.closest && button.closest('button')) || button;
+  }
+  const dropdownMenu = button ? button.nextElementSibling : null;
+  if (!dropdownMenu) return;
   const isMobile = window.innerWidth <= 768;
   
   // Close all dropdowns first
@@ -2688,3 +2693,4 @@ if (_loanFormEl) {
   updateSummary();
   document.getElementById('disclaimer').innerText = getDisclaimer(loanPurpose);
 });
+}
