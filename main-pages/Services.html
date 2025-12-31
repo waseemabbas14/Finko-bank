@@ -2,247 +2,256 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="../css/calnew.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../css/calnew.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <style>
-    .hero {
-        padding: 135px 70px;
-         background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0,0,0,0.55)), url("/assests/f2.webp");
-        background-size: cover;
-        background-position: top-center;
-        background-repeat: no-repeat;
-        display: flex;
-        gap: 15px;
-        flex-direction: column;
+  .hero {
+    height: 330px;
+    background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0, 0, 0, 0.55)), url("/assests/f2.webp");
+    background-size: cover;
+    background-position: top-center;
+    background-repeat: no-repeat;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-left: 40px;
+    z-index: 1;
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    text-align: start;
+  }
+
+  .intro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 70px;
+  }
+
+  .intro h6 {
+    width: 6%;
+    padding-left: 16px;
+    border-left: #FD8D01 5px solid;
+    color: #001233;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5em;
+    letter-spacing: 0.3px;
+    margin: 0;
+  }
+
+  .intro h2 {
+    width: 100%;
+    font-size: 58px;
+    font-weight: 600;
+    text-align: center;
+    /* margin-bottom: 15px; */
+    padding-top: 32px;
+    color: #0A1931;
+    line-height: 1em;
+    letter-spacing: -3px;
+  }
+
+  .intro p {
+    width: 51%;
+    font-size: 18px;
+    font-weight: 500;
+    color: #0A1931;
+    text-align: center;
+    line-height: 1.5em;
+    padding-top: 20px;
+  }
+
+  .apply-section {
+    padding: 100px 0px;
+    /* BACKGROUND IMAGE YAHAN LAGAO */
+
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+
+  .apply-container {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    gap: 60px;
+    padding: 0px 70px;
+    background: url(/assests/background-gradient.jpeg) center/cover no-repeat;
+    /* IMPORTANT */
+
+  }
+
+  /* LEFT */
+  .apply-left {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+  }
+
+  .section-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #001233;
+    line-height: 1.5em;
+    letter-spacing: 0.3px;
+    padding-left: 14px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .section-label::before {
+    content: "";
+    width: 4px;
+    height: 100%;
+    background: #f7941d;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .apply-left h2 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.33em;
+    letter-spacing: -0.3px;
+    color: #0b2c5d;
+    margin-bottom: 16px;
+  }
+
+
+  .apply-left p {
+    font-size: 18px;
+    color: #001333;
+    font-weight: 500;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  /* RIGHT FORM */
+  .contact-form {
+    width: 50%;
+    padding: 0px;
+  }
+
+  .contact-form img {
+    width: 100%;
+    /* border-radius: 8px; */
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .apply-container {
+      flex-direction: column;
+    }
+
+    .apply-left,
+    .contact-form {
+      width: 100%;
+    }
+
+    .apply-container {
+      padding: 50px 20px 50px 20px;
+    }
+
+    .apply-left h2 {
+      font-size: 25px;
+    }
+
+    .btn-group button {
+      font-size: 12px;
+      width: 100%;
     }
 
     .hero h1 {
-        font-size: 72px;
-        z-index: 1;
-        font-weight: 600;
-        color: white;
-        width: 100%;
-        text-align: start;
+      text-align: center;
     }
 
+  }
+
+  @media (max-width: 1024px) {
+
+    /* Hero Section */
+    .hero {
+      padding: 150px 50px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+    }
+
+    .hero h3 {
+      width: 30%;
+      font-size: 18px;
+    }
+
+    /* Intro Section */
     .intro {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 80px 70px;
+      padding: 60px 0px;
+      text-align: center;
     }
 
     .intro h6 {
-        width: 6%;
-        padding-left: 16px;
-        border-left: #FD8D01 5px solid;
-        color: #001233;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 1.5em;
-        letter-spacing: 0.3px;
-        margin: 0;
+      width: 13%;
+      padding-left: 10px;
+      font-size: 14px;
     }
 
     .intro h2 {
-        width: 100%;
-        font-size: 58px;
-        font-weight: 600;
-        text-align: center;
-        /* margin-bottom: 15px; */
-        padding-top: 32px;
-        color: #0A1931;
-        line-height: 1em;
-        letter-spacing: -3px;
+      font-size: 40px;
+    }
+
+    .intro h3 {
+      width: 10%;
+      font-size: 16px;
     }
 
     .intro p {
-        width: 51%;
-        font-size: 18px;
-        font-weight: 500;
-        color: #0A1931;
-        text-align: center;
-        line-height: 1.5em;
-        padding-top: 20px;
+      width: 70%;
+      font-size: 16px;
     }
-    .apply-section {
-  padding: 100px 0px;
-  /* BACKGROUND IMAGE YAHAN LAGAO */
-
-  background-color: #ffffff;
-  font-family: Arial, sans-serif;
-}
-
-.apply-container {
-width: 100%;
-  margin: auto;
-  display: flex;
-  gap: 60px;
-  padding: 0px 70px;
-    background: url(/assests/background-gradient.jpeg) center/cover no-repeat;
-  /* IMPORTANT */
-
-}
-
-/* LEFT */
-.apply-left {
- width: 45%;
- display: flex;
- flex-direction: column;
- align-items: start;
- justify-content: center;
-}
-
-.section-label {
-  font-size: 16px;
-  font-weight: 700;
-  color: #001233;
-  line-height: 1.5em;
-  letter-spacing: 0.3px;
-  padding-left: 14px;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-.section-label::before {
-  content: "";
-  width: 4px;
-  height: 100%;
-  background: #f7941d;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.apply-left h2 {
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.33em;
-  letter-spacing: -0.3px;
-  color: #0b2c5d;
-  margin-bottom: 16px;
-}
-
-
-.apply-left p {
- font-size: 18px;
-  color:  #001333;
-  font-weight: 500;
-  line-height: 1.8;
-  margin-bottom: 16px;
-}
-
-/* RIGHT FORM */
-   .contact-form {
-            width: 50%;
-            padding: 0px;
-        }
-
-      .contact-form img {
-        width: 100%;
-        /* border-radius: 8px; */
-      }
-
-/* RESPONSIVE */
-@media (max-width: 1000px) {
-  .apply-container {
-    flex-direction: column;
   }
-  .apply-left,.contact-form{
-    width: 100%;
-  }
-  .apply-container {
-    padding: 50px 20px 50px 20px;
-  }
-  .apply-left h2 {
-    font-size: 25px;
-  }
-    .btn-group button {
-        font-size: 12px;
-        width: 100%;
-    }
-    .hero h1 {
-        text-align: center;
-    }
-
-}
- @media (max-width: 1024px) {
-
-      /* Hero Section */
-      .hero {
-        padding: 150px 50px;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-      }
-
-      .hero h3 {
-        width: 30%;
-        font-size: 18px;
-      }
-
-      /* Intro Section */
-      .intro {
-        padding: 60px 0px;
-        text-align: center;
-      }
-      .intro h6 {
-        width: 13%;
-        padding-left: 10px;
-        font-size: 14px;
-      }
-
-      .intro h2 {
-        font-size: 40px;
-      }
-
-      .intro h3 {
-        width: 10%;
-        font-size: 16px;
-      }
-
-      .intro p {
-        width: 70%;
-        font-size: 16px;
-      }
-    }
-
 </style>
 
 <body>
-    <!-- header container - dynamically loaded -->
-    <div id="header-container"></div>
-    <!-- header -->
-    <!-- sections -->
-    <section class="hero">
-        <h1>Services</h1>
-    </section>
-    <section class="intro">
-        <h6>SERVICE</h6>
-        <h2>Our Financial Services &<br> Loan Solutions</h2>
-        <p>
-            we offer a wide range of financial services and loan solutions tailored to your needs. From personal loans
-            to business financing, our expert team ensures a smooth, secure, and hassle free experience.
-        </p>
-    </section>
-      <section class="services-section">
+  <!-- header container - dynamically loaded -->
+  <div id="header-container"></div>
+  <!-- header -->
+  <!-- sections -->
+  <section class="hero">
+    <h1>Services</h1>
+  </section>
+  <section class="intro">
+    <h6>SERVICE</h6>
+    <h2>Our Financial Services &<br> Loan Solutions</h2>
+    <p>
+      we offer a wide range of financial services and loan solutions tailored to your needs. From personal loans
+      to business financing, our expert team ensures a smooth, secure, and hassle free experience.
+    </p>
+  </section>
+  <section class="services-section">
     <div class="services-container">
 
       <!-- Header -->
-      
-      
+
+
 
       <!-- Cards -->
       <div class="services-cards">
@@ -306,77 +315,78 @@ width: 100%;
     </div>
   </section>
   <section class="apply-section">
-  <div class="apply-container">
+    <div class="apply-container">
 
-    <!-- LEFT CONTENT -->
-    <div class="apply-left">
-      <span class="section-label">WE ARE</span>
+      <!-- LEFT CONTENT -->
+      <div class="apply-left">
+        <span class="section-label">WE ARE</span>
 
-      <h2>Competitive Financial Solutions</h2>
-      <p>
-        We provide tailored financial solutions with competitive rates and flexible plans.
-        Whether you need a personal, home, or business loan, our expert team ensures
-        a smooth and hassle-free experience.
-      </p>
+        <h2>Competitive Financial Solutions</h2>
+        <p>
+          We provide tailored financial solutions with competitive rates and flexible plans.
+          Whether you need a personal, home, or business loan, our expert team ensures
+          a smooth and hassle-free experience.
+        </p>
 
-      <h2>The Easiest Way to Get Your Loan</h2>
-      <p>
-        We make applying for a loan fast, easy, and secure. Our flexible plans,
-        transparent process, and dedicated support ensure you get the financial
-        assistance you need without any hassle.
-      </p>
+        <h2>The Easiest Way to Get Your Loan</h2>
+        <p>
+          We make applying for a loan fast, easy, and secure. Our flexible plans,
+          transparent process, and dedicated support ensure you get the financial
+          assistance you need without any hassle.
+        </p>
 
-      <h2>24 Hour Call Service</h2>
-      <p>
-        Our dedicated customer support team is available 24/7 to assist you with
-        all your financial needs. Whether it’s loan inquiries, account management,
-        or general banking assistance, we ensure fast, reliable, and secure support
-        whenever you need it.
-      </p>
-    </div>
+        <h2>24 Hour Call Service</h2>
+        <p>
+          Our dedicated customer support team is available 24/7 to assist you with
+          all your financial needs. Whether it’s loan inquiries, account management,
+          or general banking assistance, we ensure fast, reliable, and secure support
+          whenever you need it.
+        </p>
+      </div>
 
-    <!-- RIGHT FORM -->
-   <div class="contact-form">
-         <img src="/assests/services.jpg" alt="">
-  </div>
-</section>
+      <!-- RIGHT FORM -->
+      <div class="contact-form">
+        <img src="/assests/services.jpg" alt="">
+      </div>
+  </section>
 
-    <script>
-  function showForm(formNumber) {
+  <script>
+    function showForm(formNumber) {
 
-            // Sab forms hide
-            document.getElementById("form1").style.display = "none";
-            document.getElementById("form2").style.display = "none";
-            document.getElementById("form3").style.display = "none";
+      // Sab forms hide
+      document.getElementById("form1").style.display = "none";
+      document.getElementById("form2").style.display = "none";
+      document.getElementById("form3").style.display = "none";
 
-            // Selected form show
-            document.getElementById("form" + formNumber).style.display = "block";
-        }
+      // Selected form show
+      document.getElementById("form" + formNumber).style.display = "block";
+    }
 
-        document.querySelectorAll('.btn-group button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
+    document.querySelectorAll('.btn-group button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
 
-        function home() {
-            document.getElementById("content").style.display = "block";
-        }
+    function home() {
+      document.getElementById("content").style.display = "block";
+    }
 
-        // 🔥 Page load par Form 1 show hoga
-        window.onload = function () {
-            showForm(1);
-        };
-</script>
+    // 🔥 Page load par Form 1 show hoga
+    window.onload = function () {
+      showForm(1);
+    };
+  </script>
 
-    <!-- Scripts (same as index, adjusted paths) -->
-    <script src="../js/load-components.js" defer></script>
-    <script src="../js/eventListeners.js" defer></script>
-    <script src="../js/constants.js" defer></script>
-    <script src="../js/utils.js" defer></script>
-    <script src="../js/calculations.js" defer></script>
-    <script src="../js/ui.js" defer></script>
-    <script src="../js/home_extras.js" defer></script>
+  <!-- Scripts (same as index, adjusted paths) -->
+  <script src="../js/load-components.js" defer></script>
+  <script src="../js/eventListeners.js" defer></script>
+  <script src="../js/constants.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/calculations.js" defer></script>
+  <script src="../js/ui.js" defer></script>
+  <script src="../js/home_extras.js" defer></script>
 </body>
+
 </html>

@@ -17,7 +17,7 @@
       background-size: cover;
       background-position: center;
       display: flex;
-      align-items: center;
+      align-items: start;
       padding-left: 40px;
       color: #fff;
       position: relative;
@@ -25,7 +25,9 @@
     }
 
     .About-hero h1 {
-      font-size: 72px;
+      font-size: 24px;
+      margin-top: 30px;
+      margin-left: 40px;
       z-index: 1;
       font-weight: 600;
     }
@@ -778,143 +780,143 @@
   </div>
 </section>
 <!-- sections -->
-     <script src="../js/constants.js" defer></script>
-    <script src="../js/utils.js" defer></script>
-    <script src="../js/calculations.js" defer></script>
-    <!-- <script src="../js/ui.js" defer></script> -->   
-    <script src="../js/home_extras.js" defer></script>
-    <script src="../js/eventListeners.js" defer></script>
+<script src="../js/constants.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/calculations.js" defer></script>
+<!-- <script src="../js/ui.js" defer></script> -->
+<script src="../js/home_extras.js" defer></script>
+<script src="../js/eventListeners.js" defer></script>
 <script>
   function showForm(formNumber) {
 
-            // Sab forms hide
-            document.getElementById("form1").style.display = "none";
-            document.getElementById("form2").style.display = "none";
-            document.getElementById("form3").style.display = "none";
+    // Sab forms hide
+    document.getElementById("form1").style.display = "none";
+    document.getElementById("form2").style.display = "none";
+    document.getElementById("form3").style.display = "none";
 
-            // Selected form show
-            document.getElementById("form" + formNumber).style.display = "block";
-        }
+    // Selected form show
+    document.getElementById("form" + formNumber).style.display = "block";
+  }
 
-        document.querySelectorAll('.btn-group button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
+  document.querySelectorAll('.btn-group button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
 
-        function home() {
-            document.getElementById("content").style.display = "block";
-        }
+  function home() {
+    document.getElementById("content").style.display = "block";
+  }
 
-        // 🔥 Page load par Form 1 show hoga
-        window.onload = function () {
-            showForm(1);
-        };
+  // 🔥 Page load par Form 1 show hoga
+  window.onload = function () {
+    showForm(1);
+  };
 </script>
 <script src="../js/load-components.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-(function () {
+  (function () {
 
-  /* ===============================
-     EMAILJS CONFIG
-  =============================== */
-  const RECIPIENT_EMAIL = "wsmabbas13@gmail.com";
+    /* ===============================
+       EMAILJS CONFIG
+    =============================== */
+    const RECIPIENT_EMAIL = "wsmabbas13@gmail.com";
 
-  const PUBLIC_KEY = "5f_ySckYmfJAv-10x";
-  const SERVICE_ID = "service_q4mgort";
-  const TEMPLATE_ID = "template_f45afhw";
+    const PUBLIC_KEY = "5f_ySckYmfJAv-10x";
+    const SERVICE_ID = "service_q4mgort";
+    const TEMPLATE_ID = "template_f45afhw";
 
     // Initialize EmailJS if available; otherwise wait briefly and retry
     function initEmailJSOnce() {
-        if (typeof emailjs !== 'undefined' && typeof emailjs.init === 'function') {
-            try { emailjs.init(PUBLIC_KEY); console.log('EmailJS initialized on Contact page'); }
-            catch (err) { console.warn('EmailJS init failed:', err); }
-            return true;
-        }
-        return false;
+      if (typeof emailjs !== 'undefined' && typeof emailjs.init === 'function') {
+        try { emailjs.init(PUBLIC_KEY); console.log('EmailJS initialized on Contact page'); }
+        catch (err) { console.warn('EmailJS init failed:', err); }
+        return true;
+      }
+      return false;
     }
 
     if (!initEmailJSOnce()) {
-        var _attempts = 0;
-        var _max = 50;
-        var _poll = setInterval(function() {
-            _attempts++;
-            if (initEmailJSOnce() || _attempts >= _max) clearInterval(_poll);
-        }, 100);
+      var _attempts = 0;
+      var _max = 50;
+      var _poll = setInterval(function () {
+        _attempts++;
+        if (initEmailJSOnce() || _attempts >= _max) clearInterval(_poll);
+      }, 100);
     }
 
-  /* ===============================
-     FORM SUBMIT HANDLER
-  =============================== */
-  function submitForm(e, formNumber) {
-    e.preventDefault();
-
-    const form = document.getElementById("form" + formNumber);
-    if (!form) return;
-
-    const select = form.querySelector("select");
-    const inputs = form.querySelectorAll("input");
-
-    const loanType = select?.value || "";
-    const preferredDate = inputs[0]?.value || "";
-    const email = inputs[1]?.value || "";
-    const name = inputs[2]?.value || "";
-    const phone = inputs[3]?.value || "";
-
     /* ===============================
-       BASIC VALIDATION
+       FORM SUBMIT HANDLER
     =============================== */
-    if (!name || !email || !phone) {
-      alert("Please fill all required fields");
-      return;
-    }
+    function submitForm(e, formNumber) {
+      e.preventDefault();
 
-    const loanCategory =
-      formNumber === 1 ? "Home Loan" :
-      formNumber === 2 ? "Commercial Loan" :
-      "SMSF Loan";
+      const form = document.getElementById("form" + formNumber);
+      if (!form) return;
 
-    const emailParams = {
-      recipient_email: "mehdiakbar905@gmail.com",
-      from_name: name,
-      from_email: email,
-      phone: phone,
-      loan_category: loanCategory,
-      loan_type: loanType,
-      preferred_date: preferredDate,
-      message: `New ${loanCategory} application received from ${name}`,
-      timestamp: new Date().toLocaleString("en-AU")
-    };
+      const select = form.querySelector("select");
+      const inputs = form.querySelectorAll("input");
 
-    /* ===============================
-       SEND EMAIL
-    =============================== */
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams)
-      .then(() => {
-        alert("Thank you! Your application has been submitted.");
-        form.reset();
-      })
-      .catch((error) => {
-        console.error("EmailJS Error:", error);
-        alert("Something went wrong. Please try again later.");
-      });
-  }
+      const loanType = select?.value || "";
+      const preferredDate = inputs[0]?.value || "";
+      const email = inputs[1]?.value || "";
+      const name = inputs[2]?.value || "";
+      const phone = inputs[3]?.value || "";
 
-  /* ===============================
-     EVENT LISTENERS
-  =============================== */
-  document.addEventListener("DOMContentLoaded", () => {
-    for (let i = 1; i <= 3; i++) {
-      const form = document.getElementById("form" + i);
-      if (form) {
-        form.addEventListener("submit", (e) => submitForm(e, i));
+      /* ===============================
+         BASIC VALIDATION
+      =============================== */
+      if (!name || !email || !phone) {
+        alert("Please fill all required fields");
+        return;
       }
-    }
-  });
 
-})();
+      const loanCategory =
+        formNumber === 1 ? "Home Loan" :
+          formNumber === 2 ? "Commercial Loan" :
+            "SMSF Loan";
+
+      const emailParams = {
+        recipient_email: "mehdiakbar905@gmail.com",
+        from_name: name,
+        from_email: email,
+        phone: phone,
+        loan_category: loanCategory,
+        loan_type: loanType,
+        preferred_date: preferredDate,
+        message: `New ${loanCategory} application received from ${name}`,
+        timestamp: new Date().toLocaleString("en-AU")
+      };
+
+      /* ===============================
+         SEND EMAIL
+      =============================== */
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams)
+        .then(() => {
+          alert("Thank you! Your application has been submitted.");
+          form.reset();
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          alert("Something went wrong. Please try again later.");
+        });
+    }
+
+    /* ===============================
+       EVENT LISTENERS
+    =============================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      for (let i = 1; i <= 3; i++) {
+        const form = document.getElementById("form" + i);
+        if (form) {
+          form.addEventListener("submit", (e) => submitForm(e, i));
+        }
+      }
+    });
+
+  })();
 </script>
 
 
