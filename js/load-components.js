@@ -79,8 +79,8 @@ function initializeHeaderFunctionality() {
     });
   }
 
-  // Close menu when link is clicked
-  const navLinks = document.querySelectorAll('.nav-link');
+  // Close menu when a normal nav link is clicked (ignore dropdown toggles)
+  const navLinks = document.querySelectorAll('.nav-link:not(.dropdown-toggle)');
   navLinks.forEach(link => {
     link.addEventListener('click', function () {
       if (navbar) {
