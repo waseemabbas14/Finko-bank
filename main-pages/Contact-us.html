@@ -34,21 +34,15 @@
         /* HERO */
 
         .hero {
-            height: 330px;
-            background: url('/assests/conatct-banner.webp') center/cover no-repeat;
+            /* height: 330px; */
+            padding: 135px 70px;
+            background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0,0,0,0.55)), url('/assests/conatct-banner.webp') center/cover no-repeat;
             display: flex;
             align-items: center;
             padding-left: 40px;
             color: #fff;
             position: relative;
             z-index: -100;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, .55);
         }
 
         .hero h1 {

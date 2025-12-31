@@ -86,6 +86,8 @@ header {
   padding: 10px 70px;
   flex-wrap: wrap;
   background-color: white;
+
+  
 }
 
 /* Hamburger Menu Button */
@@ -1870,6 +1872,20 @@ button[type="submit"] {
   align-items: center;
   justify-content: center;
 }
+    @media (max-width: 425px) {
+      * {
+        font-family: 'Rajdhani', sans-serif;
+      }
+
+      /* Hero Section */
+
+
+      .hero h1 {
+        font-size: 34px !important;
+        font-weight: 600 !important;
+        padding: 0 !important;
+      }
+    }
 @media screen and (max-width: 660px) {
   .commercial-page-container .btn-wrap
 {
@@ -1877,6 +1893,10 @@ button[type="submit"] {
 }
  
 
+}
+.faq-item.active .faq-answer {
+    margin-top: 12px;
+    opacity: 1 !important;
 }
 #dashboardCard.flip-transition {
     transition: transform 360ms ease-in-out;
