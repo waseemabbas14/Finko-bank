@@ -402,8 +402,8 @@ function setupStatePillClickHandler() {
   stateName.addEventListener('click', function (e) {
     e.stopPropagation();
 
-    const sunny = document.getElementById('sunny');
-    if (sunny) sunny.style.display = 'none';
+    // Keep the main container visible when user re-opens the state picker.
+    // Previously we hid `#sunny` here which caused the calculator to disappear — do not hide it.
 
     // Show select again
     stateName.style.display = 'none';
@@ -434,29 +434,11 @@ function setupStatePillClickHandler() {
         stateSelect.focus();
       }
     });
-    // Reset the rest of the UI to the initial 'select state first' view
-    try {
-      const loanCategorySelect = document.getElementById('loanCategory');
-      const loanPurposeSelect = document.getElementById('loanPurpose');
-      if (loanCategorySelect) loanCategorySelect.innerHTML = '<option value="">Loan Type</option>';
-      if (loanPurposeSelect) loanPurposeSelect.innerHTML = '<option value="">Loan Purpose</option>';
-
-      const idsToClear = ['dynamicFields', 'results', 'details', 'disclaimer', 'summary'];
-      idsToClear.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          if (id === 'disclaimer') el.innerText = '';
-          else el.innerHTML = '';
-          el.style.display = 'none';
-        }
-      });
-
-      // Reset calculator-type selects
-      resetCommercialCalculatorType();
-      resetSMSFCalculatorType();
-
-      if (window.resetAutoRecalcGate) window.resetAutoRecalcGate();
-    } catch (e) { }
+    // Do not reset the calculator when the user clicks to change state.
+    // Previously this block cleared loanCategory/loanPurpose and hid results which caused the
+    // calculator to disappear when users re-opened the state picker to change their selection.
+    // Keep existing selections and results intact so users can change state as often as they like.
+    // (No-op here intentionally.)
   });
 
   stateSelect.addEventListener('blur', () => {
