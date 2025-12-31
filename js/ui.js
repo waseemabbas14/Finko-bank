@@ -909,13 +909,17 @@ function setupStreamlinedLoanSelection() {
 }
 
 function initializeResultsPanel() {
-  document.getElementById('results').innerHTML = '';
-  document.getElementById('details').innerHTML = '';
-  toggleRepaymentScenariosSection(false);
+  var _resultsEl = document.getElementById('results');
+  if (_resultsEl) _resultsEl.innerHTML = '';
+  var _detailsEl = document.getElementById('details');
+  if (_detailsEl) _detailsEl.innerHTML = '';
+  try {
+    toggleRepaymentScenariosSection(false);
+  } catch (e) {}
 
-  showAnimatedWelcomeMessage();
+  try { showAnimatedWelcomeMessage(); } catch (e) {}
 
-  if (window.resetAutoRecalcGate) window.resetAutoRecalcGate();
+  if (window.resetAutoRecalcGate) try { window.resetAutoRecalcGate(); } catch (e) {}
 }
 
 function setupLVRCalculator() {

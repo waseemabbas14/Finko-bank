@@ -285,6 +285,10 @@
                 text-align: center;
             }
         }
+        input[type="text"] {
+               -webkit-appearance: textfield !important;
+            appearance: textfield !important;
+            }
     </style>
 </head>
 
@@ -376,7 +380,7 @@
                 <input type="email" placeholder="Email">
                 <input type="text" placeholder="Your Name">
                 <input type="text" placeholder="Phone Number">
-                <button class="submit-btn">SUBMIT</button>
+                <button type="submit" class="submit-btn">SUBMIT</button>
             </form>
             <form id="form2" class="form-box">
 
@@ -393,7 +397,7 @@
                 <input type="email" placeholder="Email">
                 <input type="text" placeholder="Your Name">
                 <input type="text" placeholder="Phone Number">
-                <button class="submit-btn">SUBMIT</button>
+                <button type="submit" class="submit-btn">SUBMIT</button>
             </form>
             <form id="form3" class="form-box">
                 <select>
@@ -405,7 +409,7 @@
                 <input type="email" placeholder="Email">
                 <input type="text" placeholder="Your Name">
                 <input type="text" placeholder="Phone Number">
-                <button class="submit-btn">SUBMIT</button>
+                <button type="submit" class="submit-btn">SUBMIT</button>
             </form>
         </div>
     </section>
@@ -419,7 +423,7 @@
     <script src="../js/constants.js" defer></script>
     <script src="../js/utils.js" defer></script>
     <script src="../js/calculations.js" defer></script>
-    <script src="../js/ui.js" defer></script>
+    <!-- <script src="../js/ui.js" defer></script> -->
     <script src="../js/home_extras.js" defer></script>
     <script src="../js/eventListeners.js" defer></script>
 
@@ -452,6 +456,115 @@
         };
 </script>
 <script src="../js/load-components.js"></script>
+
+<!-- EmailJS CDN and safe initializer + form handlers -->
+<!-- Use same EmailJS bundle as index.html to ensure global `emailjs` is exported -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+(function () {
+
+  /* ===============================
+     EMAILJS CONFIG
+  =============================== */
+  const RECIPIENT_EMAIL = "wsmabbas13@gmail.com";
+
+  const PUBLIC_KEY = "5f_ySckYmfJAv-10x";
+  const SERVICE_ID = "service_q4mgort";
+  const TEMPLATE_ID = "template_f45afhw";
+
+    // Initialize EmailJS if available; otherwise wait briefly and retry
+    function initEmailJSOnce() {
+        if (typeof emailjs !== 'undefined' && typeof emailjs.init === 'function') {
+            try { emailjs.init(PUBLIC_KEY); console.log('EmailJS initialized on Contact page'); }
+            catch (err) { console.warn('EmailJS init failed:', err); }
+            return true;
+        }
+        return false;
+    }
+
+    if (!initEmailJSOnce()) {
+        var _attempts = 0;
+        var _max = 50;
+        var _poll = setInterval(function() {
+            _attempts++;
+            if (initEmailJSOnce() || _attempts >= _max) clearInterval(_poll);
+        }, 100);
+    }
+
+  /* ===============================
+     FORM SUBMIT HANDLER
+  =============================== */
+  function submitForm(e, formNumber) {
+    e.preventDefault();
+
+    const form = document.getElementById("form" + formNumber);
+    if (!form) return;
+
+    const select = form.querySelector("select");
+    const inputs = form.querySelectorAll("input");
+
+    const loanType = select?.value || "";
+    const preferredDate = inputs[0]?.value || "";
+    const email = inputs[1]?.value || "";
+    const name = inputs[2]?.value || "";
+    const phone = inputs[3]?.value || "";
+
+    /* ===============================
+       BASIC VALIDATION
+    =============================== */
+    if (!name || !email || !phone) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    const loanCategory =
+      formNumber === 1 ? "Home Loan" :
+      formNumber === 2 ? "Commercial Loan" :
+      "SMSF Loan";
+
+    const emailParams = {
+      recipient_email: "mehdiakbar905@gmail.com",
+      from_name: name,
+      from_email: email,
+      phone: phone,
+      loan_category: loanCategory,
+      loan_type: loanType,
+      preferred_date: preferredDate,
+      message: `New ${loanCategory} application received from ${name}`,
+      timestamp: new Date().toLocaleString("en-AU")
+    };
+
+    /* ===============================
+       SEND EMAIL
+    =============================== */
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams)
+      .then(() => {
+        alert("Thank you! Your application has been submitted.");
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        alert("Something went wrong. Please try again later.");
+      });
+  }
+
+  /* ===============================
+     EVENT LISTENERS
+  =============================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    for (let i = 1; i <= 3; i++) {
+      const form = document.getElementById("form" + i);
+      if (form) {
+        form.addEventListener("submit", (e) => submitForm(e, i));
+      }
+    }
+  });
+
+})();
+</script>
+
+
 
 </body>
 

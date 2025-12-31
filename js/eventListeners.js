@@ -1860,11 +1860,16 @@ function calculateRepaymentScenarios() {
     `;
   }
   
-  document.getElementById('repaymentScenariosResults').innerHTML = resultsHTML;
+  var _rsElem = document.getElementById('repaymentScenariosResults');
+  if (_rsElem) {
+    _rsElem.innerHTML = resultsHTML;
+  }
 }
 
 // Submit and calculate - UPDATED with Commercial Calculator Type validation & Home Extras delegation
-document.getElementById('loanForm').addEventListener('submit', async function (e) {
+var _loanFormEl = document.getElementById('loanForm');
+if (_loanFormEl) {
+  _loanFormEl.addEventListener('submit', async function (e) {
   e.preventDefault();
   
   // If this is an auto-recalc (not manual), don't proceed without manual calculation first
