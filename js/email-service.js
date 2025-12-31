@@ -129,7 +129,7 @@ window.emailjsReady = false;
    */
   window.sendResultsToEmailNow = async function(overrides = {}) {
     try {
-      const loanCategory = document.getElementById('loanCategory')?.value || '';
+      const loanCategory = document.getElementById('loanCategory')?.value || (window.lastCalc && window.lastCalc.loanCategory) || '';
       const loanPurpose = document.getElementById('loanPurpose')?.value || (window.lastCalc && window.lastCalc.loanPurpose) || '';
       const results = window.lastCalc || {};
       const formInputs = captureFormInputs();

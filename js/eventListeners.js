@@ -562,6 +562,12 @@ window.resetAutoRecalcGate = function() {
   window.__recalcTimer = null;
 };
 
+// Helper to safely update window.lastCalc while always including loanCategory
+window.updateLastCalc = function(calcObj) {
+  const loanCategory = document.getElementById('loanCategory')?.value || '';
+  window.lastCalc = { ...calcObj, loanCategory };
+};
+
 /**
  * Email modal helpers
  * Creates a simple accessible modal to request Full name and Email from the user
@@ -738,7 +744,7 @@ function initConsultationButtons() {
           if (success) {
             el.innerHTML = `<i class="fa-solid fa-check" style="margin-right:8px; color: #01eb5a;"></i>Email Sent!`;
           } else {
-            el.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Failed - Check Console`;
+            el.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Calculate First to Submit`;
           }
         } catch (err) {
           console.error('Error sending consultation email:', err);
@@ -1986,7 +1992,7 @@ if (_loanFormEl) {
       termYears: res.termYears 
     });
 
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "home_repayment") {
@@ -2017,7 +2023,7 @@ if (_loanFormEl) {
     if (res.error === "MAX_LVR_EXCEEDED") {
       resultsHTML += maxLVRErrorMessage;
       hasLVRExceeded = true;
-      window.lastCalc = { loanPurpose };
+      window.updateLastCalc({ loanPurpose });
     } else {
       // NEW: Heading outside the black box
       resultsHTML += `<div class="dash-col-header">RESULTS</div>`;
@@ -2079,7 +2085,7 @@ if (_loanFormEl) {
       };
 
       renderDetails('home_repayment', { ...ctx, ...resForDetails });
-      window.lastCalc = { loanPurpose, baseLVR: res.baseLVR, loanAmount: ctx.loanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm };
+      window.updateLastCalc({ loanPurpose, baseLVR: res.baseLVR, loanAmount: ctx.loanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm });
     }
   }
 
@@ -2107,7 +2113,7 @@ if (_loanFormEl) {
     if (res.error === "MAX_LVR_EXCEEDED") {
       resultsHTML += maxLVRErrorMessage;
       hasLVRExceeded = true;
-      window.lastCalc = { loanPurpose };
+      window.updateLastCalc({ loanPurpose });
     } else {
       const lvr = calcLVR(ctx.currentBalance, ctx.propertyValue);
       // NEW: Heading outside the black box
@@ -2136,7 +2142,7 @@ if (_loanFormEl) {
       };
 
       renderDetails('home_refinance', { ...ctx, lvr, ...resForDetails });
-      window.lastCalc = { loanPurpose, baseLVR: res.baseLVR, loanAmount: ctx.currentBalance, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm };
+      window.updateLastCalc({ loanPurpose, baseLVR: res.baseLVR, loanAmount: ctx.currentBalance, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm });
     }
   }
 
@@ -2157,7 +2163,7 @@ if (_loanFormEl) {
   if (res.error === "MAX_LVR_EXCEEDED") {
     resultsHTML += maxLVRErrorMessage;
     hasLVRExceeded = true;
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   } else {
     // NEW: Heading outside the black box
     resultsHTML += `<div class="dash-col-header">RESULTS</div>`;
@@ -2207,7 +2213,7 @@ if (_loanFormEl) {
     };
 
     renderDetails('home_upgrade', { ...ctx, ...resForDetails });
-    window.lastCalc = { loanPurpose, baseLVR: res.baseLVR, loanAmount: res.baseLoanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm };
+    window.updateLastCalc({ loanPurpose, baseLVR: res.baseLVR, loanAmount: res.baseLoanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm });
   }
 }
 
@@ -2229,7 +2235,7 @@ if (_loanFormEl) {
     if (res.error === "MAX_LVR_EXCEEDED") {
       resultsHTML += maxLVRErrorMessage;
       hasLVRExceeded = true;
-      window.lastCalc = { loanPurpose };
+      window.updateLastCalc({ loanPurpose });
     } else {
       // NEW: Heading outside the black box AND layout per spec
       resultsHTML += `<div class="dash-col-header">RESULTS</div>`;
@@ -2286,14 +2292,14 @@ if (_loanFormEl) {
       const equityPurposeLabel = purposeLabelMap[purposeValue] || 'Other';
 
       renderDetails('home_equity', { ...ctx, ...resForDetails });
-      window.lastCalc = { 
+      window.updateLastCalc({ 
         loanPurpose, 
         baseLVR: res.baseLVR, 
         loanAmount: res.baseLoanAmount, 
         interestRate: ctx.interestRate, 
         loanTerm: ctx.loanTerm,
         equityPurposeLabel
-      };
+      });
     }
   }
 
@@ -2337,7 +2343,7 @@ if (_loanFormEl) {
     if (res.error === "MAX_LVR_EXCEEDED") {
       resultsHTML += maxLVRErrorMessage;
       hasLVRExceeded = true;
-      window.lastCalc = { loanPurpose };
+      window.updateLastCalc({ loanPurpose });
     } else {
       // NEW: Heading outside the black box
       resultsHTML += `<div class="dash-col-header">RESULTS</div>`;
@@ -2389,7 +2395,7 @@ if (_loanFormEl) {
       };
 
       renderDetails('home_consolidate', { ...ctx, ...resForDetails });
-      window.lastCalc = { loanPurpose, baseLVR: res.baseLVR, loanAmount: res.baseLoanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm };
+      window.updateLastCalc({ loanPurpose, baseLVR: res.baseLVR, loanAmount: res.baseLoanAmount, interestRate: ctx.interestRate, loanTerm: ctx.loanTerm });
     }
   }
 
@@ -2417,7 +2423,7 @@ if (_loanFormEl) {
     resultsHTML += `<h3>LVR</h3><div class="big">${Math.round(ctx.lvr)}%</div>`;
     resultsHTML += `</div>`;
     renderDetails('commercial_repayment', ctx);
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "commercial_borrowing") {
@@ -2442,7 +2448,7 @@ if (_loanFormEl) {
       noi: res.noi,
       dscr: res.dscr 
     });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "secured_business") {
@@ -2476,7 +2482,7 @@ if (_loanFormEl) {
       assetType,
       assetValue
     });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "unsecured_business") {
@@ -2494,7 +2500,7 @@ if (_loanFormEl) {
     resultsHTML += `<h3>${label} Repayment</h3><div class="big">$${fmt(pay)}</div>`;
     resultsHTML += `</div>`;
     document.getElementById('details').innerHTML = '';
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "overdraft") {
@@ -2510,7 +2516,7 @@ if (_loanFormEl) {
     resultsHTML += `<h3>Interest ${calcType === "monthly" ? 'This Month' : 'Per Year'}</h3><div class="big">$${fmt(interest)}</div>`;
     resultsHTML += `</div>`;
     renderDetails('overdraft', { limit, used, interestRatePct });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "equipment_asset") {
@@ -2536,7 +2542,7 @@ if (_loanFormEl) {
       balloonPct,
       balloonAmount
     });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "invoice_finance") {
@@ -2556,7 +2562,7 @@ if (_loanFormEl) {
       advanceRate: advanceRate * 100,
       discountFee: discountFee * 100
     });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "smsf_residential") {
@@ -2585,7 +2591,7 @@ if (_loanFormEl) {
     resultsHTML += `</div>`;
 
     renderDetails('smsf_residential', { ...ctx, ...res });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "smsf_commercial") {
@@ -2614,7 +2620,7 @@ if (_loanFormEl) {
     resultsHTML += `</div>`;
 
     renderDetails('smsf_commercial', { ...ctx, ...res });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   else if (loanPurpose === "smsf_refinance") {
@@ -2646,7 +2652,7 @@ if (_loanFormEl) {
     resultsHTML += `</div>`;
 
     renderDetails('smsf_refinance', { ...ctx, ...res });
-    window.lastCalc = { loanPurpose };
+    window.updateLastCalc({ loanPurpose });
   }
 
   // Write results and Step 3

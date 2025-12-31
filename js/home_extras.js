@@ -1053,7 +1053,7 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
       <div>Owner-Occupier Rate (End Debt): ${(ownerOccRate*100).toFixed(1)}% p.a.</div>
     `);
 
-    window.lastCalc = { loanPurpose: 'home_bridging' };
+    window.updateLastCalc({ loanPurpose: 'home_bridging' });
     $el('disclaimer').innerText = getDisclaimer('home_bridging');
     toggleRepaymentScenariosSection(false);
     updateSummary();
@@ -1118,7 +1118,7 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
       <div>Gross Annual Household Income: $${fmt(grossIncome)}</div>
     `);
 
-    window.lastCalc = { loanPurpose: 'home_next_home' };
+    window.updateLastCalc({ loanPurpose: 'home_next_home' });
     $el('disclaimer').innerText = getDisclaimer('home_next_home');
     toggleRepaymentScenariosSection(false);
     updateSummary();
@@ -1210,7 +1210,7 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
       <div>Marginal Tax Rate: ${(taxRate*100).toFixed(1)}%</div>
     `);
 
-    window.lastCalc = { loanPurpose: 'home_investment' };
+    window.updateLastCalc({ loanPurpose: 'home_investment' });
     $el('disclaimer').innerText = getDisclaimer('home_investment');
     toggleRepaymentScenariosSection(false);
     updateSummary();
@@ -1236,7 +1236,7 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
     if (res.error === "MAX_LVR_EXCEEDED") {
       // Reuse the project's standard max-LVR message when the scenario is invalid
       writeResults(maxLVRErrorMessage, 'home_equity_release');
-      window.lastCalc = { loanPurpose: 'home_equity_release' };
+      window.updateLastCalc({ loanPurpose: 'home_equity_release' });
       $el('disclaimer').innerText = getDisclaimer('home_equity_release');
       return true;
     }
@@ -1308,14 +1308,14 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
       <div>Max Accessible: $${fmt(res.maxAccessible)}</div>
     `);
 
-    window.lastCalc = {
+    window.updateLastCalc({
       loanPurpose: 'home_equity_release',
       baseLVR: res.baseLVR,
       loanAmount: res.baseLoanAmount,
       interestRate: ctx.interestRate,
       loanTerm: ctx.loanTerm,
       equityPurposeLabel
-    };
+    });
     $el('disclaimer').innerText = getDisclaimer('home_equity_release');
     toggleRepaymentScenariosSection(false);
     updateSummary();
@@ -1427,7 +1427,7 @@ Special Circumstances: Some lenders on our panel specialize in complex situation
       ${summaryBits.join('')}
     `);
 
-    window.lastCalc = { loanPurpose: 'home_construction' };
+    window.updateLastCalc({ loanPurpose: 'home_construction' });
     $el('disclaimer').innerText = getDisclaimer('home_construction');
     toggleRepaymentScenariosSection(false);
     updateSummary();
