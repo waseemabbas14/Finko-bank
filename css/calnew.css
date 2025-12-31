@@ -2145,6 +2145,7 @@ select#extraRepaymentFrequency:focus {
 /* LEFT CONTENT */
 
 .about-content {
+  padding: 0px 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
