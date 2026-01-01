@@ -18,20 +18,19 @@
     background-size: cover;
     background-position: top-center;
     background-repeat: no-repeat;
-    display: flex;
+
     gap: 15px;
-    flex-direction: column;
+  
   }
 
     .hero h1 {
       font-size: 24px;
-      margin-top: 30px;
+      /* margin-top: 60px; */
+      padding-top: 30px;
       margin-left: 40px;
       z-index: 1;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      color: white;
     }
 
   .intro {
@@ -180,22 +179,18 @@
       width: 100%;
     }
 
-    .hero h1 {
-      text-align: center;
-    }
+
 
   }
 
   @media (max-width: 1024px) {
 
     /* Hero Section */
-    .hero {
-      padding: 150px 50px;
+     .hero {
+     
+        padding:30px 0px 0px 40px;
     }
 
-    .hero h1 {
-      font-size: 48px;
-    }
 
     .hero h3 {
       width: 30%;
@@ -204,9 +199,10 @@
 
     /* Intro Section */
     .intro {
-      padding: 60px 0px;
+      padding: 60px 10px;
       text-align: center;
     }
+
 
     .intro h6 {
       width: 13%;
@@ -223,9 +219,9 @@
       font-size: 16px;
     }
 
-    .intro p {
-      width: 70%;
-      font-size: 16px;
+    .intro p{
+      width: 100% !important;
+  
     }
   }
 </style>

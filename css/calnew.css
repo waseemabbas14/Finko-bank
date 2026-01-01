@@ -2231,13 +2231,14 @@ select#extraRepaymentFrequency:focus {
   .about-container {
     flex-direction: column;
     gap: 40px;
-    padding: 0 20px;
+    padding: 0px;
   }
 
   .about-content,
   .about-image {
     width: 100%;
     height: auto;
+   padding: 0px 20px;
    
   }
   .about-image img {
