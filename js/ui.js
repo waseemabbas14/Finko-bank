@@ -1,68 +1,68 @@
-// ui.js
-/*
-// ui.js - COMPLETE UPDATED (Implements review changes from 3 documents)
-// - Home Upgrade: dynamic LVR/Loan Amount linking with 2dp precision
-// - Access Equity: rename to "Access Equity From My Home" + add "Primary Purpose for Equity Access" field + add "Rate Type", remove LVR input, reorder fields
-// - Debt Consolidation: expandable multi-debt list (add/remove rows with type, balance, rate, monthly payment)
-// - Minor: LVR % inputs support 2 decimals; number formatting preserved
-// - Hooks keep working with eventListeners.js auto-recalc
-*/
+d// ui.js
+  /*
+  // ui.js - COMPLETE UPDATED (Implements review changes from 3 documents)
+  // - Home Upgrade: dynamic LVR/Loan Amount linking with 2dp precision
+  // - Access Equity: rename to "Access Equity From My Home" + add "Primary Purpose for Equity Access" field + add "Rate Type", remove LVR input, reorder fields
+  // - Debt Consolidation: expandable multi-debt list (add/remove rows with type, balance, rate, monthly payment)
+  // - Minor: LVR % inputs support 2 decimals; number formatting preserved
+  // - Hooks keep working with eventListeners.js auto-recalc
+  */
 
-(function setupGlobalAutoRecalc() {
-  window.resetAutoRecalcGate = function () {
+  (function setupGlobalAutoRecalc() {
+    window.resetAutoRecalcGate = function () {
+      window.hasCalculated = false;
+      try { if (window.__recalcTimer) clearTimeout(window.__recalcTimer); } catch (e) { }
+      window.__autoRecalcBlockedUntil = Date.now() + 600;
+    };
+
     window.hasCalculated = false;
-    try { if (window.__recalcTimer) clearTimeout(window.__recalcTimer); } catch (e) { }
-    window.__autoRecalcBlockedUntil = Date.now() + 600;
-  };
+    window.isAutoRecalc = false;
 
-  window.hasCalculated = false;
-  window.isAutoRecalc = false;
+    function scheduleRecalc() {
+      if (!window.hasCalculated) return;
 
-  function scheduleRecalc() {
-    if (!window.hasCalculated) return;
+      if (window.__autoRecalcBlockedUntil && Date.now() < window.__autoRecalcBlockedUntil) return;
+      try { if (window.__recalcTimer) clearTimeout(window.__recalcTimer); } catch (e) { }
 
-    if (window.__autoRecalcBlockedUntil && Date.now() < window.__autoRecalcBlockedUntil) return;
-    try { if (window.__recalcTimer) clearTimeout(window.__recalcTimer); } catch (e) { }
+      window.__recalcTimer = setTimeout(() => {
+        const loanPurpose = document.getElementById('loanPurpose')?.value;
+        const form = document.getElementById('loanForm');
+        if (!loanPurpose || !form) return;
 
-    window.__recalcTimer = setTimeout(() => {
-      const loanPurpose = document.getElementById('loanPurpose')?.value;
-      const form = document.getElementById('loanForm');
-      if (!loanPurpose || !form) return;
+        window.isAutoRecalc = true;
 
-      window.isAutoRecalc = true;
+        try {
+          const evt = new Event('submit', { bubbles: true, cancelable: true });
+          form.dispatchEvent(evt);
+        } catch (e) {
+          try { form.submit(); } catch (e2) { }
+        }
 
-      try {
-        const evt = new Event('submit', { bubbles: true, cancelable: true });
-        form.dispatchEvent(evt);
-      } catch (e) {
-        try { form.submit(); } catch (e2) { }
-      }
+        window.isAutoRecalc = false;
+      }, 400);
+    }
 
-      window.isAutoRecalc = false;
-    }, 400);
-  }
+    function attachAutoRecalcDelegation() {
+      const df = document.getElementById('dynamicFields');
+      if (!df || df.__autoRecalcAttached) return;
+      df.addEventListener('input', scheduleRecalc, true);
+      df.addEventListener('change', scheduleRecalc, true);
+      df.__autoRecalcAttached = true;
+    }
 
-  function attachAutoRecalcDelegation() {
-    const df = document.getElementById('dynamicFields');
-    if (!df || df.__autoRecalcAttached) return;
-    df.addEventListener('input', scheduleRecalc, true);
-    df.addEventListener('change', scheduleRecalc, true);
-    df.__autoRecalcAttached = true;
-  }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attachAutoRecalcDelegation);
+    } else {
+      attachAutoRecalcDelegation();
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', attachAutoRecalcDelegation);
-  } else {
-    attachAutoRecalcDelegation();
-  }
-
-  const mo = new MutationObserver(() => {
-    attachAutoRecalcDelegation();
-  });
-  try {
-    mo.observe(document.body, { childList: true, subtree: true });
-  } catch (e) { }
-})();
+    const mo = new MutationObserver(() => {
+      attachAutoRecalcDelegation();
+    });
+    try {
+      mo.observe(document.body, { childList: true, subtree: true });
+    } catch (e) { }
+  })();
 
 function updateStepTitle(loanCategory, calculatorType, loanPurpose) {
   const stepTitle = document.querySelector('.step-title');
@@ -72,9 +72,9 @@ function updateStepTitle(loanCategory, calculatorType, loanPurpose) {
     stepTitle.innerHTML = '<h4 style="background: rgba(255, 255, 255, 0.1);border-radius:10px; padding: 8px 0px;">Select your purpose for ' + getLoanTypeDisplayName(loanCategory) + '</h4>';
   } else {
     stepTitle.innerHTML = `
-      <h3>HELLO</h3>
-      <br>
-      <h4 style="background: rgba(255, 255, 255, 0.1);border-radius:10px; padding: 8px 0px;">What brings you here today?</h4>
+    <i class="fa-solid fa-calculator "style=" font-size: 40px !important;
+ padding: 10px 10px 10px 10px !important;
+ color: #fc8b01;"></i>
     `;
   }
 }
@@ -336,8 +336,10 @@ function showAnimatedWelcomeMessage() {
   if (!summaryEl) return;
   summaryEl.innerHTML = `
     <div class="welcome-message-initial" id="welcome-message-static">
+     <div class="welcome-message-initial1" style="white-space:pre-line">
       <h2 class="col-title">WELCOME</h2>
-      <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your loan type and purpose to get started.</p>
+      <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your State. loan type and purpose to get started.</p>
+   </div>
     </div>
   `;
 }
@@ -348,7 +350,7 @@ function showStaticWelcomeMessage() {
   summaryEl.innerHTML = `
     <div class="welcome-message-static" id="welcome-message-static">
       <h2 class="col-title">WELCOME</h2>
-      <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your loan type and purpose to get started.</p>
+      <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your State. loan type and purpose to get started.</p>
     </div>
   `;
 }
@@ -442,7 +444,7 @@ function setupStatePillClickHandler() {
   });
 
   stateSelect.addEventListener('blur', () => {
-    try { stateSelect.size = 0; } catch (e) {}
+    try { stateSelect.size = 0; } catch (e) { }
   });
 }
 
@@ -830,22 +832,22 @@ function setupStreamlinedLoanSelection() {
     const loanCategory = document.getElementById('loanCategory').value;
     const calculatorType = document.getElementById('commercialCalculatorType')?.value || document.getElementById('smsfCalculatorType')?.value;
     const loanPurpose = this.value;
-      const summaryEl = document.getElementById('summary');
-      const resultsEl = document.getElementById('results');
-      const detailsEl = document.getElementById('details');
-      const disclaimerEl = document.getElementById('disclaimer');
-      if (summaryEl) summaryEl.innerHTML = '';
-      if (resultsEl) resultsEl.innerHTML = '';
-      if (detailsEl) detailsEl.innerHTML = '';
-      if (disclaimerEl) disclaimerEl.innerText = '';
-      try {
-        const repaymentSection = document.getElementById('repaymentScenariosSection');
-        const repaymentCalc = document.getElementById('repaymentScenariosCalculator');
-        const repayBtn = document.querySelector('.repayment-scenarios-btn');
-        if (repaymentSection) repaymentSection.style.display = 'none';
-        if (repaymentCalc && repaymentCalc.classList.contains('open')) repaymentCalc.classList.remove('open');
-        if (repayBtn && repayBtn.classList.contains('open')) repayBtn.classList.remove('open');
-      } catch (e) { }
+    const summaryEl = document.getElementById('summary');
+    const resultsEl = document.getElementById('results');
+    const detailsEl = document.getElementById('details');
+    const disclaimerEl = document.getElementById('disclaimer');
+    if (summaryEl) summaryEl.innerHTML = '';
+    if (resultsEl) resultsEl.innerHTML = '';
+    if (detailsEl) detailsEl.innerHTML = '';
+    if (disclaimerEl) disclaimerEl.innerText = '';
+    try {
+      const repaymentSection = document.getElementById('repaymentScenariosSection');
+      const repaymentCalc = document.getElementById('repaymentScenariosCalculator');
+      const repayBtn = document.querySelector('.repayment-scenarios-btn');
+      if (repaymentSection) repaymentSection.style.display = 'none';
+      if (repaymentCalc && repaymentCalc.classList.contains('open')) repaymentCalc.classList.remove('open');
+      if (repayBtn && repayBtn.classList.contains('open')) repayBtn.classList.remove('open');
+    } catch (e) { }
 
     updateContainerForLoanType(loanCategory, calculatorType, loanPurpose);
 
@@ -897,11 +899,11 @@ function initializeResultsPanel() {
   if (_detailsEl) _detailsEl.innerHTML = '';
   try {
     toggleRepaymentScenariosSection(false);
-  } catch (e) {}
+  } catch (e) { }
 
-  try { showAnimatedWelcomeMessage(); } catch (e) {}
+  try { showAnimatedWelcomeMessage(); } catch (e) { }
 
-  if (window.resetAutoRecalcGate) try { window.resetAutoRecalcGate(); } catch (e) {}
+  if (window.resetAutoRecalcGate) try { window.resetAutoRecalcGate(); } catch (e) { }
 }
 
 function setupLVRCalculator() {
@@ -1019,10 +1021,10 @@ function setupNumberFormatting() {
     // inputs explicitly marked to opt-out via `data-no-format="1"`.
     try {
       if (input.closest && input.closest('#emailModal')) return;
-    } catch (e) {}
+    } catch (e) { }
     try {
       if (input.dataset && input.dataset.noFormat === '1') return;
-    } catch (e) {}
+    } catch (e) { }
     formatNumberInput(input);
   });
 }
@@ -1233,7 +1235,7 @@ function renderFields(loanType) {
       <input type="hidden" id="interestRate" value="5.99">
     `);
   } else if (loanType === "home_upgrade") {
-fields.push(`
+    fields.push(`
   <div class="step-title">Step 2: HOME UPGRADE</div>
 
   <div class="row cols-2">
@@ -1273,7 +1275,7 @@ fields.push(`
   <input type="hidden" id="interestRate" value="5.99">
 `);
 
-  
+
   } else if (loanType === "home_equity") {
 
     // UPDATED: Reordered inputs, removed LVR input, added Rate Type, adjusted labels
@@ -1764,7 +1766,7 @@ function updateSummary() {
   const resultsEl = document.getElementById('results');
   const hasResults = !!(resultsEl && resultsEl.innerHTML.trim());
   const summaryEl = document.getElementById('summary');
-  
+
   // Allow dynamic Access Equity summary to render after calculation
   // For consistency with the app, we keep early return for no results.
   if (!hasResults) {
