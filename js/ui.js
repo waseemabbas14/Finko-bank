@@ -339,7 +339,7 @@ function showAnimatedWelcomeMessage() {
      <div class="welcome-message-initial1" style="white-space:pre-line">
       <h2 class="col-title">WELCOME</h2>
       <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your State. loan type and purpose to get started.</p>
-   </div>
+    </div>
     </div>
   `;
 }
@@ -349,8 +349,10 @@ function showStaticWelcomeMessage() {
   if (!summaryEl) return;
   summaryEl.innerHTML = `
     <div class="welcome-message-static" id="welcome-message-static">
+     <div class="welcome-message-initial1" style="white-space:pre-line">
       <h2 class="col-title">WELCOME</h2>
-      <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your State. loan type and purpose to get started.</p>
+      <p class="muted" >to Finco Capital. Please select your State. loan type and purpose to get started.</p>
+    </div>
     </div>
   `;
 }
