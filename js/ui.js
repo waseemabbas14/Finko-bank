@@ -1015,6 +1015,14 @@ function setupHomeUpgradeLVRCalculator() {
 function setupNumberFormatting() {
   const textInputs = document.querySelectorAll('input[type="text"]');
   textInputs.forEach(input => {
+    // Skip formatting for inputs inside the email modal (name/email) or
+    // inputs explicitly marked to opt-out via `data-no-format="1"`.
+    try {
+      if (input.closest && input.closest('#emailModal')) return;
+    } catch (e) {}
+    try {
+      if (input.dataset && input.dataset.noFormat === '1') return;
+    } catch (e) {}
     formatNumberInput(input);
   });
 }

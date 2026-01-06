@@ -44,11 +44,73 @@
 
   function buildCTA(loanType) {
     const btn = document.createElement('button');
-    btn.className = 'cta-btn';
+    btn.className = 'cta-btn btn-consultation';
     btn.type = 'button';
+    btn.dataset.action = 'consultation';
     // Standardize icon path to match other CTAs
     btn.innerHTML = `<img src="t-removebg-preview.png" alt="" style="width:10px; height:16px; vertical-align:middle;"> ${getCTALabel(loanType)}`;
-    btn.onclick = () => alert('Lead form coming soon! (We can pre-fill with calculation data here.)');
+    
+    // Onclick handler for CTA button - same as "Get a Free Consultation"
+    btn.onclick = function(e) {
+      try { e.preventDefault(); } catch (err) {}
+      try { e.stopPropagation(); } catch (err) {}
+      try { e.stopImmediatePropagation(); } catch (err) {}
+
+      // Prevent double clicks
+      if (btn._sending) return;
+      btn._sending = true;
+      const origHTML = btn.innerHTML;
+
+      // Ensure showEmailModal and sendResultsToEmailNow are available globally
+      if (typeof showEmailModal !== 'function' || typeof window.sendResultsToEmailNow !== 'function') {
+        btn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Error`;
+        setTimeout(function () {
+          try { btn.innerHTML = origHTML; } catch (e) {}
+          btn._sending = false;
+        }, 3000);
+        return;
+      }
+
+      // Open modal to collect name & email, then send
+      showEmailModal({}, async function (details) {
+        try {
+          btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>Sending...`;
+          const success = await window.sendResultsToEmailNow({ userFullName: details.fullName, userEmail: details.email });
+          if (success) {
+            btn.innerHTML = `<i class="fa-solid fa-check" style="margin-right:8px; color: #01eb5a;"></i>Email Sent!`;
+          } else {
+            btn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Calculate First to Submit`;
+          }
+        } catch (err) {
+          console.error('Error sending CTA email:', err);
+          btn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Error`;
+        } finally {
+          setTimeout(function () {
+            try { btn.innerHTML = origHTML; } catch (e) {}
+            btn._sending = false;
+          }, 3000);
+        }
+      });
+
+      // If user closes modal without submitting, re-enable the button and restore text
+      const modal = document.getElementById('emailModal');
+      if (modal) {
+        const observer = new MutationObserver((mutations) => {
+          if (!modal.classList.contains('show')) {
+            try { btn._sending = false; btn.innerHTML = origHTML; } catch (e) {}
+            observer.disconnect();
+          }
+        });
+        observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+
+        // In case modal was already closed quickly
+        if (!modal.classList.contains('show')) {
+          try { btn._sending = false; btn.innerHTML = origHTML; } catch (e) {}
+          observer.disconnect();
+        }
+      }
+    };
+    
     return btn;
   }
 

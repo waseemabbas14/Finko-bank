@@ -2688,10 +2688,62 @@ if (_loanFormEl) {
     // Back panel contains a dedicated 'Get a Free Consultation' button which is handled by the delegated handler.
     
     const ctaBtn = document.createElement('button');
-    ctaBtn.className = 'cta-btn';
+    ctaBtn.className = 'cta-btn btn-consultation';
     ctaBtn.type = 'button';
+    ctaBtn.dataset.action = 'consultation';
     ctaBtn.innerHTML = `<img src="t-removebg-preview.png" alt="" style="width:10px; height:16px; vertical-align:middle;"> ${getCTALabel(loanPurpose)}`;
-    ctaBtn.onclick = () => alert('Lead form coming soon! (We can pre-fill with calculation data here.)');
+    
+    // Onclick handler for CTA button - same as "Get a Free Consultation"
+    ctaBtn.onclick = function(e) {
+      try { e.preventDefault(); } catch (err) {}
+      try { e.stopPropagation(); } catch (err) {}
+      try { e.stopImmediatePropagation(); } catch (err) {}
+
+      // Prevent double clicks
+      if (ctaBtn._sending) return;
+      ctaBtn._sending = true;
+      const origHTML = ctaBtn.innerHTML;
+
+      // Open modal to collect name & email, then send
+      showEmailModal({}, async function (details) {
+        try {
+          ctaBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>Sending...`;
+          const success = await window.sendResultsToEmailNow({ userFullName: details.fullName, userEmail: details.email });
+          if (success) {
+            ctaBtn.innerHTML = `<i class="fa-solid fa-check" style="margin-right:8px; color: #01eb5a;"></i>Email Sent!`;
+          } else {
+            ctaBtn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Calculate First to Submit`;
+          }
+        } catch (err) {
+          console.error('Error sending CTA email:', err);
+          ctaBtn.innerHTML = `<i class="fa-solid fa-exclamation-circle" style="margin-right:8px; color: #ef4444;"></i>Error`;
+        } finally {
+          setTimeout(function () {
+            try { ctaBtn.innerHTML = origHTML; } catch (e) {}
+            ctaBtn._sending = false;
+          }, 3000);
+        }
+      });
+
+      // If user closes modal without submitting, re-enable the button and restore text
+      const modal = document.getElementById('emailModal');
+      if (modal) {
+        const observer = new MutationObserver((mutations) => {
+          if (!modal.classList.contains('show')) {
+            try { ctaBtn._sending = false; ctaBtn.innerHTML = origHTML; } catch (e) {}
+            observer.disconnect();
+          }
+        });
+        observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+
+        // In case modal was already closed quickly
+        if (!modal.classList.contains('show')) {
+          try { ctaBtn._sending = false; ctaBtn.innerHTML = origHTML; } catch (e) {}
+          observer.disconnect();
+        }
+      }
+    };
+    
     resultsEl.appendChild(ctaBtn);
   }
 
