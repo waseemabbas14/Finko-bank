@@ -935,6 +935,10 @@ input[readonly] {
     margin-top: 8px;
   }
 }
+.top-image-wrapper{
+      height: 293px !important;
+      padding: 0 !important;
+}
 
 /* Dashboard internal columns */
 .dash {
@@ -2396,6 +2400,7 @@ select#extraRepaymentFrequency:focus {
 
 .main-contents {
   padding: 20px !important;
+  
 }
 
 /* why section */
