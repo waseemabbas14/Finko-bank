@@ -96,7 +96,7 @@
       if (summaryEl) summaryEl.innerHTML = `
         <div class="welcome-message-static">
           <h2 class="col-title">WELCOME</h2>
-          <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your loan type and purpose to get started.</p>
+          <p class="muted" style="white-space:pre-line">to Finco Capital. Please select your state. loan type and purpose to get started.</p>
         </div>
       `;
     }

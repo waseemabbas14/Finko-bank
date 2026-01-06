@@ -11,7 +11,7 @@ window.emailjsReady = false;
   const EMAILJS_SERVICE_ID = 'service_finco_calculator';
   const EMAILJS_TEMPLATE_ID = 'template_calculation_res';
   const EMAILJS_PUBLIC_KEY = '_3-Pa82P2kn0pPq_M'; // Will be replaced with actual key
-  const RECIPIENT_EMAIL = 'mehdiakbar905@gmail.com';
+  const RECIPIENT_EMAIL = 'denove@fincocapital.com.au';
 
   // Configuration: whether to automatically send emails after every calculation.
   // Default is false — emails will only be sent when the user clicks "Send Results to Email".

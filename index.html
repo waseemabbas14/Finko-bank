@@ -16,17 +16,7 @@
 
 <body>
   <!-- header -->
-  <div class="top">
-    <div class="read-more">
-      <p><i class="fa-solid fa-circle-exclamation"></i>Finco Bank’s latest financial policies and customer support
-        guidelines</p>
-      <a href="./main-pages/read-more.html"><button class="more">Read More</button></a>
-    </div>
-    <div class="call">
-      <p><i class="fa-solid fa-phone-flip"></i>0123456789</p>
-      <p><i class="fa-solid fa-envelope"></i>service@abc.com</p>
-    </div>
-  </div>
+
   <header>
     <div class="image">
       <img src="assests/finko-removebg-preview.png" alt="" decoding="async">
@@ -39,8 +29,14 @@
     <nav class="navbar" id="navbar">
       <div class="nav-menu">
         <div class="nav-item"><a href="index.html" class="nav-link">HOME</a></div>
+<<<<<<< HEAD
         <div class="nav-item dropdown mega-dropdown" onmouseout="closeDropdown(event)">
           <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)" onclick="toggleDropdown(event)">HOME LOAN</button>
+=======
+        <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
+          <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)"
+            onclick="toggleDropdown(event)">HOME LOAN</button>
+>>>>>>> cb0aed862d7de5d0756856935d7a6043b27a4327
           <div class="dropdown-menu">
 
             <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'home', 'bridging')">Bridging Loans</a>
@@ -68,7 +64,8 @@
           </div>
         </div>
         <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
-          <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)" onclick="toggleDropdown(event)">COMMERCIAL LOAN</button>
+          <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)"
+            onclick="toggleDropdown(event)">COMMERCIAL LENDING</button>
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item" onclick="selectFromDropdown(event, 'commercial', 'business-loc')">Business
               Line of Credit</a>
@@ -85,7 +82,8 @@
           </div>
         </div>
         <div class="nav-item dropdown" onmouseout="closeDropdown(event)">
-          <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)" onclick="toggleDropdown(event)">SMSF LOAN</button>
+          <button type="button" class="nav-link dropdown-toggle" onmouseover="toggleDropdown(event)"
+            onclick="toggleDropdown(event)">SMSF LRBA</button>
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item"
               onclick="selectFromDropdown(event, 'smsf', 'residential-smsf')">Residential SMSF Loans</a>
@@ -95,7 +93,9 @@
         </div>
         <div class="nav-item"><a href="main-pages/About-us.html" class="nav-link">ABOUT US</a></div>
         <div class="nav-item"><a href="main-pages/Blog.html" class="nav-link">BLOG</a></div>
-        <div class="nav-item"><a href="main-pages/FAQS.html" class="nav-link">FAQS</a></div>
+        <div class="nav-item"><a href="/main-pages/FAQS.html" class="nav-link"
+            style="border: 2px solid #ffffff;background-color: #ffffff; border-radius: 5px; padding: 4px 5px;">Case
+            Solver</a></div>
         <div class="nav-item"><a href="main-pages/Contact-us.html" class="nav-link">CONTACT</a></div>
       </div>
     </nav>
@@ -107,8 +107,17 @@
   <div class="section1">
     <div class="container">
       <div class="grid-3">
-        <!-- LEFT: Input panel -->
         <aside class="card left-panel">
+          <div class="step">
+            <i class="fa-solid fa-calculator icond"></i>
+
+          </div>
+
+
+
+
+          <!-- LEFT: Input panel -->
+
 
           <div class="state-pill" id="statePill">
             <div class="state-select-container" id="stateSelectContainer">
@@ -130,15 +139,6 @@
 
             <div class="state-name" id="stateName" style="display: none;"></div>
           </div>
-
-          <div class="step">
-            <div class="step-title">
-              <h3 style="margin-bottom: 5px;">HELLO</h3>
-              <h4 style="background: rgba(255, 255, 255, 0.1);border-radius:10px; padding: 8px 0px;">What brings you
-                here today?</h4>
-            </div>
-          </div>
-
           <form id="loanForm" autocomplete="off">
             <div class="seg">
               <div class="row">
@@ -238,14 +238,15 @@
           </div>
           <div id="disclaimer" class="disclaimer">
           </div>
-          
+
         </section>
-          <div class="flip-controls " style="width: 7%;">
-        <a href="#" style="text-decoration: none;"><button id="flipButton" class="btn btn-outline" type="button" aria-pressed="false" title="Flip panel">Flip
-          panel</button>
+        <div class="flip-controls " style="width: 7%;">
+          <a href="#" style="text-decoration: none;"><button id="flipButton" class="btn btn-outline" type="button"
+              aria-pressed="false" title="Flip panel">Flip
+              panel</button>
+        </div>
       </div>
-      </div>
-    
+
     </div>
   </div>
   <section class="about-section">
@@ -258,7 +259,7 @@
         <h2>We Are the Solution for Your Financial <br> Needs</h2>
 
         <p>
-          <strong>Finco Bank</strong> is committed to delivering modern, secure, and
+          <strong>Finco Capital</strong> is committed to delivering modern, secure, and
           customer focused banking services. Our mission is to make financial
           growth accessible for everyone from individuals to businesses. With
           innovative solutions, transparent policies, and a dedicated team, we
@@ -268,7 +269,7 @@
         <p>
           We believe in building long term relationships based on trust,
           reliability, and excellence. Whether it’s savings, loans, or
-          investments, <strong>Finco Bank</strong> is here to help you achieve your
+          investments, <strong>Finco Capital</strong> is here to help you achieve your
           goals every step of the way.
         </p>
 
@@ -292,7 +293,7 @@
       <!-- CONTENT -->
       <div class="why-content">
 
-        <span class="why-tag">WHY YOU SHOULD CHOOSE FINCO BANK</span>
+        <span class="why-tag">WHY YOU SHOULD CHOOSE FINCO Capital</span>
 
         <!-- Item 1 -->
         <div class="why-item">
@@ -302,7 +303,7 @@
           <div class="why-text">
             <h3>Affordable and Flexible Financial Plans</h3>
             <p>
-              Finco Bank offers secure and reliable financial services designed
+              Finco Capital offers secure and reliable financial services designed
               to help you manage your money with confidence and ease.
             </p>
             <a href="./main-pages/Services.html">View Detail →</a>
@@ -315,9 +316,9 @@
             <img src="./assests/2.webp" alt="Easy Loan">
           </div>
           <div class="why-text">
-            <h3>The Easiest Way to Get Your Loan with Finco Bank</h3>
+            <h3>The Easiest Way to Get Your Loan with Finco Capital</h3>
             <p>
-              At Finco Bank, we make applying for a loan simple, fast, and
+              At Finco Capital, we make applying for a loan simple, fast, and
               secure. Our flexible plans and transparent process ensure you
               get the financial support you need without any hassle.
             </p>
@@ -333,7 +334,7 @@
           <div class="why-text">
             <h3>24 Hour Call Service</h3>
             <p>
-              Finco Bank offers round-the-clock support to help you manage
+              Finco Capital offers round-the-clock support to help you manage
               your finances quickly, securely, and with complete peace of
               mind.
             </p>
@@ -376,7 +377,7 @@
           <h3>Home Loan</h3>
 
           <p>
-            Finco Bank Home Loans help you buy your dream home with flexible
+            Finco Capital Home Loans help you buy your dream home with flexible
             repayment plans, competitive interest rates, and hassle free
             application. We make home ownership simple and achievable for
             everyone.
@@ -394,7 +395,7 @@
           <h3>Commercial Loan</h3>
 
           <p>
-            Finco Bank Commercial Loans provide businesses with flexible
+            Finco Capital Commercial Loans provide businesses with flexible
             financing solutions to grow, expand, and manage operations
             efficiently. Enjoy competitive interest rates, tailored repayment
             plans, and a smooth approval process.
@@ -412,7 +413,7 @@
           <h3>SMSF Loan</h3>
 
           <p>
-            Finco Bank provides tailored financial solutions to meet your
+            Finco Capital provides tailored financial solutions to meet your
             unique needs. Whether it’s a personal, home, or commercial loan,
             our expert team ensures a smooth, fast, and reliable application
             process.Simple and customer-focused financing.
@@ -444,7 +445,7 @@
         </h2>
 
         <p>
-          At Finco Bank, our team of experienced financial experts is dedicated
+          At Finco Capital, our team of experienced financial experts is dedicated
           to providing you with personalized banking solutions. From home loans
           to commercial financing, we guide you every step of the way to ensure
           secure, reliable, and efficient financial services.
@@ -558,7 +559,7 @@
         <div class="newsletter">
           <h3>NEWSLETTER</h3>
           <h1>Join Our Newsletter</h1>
-          <p>Stay connected with Finco Bank and never miss an update! Subscribe to our newsletter and get the latest
+          <p>Stay connected with Finco Capital and never miss an update! Subscribe to our newsletter and get the latest
             news, financial tips, exclusive offers, and banking insights</p>
         </div>
         <div class="foot-form">
@@ -571,7 +572,7 @@
       <div class="fink">
         <img src="../assests/logo.png" alt="" width="200px">
         <p>
-          Finco Bank empowering your financial future with secure, smart, and seamless banking solutions</p>
+          Finco Capital empowering your financial future with secure, smart, and seamless banking solutions</p>
       </div>
       <div class="footer-menu">
         <h1>Menu</h1>
@@ -579,7 +580,7 @@
           <li><a href="./index.html">Home</a></li>
           <li><a href="./main-pages/About-us.html">About Us</a></li>
           <li><a href="./main-pages/Blog.html">Blog</a></li>
-          <li><a href="./main-pages/FAQs.html">FAQs</a></li>
+          <li><a href="./main-pages/FAQs.html">Case Solver</a></li>
           <li><a href="./main-pages/Contact-us.html">Contact Us</a></li>
       </div>
       <div class="footer-menu">
@@ -593,7 +594,7 @@
         <h1>Contact</h1>
         <p class="ic"><i class="fa-solid fa-location-dot"></i> Sydney Austrilia</p>
         <p class="ic"><i class="fa-solid fa-phone-flip"></i>12345678</p>
-        <p class="ic"><i class="fa-solid fa-envelope"></i> Abcdef@.com</p>
+        <p class="ic"><i class="fa-solid fa-envelope"></i>denove@fincocapital.com.au</p>
         <div class="contact-icons">
           <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
           <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -626,7 +627,7 @@
   <script src="js/blog_data.js" defer></script>
 
   <!-- EmailJS Library for Email Notifications (MUST load first, no defer) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 
   <!-- Email Service Module - loads after EmailJS -->
