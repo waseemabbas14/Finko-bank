@@ -1011,7 +1011,7 @@ input[readonly] {
 }
 
 #dashboardCard.flip-transition {
-  transition: transform 360ms ease-in-out;
+  transition: transform 650ms ease-in-out !important;
 }
 
 #dashboardCard.flipped {
