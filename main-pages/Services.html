@@ -13,25 +13,29 @@
 </head>
 <style>
   .hero {
-    height: 330px;
-    background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0, 0, 0, 0.55)), url("/assests/f2.webp");
+    height: 250px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/assests/a1.webp);
     background-size: cover;
-    background-position: top-center;
-    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: start;
+    padding-left: 40px;
+    color: #fff;
+    position: relative;
+    z-index: -100;
+    padding-top: 80px;
 
-    gap: 15px;
-  
   }
 
-    .hero h1 {
-      font-size: 24px;
-      /* margin-top: 60px; */
-      padding-top: 30px;
-      margin-left: 40px;
-      z-index: 1;
-      font-weight: 600;
-      color: white;
-    }
+  .hero h1 {
+    font-size: 24px;
+    /* margin-top: 60px; */
+    padding-top: 30px;
+    margin-left: 40px;
+    z-index: 1;
+    font-weight: 600;
+    color: white;
+  }
 
   .intro {
     width: 100%;
@@ -186,9 +190,9 @@
   @media (max-width: 1024px) {
 
     /* Hero Section */
-     .hero {
-     
-        padding:30px 0px 0px 40px;
+    .hero {
+
+      padding: 30px 0px 0px 40px;
     }
 
 
@@ -219,9 +223,9 @@
       font-size: 16px;
     }
 
-    .intro p{
+    .intro p {
       width: 100% !important;
-  
+
     }
   }
 </style>
