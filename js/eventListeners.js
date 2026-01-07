@@ -817,6 +817,25 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Apply URL parameters if page was navigated with query parameters (from dropdown selection)
   applyURLParametersToForm();
+  // Ensure default state is Victoria if none selected (run early so streamlined selection sees it)
+  (function setDefaultStateVictoria() {
+    try {
+      const ss = document.getElementById('stateSelect');
+      if (ss && !ss.value) {
+        const opt = Array.from(ss.options).find(o => {
+          const v = (o.value || '').toLowerCase();
+          const t = (o.textContent || '').toLowerCase();
+          return v === 'vic' || t.indexOf('victoria') !== -1;
+        });
+        if (opt) {
+          // mark that we set the state programmatically to avoid race resets
+          try { window._stateWasAutoSet = true; } catch (e) {}
+          ss.value = opt.value;
+          ss.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    } catch (e) { }
+  })();
   
   // Setup streamlined loan selection
   setupStreamlinedLoanSelection();
@@ -832,6 +851,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Setup state change listener (does not reset gate; same scenario)
   document.getElementById('stateSelect').addEventListener('change', (e) => {
+    // Clear the auto-set flag after first state change to allow normal behavior
+    try { window._stateWasAutoSet = false; } catch (err) { }
     updateStatePill();
     updateSummary();
 

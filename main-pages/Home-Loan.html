@@ -274,7 +274,18 @@
       const purpose = params.get('purpose');
       const category = params.get('category') || 'home';
       const openBack = params.get('openBack') === '1';
-      if (!purpose) return;
+      
+      // If no URL params, default to 'home' category to trigger streamlined selection
+      if (!purpose) {
+        try {
+          const loanCategory = document.getElementById('loanCategory');
+          if (loanCategory && !loanCategory.value) {
+            loanCategory.value = 'home';
+            loanCategory.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        } catch (e) { }
+        return;
+      }
 
       const loanCategory = document.getElementById('loanCategory');
       if (loanCategory) {
