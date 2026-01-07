@@ -337,7 +337,7 @@ function showAnimatedWelcomeMessage() {
   summaryEl.innerHTML = `
     <div class="welcome-message-initial" id="welcome-message-static">
      <div class="welcome-message-initial1" style="white-space:pre-line">
-      <img src="./assests/cal-back.jpeg" alt="Calculator Background" width="100%">
+      <img src="./assests/cal-back.png" alt="Calculator Background" width="100%">
     </div>
     </div>
   `;
@@ -349,7 +349,7 @@ function showStaticWelcomeMessage() {
   summaryEl.innerHTML = `
     <div class="welcome-message-static" id="welcome-message-static">
      <div class="welcome-message-initial1" style="white-space:pre-line">
-      <img src="/assests/cal-back.jpeg" alt="Calculator Background" width="100%">
+      <img src="/assests/cal-back.png" alt="Calculator Background" width="100%">
     </div>
     </div>
   `;

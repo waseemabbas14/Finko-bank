@@ -1578,7 +1578,11 @@ button[type="submit"] {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
-    height: 100%;
+    height: 100% !important;
+    max-height: 600px !important;
+   
+    margin-top: -53px !important;
+    margin-bottom: -27px !important;
 }
 .welcome-message-initial1 img{
   height: 100%;
@@ -1589,14 +1593,15 @@ button[type="submit"] {
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
   width: 60%;
-  height: 100%;
+  height: 300px;
+
   border-radius: 18px;
   grid-row: 1px !important;
   display: flex;
   justify-content: start;
   flex-direction: column;
   align-items: center;
-  padding: 10px !important;
+  padding: 0px !important;
 
 }
 
@@ -1980,7 +1985,7 @@ button[type="submit"] {
 
 .welcome-message-initial {
   width: 100%;
-  min-width: 780px;
+  min-width: 760px;
   height: 198px;
   display: flex;
   flex-direction: column;
@@ -2043,6 +2048,7 @@ button[type="submit"] {
   .welcome-message-initial {
     width: 100%;
     min-width: 10px !important;
+    margin: 0px !important;
   }
 }
 
