@@ -745,8 +745,11 @@ function setupStreamlinedLoanSelection() {
   loanCategorySelect.addEventListener('change', function () {
     // Prevent selecting a loan category before a state has been chosen
     if (!stateSelect || !stateSelect.value) {
-      setSelectLabelOnly(loanCategorySelect, 'Loan Type');
-      return;
+      // Allow change if we programmatically set the state earlier (avoid race where UI was still inert)
+      if (!window._stateWasAutoSet) {
+        setSelectLabelOnly(loanCategorySelect, 'Loan Type');
+        return;
+      }
     }
 
     const category = this.value;
@@ -766,11 +769,27 @@ function setupStreamlinedLoanSelection() {
       toggleCommercialCalculatorType(true);
       toggleSMSFCalculatorType(false);
       if (window.unmountSMSFFinancialMode) window.unmountSMSFFinancialMode();
+      // Auto-select a sensible commercial calculator so purpose options populate
+      try {
+        const commercialCalc = document.getElementById('commercialCalculatorType');
+        if (commercialCalc && !commercialCalc.value) {
+          commercialCalc.value = 'simple';
+          commercialCalc.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } catch (e) { }
 
     } else if (category === 'smsf') {
       toggleSMSFCalculatorType(true);
       toggleCommercialCalculatorType(false);
       if (window.unmountCommercialFinancialMode) window.unmountCommercialFinancialMode();
+      // Auto-select a sensible SMSF calculator so purpose options populate
+      try {
+        const smsfCalc = document.getElementById('smsfCalculatorType');
+        if (smsfCalc && !smsfCalc.value) {
+          smsfCalc.value = 'simple';
+          smsfCalc.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } catch (e) { }
 
     } else {
       toggleCommercialCalculatorType(false);
@@ -830,7 +849,9 @@ function setupStreamlinedLoanSelection() {
     if (window.resetAutoRecalcGate) window.resetAutoRecalcGate();
 
     const loanCategory = document.getElementById('loanCategory').value;
-    const calculatorType = document.getElementById('commercialCalculatorType')?.value || document.getElementById('smsfCalculatorType')?.value;
+    // Only read calculator type if category is commercial or smsf; home doesn't use it
+    const calculatorType = loanCategory === 'commercial' ? document.getElementById('commercialCalculatorType')?.value :
+      loanCategory === 'smsf' ? document.getElementById('smsfCalculatorType')?.value : '';
     const loanPurpose = this.value;
     const summaryEl = document.getElementById('summary');
     const resultsEl = document.getElementById('results');
