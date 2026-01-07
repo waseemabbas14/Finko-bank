@@ -14,15 +14,15 @@
 function initHamburgerMenu() {
   const hamburger = document.getElementById('hamburger');
   const navbar = document.getElementById('navbar');
-  
+ 
   if (!hamburger || !navbar) return;
-  
+ 
   hamburger.addEventListener('click', function(e) {
     e.preventDefault();
     hamburger.classList.toggle('active');
     navbar.classList.toggle('active');
   });
-  
+ 
   // Close menu when dropdown is clicked
   document.querySelectorAll('.dropdown-item').forEach(item => {
     item.addEventListener('click', function() {
@@ -30,7 +30,7 @@ function initHamburgerMenu() {
       navbar.classList.remove('active');
     });
   });
-  
+ 
   // Close menu when clicking outside
   document.addEventListener('click', function(e) {
     if (!e.target.closest('header')) {
@@ -62,7 +62,7 @@ function toggleDropdown(event) {
   const dropdownMenu = button ? button.nextElementSibling : null;
   if (!dropdownMenu) return;
   const isMobile = window.innerWidth <= 768;
-  
+ 
   // Close all dropdowns first
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
     if (menu !== dropdownMenu) {
@@ -74,7 +74,7 @@ function toggleDropdown(event) {
       btn.setAttribute('aria-expanded', 'false');
     }
   });
-  
+ 
   // On hover (desktop), always open
   if (!isMobile) {
     dropdownMenu.classList.add('active');
@@ -96,12 +96,12 @@ function closeDropdown(event) {
   // Only close if mouse actually left the dropdown container
   const dropdownContainer = event.currentTarget;
   const relatedTarget = event.relatedTarget;
-  
+ 
   // Check if mouse moved to something outside this dropdown
   if (relatedTarget && !dropdownContainer.contains(relatedTarget)) {
     const dropdownMenu = dropdownContainer.querySelector('.dropdown-menu');
     const button = dropdownContainer.querySelector('.dropdown-toggle');
-    
+   
     if (dropdownMenu) {
       dropdownMenu.classList.remove('active');
     }
@@ -120,10 +120,10 @@ function applyURLParametersToForm() {
     const friendlyFront = params.get('friendlyFront');
     const frontPurpose = params.get('frontPurpose');
     const openBack = params.get('openBack');
-    
+   
     // If no category/purpose in URL, nothing to do
     if (!category && !purpose) return;
-    
+   
     // Store these values to apply when user selects state
     window.pendingURLSelection = {
       category: category,
@@ -131,7 +131,7 @@ function applyURLParametersToForm() {
       friendlyFront: friendlyFront,
       openBack: openBack
     };
-    
+   
   } catch (error) {
     console.warn('Error reading URL parameters:', error);
   }
@@ -141,17 +141,17 @@ function applyURLParametersToForm() {
 function applyPendingURLSelection() {
   try {
     if (!window.pendingURLSelection) return;
-    
+   
     const { category, purpose, friendlyFront, openBack } = window.pendingURLSelection;
     const loanCategorySelect = document.getElementById('loanCategory');
     const loanPurposeSelect = document.getElementById('loanPurpose');
-    
+   
     // Set loan category
     if (category && loanCategorySelect) {
       loanCategorySelect.value = category;
       loanCategorySelect.dispatchEvent(new Event('change', { bubbles: true }));
     }
-    
+   
     // For commercial loans, auto-select simple calculator
     if (category === 'commercial') {
       setTimeout(() => {
@@ -162,7 +162,7 @@ function applyPendingURLSelection() {
         }
       }, 200);
     }
-    
+   
     // For SMSF loans, auto-select simple calculator
     if (category === 'smsf') {
       setTimeout(() => {
@@ -173,16 +173,16 @@ function applyPendingURLSelection() {
         }
       }, 200);
     }
-    
+   
     // Set loan purpose with retries (purpose options may take time to populate)
     if (purpose) {
       let attempts = 0;
       const maxAttempts = 20;
-      
+
       function applyPurpose() {
         attempts++;
         const loanPurposeSelect = document.getElementById('loanPurpose');
-        
+
         if (loanPurposeSelect && loanPurposeSelect.options && loanPurposeSelect.options.length > 1) {
           // Try to find the purpose option
           const purposeOpt = Array.from(loanPurposeSelect.options).find(o => {
@@ -190,16 +190,16 @@ function applyPendingURLSelection() {
             const text = (o.textContent || '').trim().toLowerCase();
             const friendlyCandidate = (friendlyFront || '').replace(/[_-]/g, ' ').toLowerCase();
             const purposeCandidate = (purpose || '').replace(/[_-]/g, ' ').toLowerCase();
-            
-            return val === purpose || 
-                   text.includes(purposeCandidate) || 
+
+            return val === purpose ||
+                   text.includes(purposeCandidate) ||
                    (friendlyCandidate && text.includes(friendlyCandidate));
           });
-          
+
           if (purposeOpt) {
             loanPurposeSelect.value = purposeOpt.value;
             loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-            
+
             // If openBack is set, flip to the back panel
             if (openBack === '1') {
               setTimeout(() => {
@@ -208,22 +208,31 @@ function applyPendingURLSelection() {
                 }
               }, 300);
             }
-            
+
             // Clear pending selection
             window.pendingURLSelection = null;
             return;
           }
         }
-        
+
         // Retry if options not ready yet
         if (attempts < maxAttempts) {
           setTimeout(applyPurpose, 150);
         }
       }
-      
-      applyPurpose();
+
+      // Ensure home_extras is loaded first when selecting Home purposes so options exist.
+      // Also handle cases where the URL provides a home purpose but not an explicit category.
+      function startApplyPurpose() { applyPurpose(); }
+      try {
+        if (category === 'home' && typeof ensureHomeExtrasLoaded === 'function') {
+          ensureHomeExtrasLoaded().then(startApplyPurpose).catch(startApplyPurpose);
+        } else {
+          startApplyPurpose();
+        }
+      } catch (e) { startApplyPurpose(); }
     }
-    
+   
   } catch (error) {
     console.warn('Error applying pending URL selection:', error);
   }
@@ -231,6 +240,7 @@ function applyPendingURLSelection() {
 
 function selectFromDropdown(event, category, purpose) {
   event.preventDefault();
+  console.debug('selectFromDropdown invoked', { category: category, purpose: purpose, pathname: window.location.pathname });
 
   // Close all dropdowns
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
@@ -245,16 +255,16 @@ function selectFromDropdown(event, category, purpose) {
     'bridging': 'home_bridging',
     'next-home': 'home_equity', // Buy Your Next Home -> access equity from my home
     'construction': 'home_repayment',
-    'custom-build': 'home_custom_build',
+    'custom-build': 'home_repayment',
     'consolidate': 'home_consolidate',
     'equity-release': 'home_equity_release',
     'expat': 'home_expat',
-    'first-home': 'home_first_home', // First Home Buyer -> load dedicated page but select home_repayment calculator
+    'first-home': 'home_repayment', // First Home Buyer -> select repayment calculator
     'home-loan': 'home_borrowing',
     'investment': 'home_investment',
     'refinance': 'home_refinance',
     'reverse': 'home_reverse',
-    'self-employed': 'home_self_employed',
+    'self-employed': 'home_repayment',
 
     // Commercial mappings
     // 'Business Line of Credit' should select the overdraft/LOC repayment scenario
@@ -527,9 +537,47 @@ function selectFromDropdown(event, category, purpose) {
       }
     }
 
-    // Start attempts immediately
-    attempt();
+    // Start attempts immediately — but for Home category ensure the home_extras module is loaded
+    function startAttempts() { attempt(); }
+    try {
+      if (category === 'home' && typeof ensureHomeExtrasLoaded === 'function') {
+        ensureHomeExtrasLoaded().then(startAttempts).catch(startAttempts);
+      } else {
+        startAttempts();
+      }
+    } catch (e) { startAttempts(); }
   })();
+
+  // Final safety: ensure front loan purpose applied after a short delay (handles race conditions where options arrive late)
+  try {
+    setTimeout(() => {
+      try {
+        if (category === 'home' && !isEquityReleaseOnlyCategory) {
+          const lp = document.getElementById('loanPurpose');
+          if (!lp) return;
+          // Already correct — nothing to do
+          if ((lp.value || '').trim() === (translatedPurpose || '').trim()) return;
+
+          const friendlyCandidate = (purpose || '').replace(/[_-]/g,' ').toLowerCase();
+          const translatedCandidate = (translatedPurpose || '').replace(/[_-]/g,' ').toLowerCase();
+
+          const opt = Array.from(lp.options).find(o => {
+            const text = (o.textContent || '').trim().toLowerCase();
+            const val = (o.value || '').trim();
+            return val === translatedPurpose || val === purpose || (o.dataset && o.dataset.key === translatedPurpose) || text.includes(translatedCandidate) || (friendlyCandidate && text.includes(friendlyCandidate));
+          });
+
+          if (opt) {
+            lp.value = opt.value;
+          } else {
+            lp.value = translatedPurpose;
+          }
+          lp.dispatchEvent(new Event('change', { bubbles: true }));
+          console.debug('selectFromDropdown: SAFETY applied front purpose ->', lp.value);
+        }
+      } catch (e) { /* ignore */ }
+    }, 500);
+  } catch (e) { /* ignore */ }
 }
 
 // Close dropdowns when clicking outside
@@ -814,7 +862,7 @@ function initDownloadGuideButtons() {
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize hamburger menu for mobile
   initHamburgerMenu();
-  
+ 
   // Apply URL parameters if page was navigated with query parameters (from dropdown selection)
   applyURLParametersToForm();
   // Ensure default state is Victoria if none selected (run early so streamlined selection sees it)
@@ -825,7 +873,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const opt = Array.from(ss.options).find(o => {
           const v = (o.value || '').toLowerCase();
           const t = (o.textContent || '').toLowerCase();
-          return v === 'vic' || t.indexOf('victoria') !== -1;
+          return v == 'vic' || t.indexOf('victoria') !== -1;
         });
         if (opt) {
           // mark that we set the state programmatically to avoid race resets
@@ -836,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     } catch (e) { }
   })();
-  
+ 
   // Setup streamlined loan selection
   setupStreamlinedLoanSelection();
 
@@ -863,7 +911,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply category (already set) and set front purpose/calculator
         const loanCategorySelect = document.getElementById('loanCategory');
         const loanPurposeSelect = document.getElementById('loanPurpose');
-        
+       
         if (loanCategorySelect) {
           loanCategorySelect.value = pending.category;
           loanCategorySelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -920,7 +968,15 @@ document.addEventListener('DOMContentLoaded', function() {
               window.pendingDropdownSelection = null;
             }
           }
-          setTimeout(applyPurposeAttempt, 80);
+          // Ensure home_extras is loaded before applying front-purpose for Home category
+          const startApply = () => setTimeout(applyPurposeAttempt, 80);
+          try {
+            if (pending.category === 'home' && typeof ensureHomeExtrasLoaded === 'function') {
+              ensureHomeExtrasLoaded().then(startApply).catch(startApply);
+            } else {
+              startApply();
+            }
+          } catch (e) { startApply(); }
         }
       }
     } catch (err) {
@@ -944,19 +1000,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const state = document.getElementById('stateSelect').value;
       const loanPurpose = document.getElementById('loanPurpose').value;
       if (!state || !loanPurpose || !window.hasCalculated) return;
-      
-      try { 
-        if (window.__recalcTimer) clearTimeout(window.__recalcTimer); 
+     
+      try {
+        if (window.__recalcTimer) clearTimeout(window.__recalcTimer);
       } catch (e) {}
-      
+     
       window.__recalcTimer = setTimeout(() => {
         try {
           // Create a proper form submission that will respect the validation
-          const submitEvent = new Event('submit', { 
+          const submitEvent = new Event('submit', {
             cancelable: true,
-            bubbles: true 
+            bubbles: true
           });
-          
+         
           // Set a flag to indicate this is an auto-recalc, not manual
           window.isAutoRecalc = true;
           document.getElementById('loanForm').dispatchEvent(submitEvent);
@@ -966,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 400);
     };
-    
+   
     dyn.addEventListener('input', scheduleRecalc);
     dyn.addEventListener('change', scheduleRecalc);
   }
@@ -1048,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
     `;
-    
+   
     // Initialize FAQ toggles for back panel
     (function(){
       const questions = backContainer.querySelectorAll('.faq-question');
@@ -1374,7 +1430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const faq = q.closest('.faq') || q.closest('.cb-faq-item');
         const answer = (faq && (faq.querySelector('.faq-answer') || faq.querySelector('.cb-faq-answer')));
       if (!answer) return;
-      
+     
       answer.style.boxSizing = 'border-box';
 
       function openFaq() {
@@ -1716,7 +1772,7 @@ function validateForm(loanType) {
 function toggleRepaymentScenarios() {
   const calculator = document.getElementById('repaymentScenariosCalculator');
   const button = document.querySelector('.repayment-scenarios-btn');
-  
+ 
   if (calculator.classList.contains('open')) {
     calculator.classList.remove('open');
     button.classList.remove('open');
@@ -1736,7 +1792,7 @@ function calculateRepaymentScenarios() {
   const extraRepaymentAmount = num(document.getElementById('extraRepaymentAmount').value);
   const extraRepaymentFrequency = document.getElementById('extraRepaymentFrequency').value;
   const loanPurpose = document.getElementById('loanPurpose').value;
-  
+ 
   if (extraRepaymentAmount <= 0) {
     // Clear results if no valid input
     document.getElementById('repaymentScenariosResults').innerHTML = '';
@@ -1744,15 +1800,15 @@ function calculateRepaymentScenarios() {
   }
 
   let resultsHTML = '';
-  
+ 
   // Get the current loan details based on the loan purpose
   if (loanPurpose === "home_repayment") {
     const loanAmount = num(document.getElementById('loanAmount')?.value || 0);
     const interestRate = 5.99 / 100; // Using the same rate as main calculator
     const loanTerm = num(document.getElementById('loanTerm')?.value || 30);
-    
+   
     const scenarios = calculateExtraRepaymentScenarioWithFrequency(loanAmount, interestRate, loanTerm, extraRepaymentAmount, extraRepaymentFrequency);
-    
+   
     // Display text based on frequency
     let frequencyText = '';
     let extraRepaymentDisplay = '';
@@ -1771,7 +1827,7 @@ function calculateRepaymentScenarios() {
         extraRepaymentDisplay = `$${fmt(extraRepaymentAmount)} per month`;
         break;
     }
-    
+   
     resultsHTML = `
       <div class="repayment-results">
         <div class="repayment-result-card">
@@ -1797,7 +1853,7 @@ function calculateRepaymentScenarios() {
             <span class="repayment-result-value repayment-savings">${scenarios.timeSaved} years</span>
           </div>
         </div>
-        
+       
         <div class="repayment-result-card">
           <h4>Current Repayment</h4>
           <div class="repayment-result-item">
@@ -1822,9 +1878,9 @@ function calculateRepaymentScenarios() {
     const currentBalance = num(document.getElementById('currentBalance')?.value || 0);
     const interestRate = 5.99 / 100; // Using the same rate as main calculator
     const loanTerm = num(document.getElementById('loanTerm')?.value || 30);
-    
+   
     const scenarios = calculateExtraRepaymentScenarioWithFrequency(currentBalance, interestRate, loanTerm, extraRepaymentAmount, extraRepaymentFrequency);
-    
+   
     // Display text based on frequency
     let frequencyText = '';
     let extraRepaymentDisplay = '';
@@ -1843,7 +1899,7 @@ function calculateRepaymentScenarios() {
         extraRepaymentDisplay = `$${fmt(extraRepaymentAmount)} per month`;
         break;
     }
-    
+   
     resultsHTML = `
       <div class="repayment-results">
         <div class="repayment-result-card">
@@ -1869,7 +1925,7 @@ function calculateRepaymentScenarios() {
             <span class="repayment-result-value repayment-savings">${scenarios.timeSaved} years</span>
           </div>
         </div>
-        
+       
         <div class="repayment-result-card">
           <h4>Current Repayment</h4>
           <div class="repayment-result-item">
@@ -1891,7 +1947,7 @@ function calculateRepaymentScenarios() {
       </div>
     `;
   }
-  
+ 
   var _rsElem = document.getElementById('repaymentScenariosResults');
   if (_rsElem) {
     _rsElem.innerHTML = resultsHTML;
@@ -1903,7 +1959,7 @@ var _loanFormEl = document.getElementById('loanForm');
 if (_loanFormEl) {
   _loanFormEl.addEventListener('submit', async function (e) {
   e.preventDefault();
-  
+ 
   // If this is an auto-recalc (not manual), don't proceed without manual calculation first
   if (window.isAutoRecalc && !window.hasCalculated) {
     return;
@@ -1915,10 +1971,10 @@ if (_loanFormEl) {
       window.dashboardFlip.showFront();
     }
   } catch (e) {}
-  
+ 
   // Allow commercial/SMSF financial calculator submissions; mounted modules will intercept and handle them
   const loanCategory = document.getElementById('loanCategory').value;
-  
+ 
   const loanPurpose = document.getElementById('loanPurpose').value;
   if (!loanPurpose) {
     showValidationError('Please select a loan purpose to proceed.');
@@ -2004,13 +2060,13 @@ if (_loanFormEl) {
     resultsHTML += addBorrowingCapacityDisclaimer();
     resultsHTML += `</div>`;
 
-    renderDetails('home_borrowing', { 
+    renderDetails('home_borrowing', {
       grossIncome: num(grossIncome),
       otherIncome: num(otherIncome),
       livingExpenses: num(livingExpenses),
       monthlyCommitments: res.monthlyCommitments,
       assessmentRatePct: (res.assessmentRate * 100).toFixed(2),
-      termYears: res.termYears 
+      termYears: res.termYears
     });
 
     window.updateLastCalc({ loanPurpose });
@@ -2123,10 +2179,10 @@ if (_loanFormEl) {
     };
 
     const res = calcRefinanceSavings(
-      ctx.currentBalance, 
-      ctx.currentRate, 
-      ctx.currentYears, 
-      ctx.interestRate, 
+      ctx.currentBalance,
+      ctx.currentRate,
+      ctx.currentYears,
+      ctx.interestRate,
       ctx.loanTerm,
       ctx.propertyValue
     );
@@ -2200,7 +2256,7 @@ if (_loanFormEl) {
         <div class="big">$${fmt(res.requestedBaseLoanAmount)}</div>
       </div>
     `;
-    
+   
     if (res.lmiPremium > 0) {
       resultsHTML += `
         <div style="margin-bottom: 20px;">
@@ -2217,7 +2273,7 @@ if (_loanFormEl) {
         </div>
       `;
     }
-    
+   
     resultsHTML += `
       <div style="margin-bottom: 20px;">
         <h3>New Monthly Repayment (Estimate)</h3>
@@ -2225,7 +2281,7 @@ if (_loanFormEl) {
       </div>
     `;
     resultsHTML += `</div>`;
-    
+   
     // Ensure 2-decimal precision for LVRs in details panel
     const resForDetails = {
       ...res,
@@ -2313,11 +2369,11 @@ if (_loanFormEl) {
       const equityPurposeLabel = purposeLabelMap[purposeValue] || 'Other';
 
       renderDetails('home_equity', { ...ctx, ...resForDetails });
-      window.updateLastCalc({ 
-        loanPurpose, 
-        baseLVR: res.baseLVR, 
-        loanAmount: res.baseLoanAmount, 
-        interestRate: ctx.interestRate, 
+      window.updateLastCalc({
+        loanPurpose,
+        baseLVR: res.baseLVR,
+        loanAmount: res.baseLoanAmount,
+        interestRate: ctx.interestRate,
         loanTerm: ctx.loanTerm,
         equityPurposeLabel
       });
@@ -2464,10 +2520,10 @@ if (_loanFormEl) {
     resultsHTML += addBorrowingCapacityDisclaimer();
     resultsHTML += `</div>`;
 
-    renderDetails('commercial_borrowing', { 
-      ...ctx, 
+    renderDetails('commercial_borrowing', {
+      ...ctx,
       noi: res.noi,
-      dscr: res.dscr 
+      dscr: res.dscr
     });
     window.updateLastCalc({ loanPurpose });
   }
@@ -2679,7 +2735,7 @@ if (_loanFormEl) {
   // Write results and Step 3
   const resultsEl = document.getElementById('results');
   resultsEl.innerHTML = resultsHTML;
-  
+ 
   // Mark that the user has manually calculated at least once (enables auto-recalc within this scenario)
   // Only mark as calculated if this was a manual calculation (not auto-recalc)
   if (!window.isAutoRecalc) {
@@ -2704,16 +2760,16 @@ if (_loanFormEl) {
     if (loanPurpose !== "home_borrowing" && loanPurpose !== "commercial_borrowing") {
       renderStep4(loanPurpose);
     }
-    
+   
     // Consultation CTA moved to the back panel (results front remains focused on outputs)
     // Back panel contains a dedicated 'Get a Free Consultation' button which is handled by the delegated handler.
-    
+   
     const ctaBtn = document.createElement('button');
     ctaBtn.className = 'cta-btn btn-consultation';
     ctaBtn.type = 'button';
     ctaBtn.dataset.action = 'consultation';
     ctaBtn.innerHTML = `<img src="t-removebg-preview.png" alt="" style="width:10px; height:16px; vertical-align:middle;"> ${getCTALabel(loanPurpose)}`;
-    
+   
     // Onclick handler for CTA button - same as "Get a Free Consultation"
     ctaBtn.onclick = function(e) {
       try { e.preventDefault(); } catch (err) {}
@@ -2764,7 +2820,7 @@ if (_loanFormEl) {
         }
       }
     };
-    
+   
     resultsEl.appendChild(ctaBtn);
   }
 

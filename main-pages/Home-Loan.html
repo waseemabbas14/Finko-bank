@@ -295,9 +295,9 @@
         try {
           // Some home purpose options are driven by auxiliary controls; set defaults to encourage immediate population
           const commercialCalc = document.getElementById('commercialCalculatorType');
-          if (commercialCalc) { commercialCalc.value = 'simple'; commercialCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured commercial calc default during Home init'); }
+          if (commercialCalc && category === 'commercial') { commercialCalc.value = 'simple'; commercialCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured commercial calc default during Home init'); }
           const smsfCalc = document.getElementById('smsfCalculatorType');
-          if (smsfCalc) { smsfCalc.value = 'simple'; smsfCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured smsf calc default during Home init'); }
+          if (smsfCalc && category === 'smsf') { smsfCalc.value = 'simple'; smsfCalc.dispatchEvent(new Event('change', { bubbles: true })); console.debug('Ensured smsf calc default during Home init'); }
         } catch (e) { }
       }
 
