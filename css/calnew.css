@@ -1577,19 +1577,22 @@ button[type="submit"] {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
+    height: 100%;
+}
+.welcome-message-initial1 img{
+  height: 100%;
 }
 
 .welcome-message-initial1 {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
-  width: 400px;
-  text-align: center;
-  box-shadow: inset #F7931E 0.5px 1px 1px 1px !important;
+  width: 60%;
+  height: 100%;
   border-radius: 18px;
   grid-row: 1px !important;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
   padding: 10px !important;
@@ -1976,8 +1979,8 @@ button[type="submit"] {
 
 .welcome-message-initial {
   width: 100%;
-  min-width: 800px;
-  height: 220px;
+  min-width: 780px;
+  height: 198px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2009,9 +2012,8 @@ button[type="submit"] {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
-  width: 200px;
+  width: 100%;
   text-align: center;
-  box-shadow: inset #F7931E 0.5px 1px 1px 1px !important;
   border-radius: 18px;
   grid-row: 1px !important;
 
