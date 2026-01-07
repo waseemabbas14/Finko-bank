@@ -15,13 +15,15 @@ function fixPathsInHTML(html, isSubfolder) {
 
 // Navbar/Header ko load krey
 function loadHeader(containerId = 'header-container') {
-  // Check if current page is in a subfolder
+  // Check if current page is in a nested subfolder (case-solver is nested deeper)
+  const isNestedSubfolder = window.location.pathname.includes('/case-solver/');
   const isSubfolder = window.location.pathname.includes('/main-pages/') || 
                       window.location.pathname.includes('/pages/') ||
                       window.location.pathname.includes('/commercial-pages/') ||
-                      window.location.pathname.includes('/smsf-pages/');
+                      window.location.pathname.includes('/smsf-pages/') ||
+                      isNestedSubfolder;
   
-  const basePath = isSubfolder ? '../' : './';
+  const basePath = isNestedSubfolder ? '../../' : (isSubfolder ? '../' : './');
   
   fetch(basePath + 'navbar-only.html')
     .then(response => response.text())
@@ -43,12 +45,15 @@ function loadHeader(containerId = 'header-container') {
 
 // Footer ko load krey
 function loadFooter(containerId = 'footer-container') {
+  // Check if current page is in a nested subfolder (case-solver is nested deeper)
+  const isNestedSubfolder = window.location.pathname.includes('/case-solver/');
   const isSubfolder = window.location.pathname.includes('/main-pages/') || 
                       window.location.pathname.includes('/pages/') ||
                       window.location.pathname.includes('/commercial-pages/') ||
-                      window.location.pathname.includes('/smsf-pages/');
+                      window.location.pathname.includes('/smsf-pages/') ||
+                      isNestedSubfolder;
   
-  const basePath = isSubfolder ? '../' : './';
+  const basePath = isNestedSubfolder ? '../../' : (isSubfolder ? '../' : './');
   
   fetch(basePath + 'footer-only.html')
     .then(response => response.text())

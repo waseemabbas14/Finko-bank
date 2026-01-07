@@ -18,745 +18,400 @@
       font-family: 'Rajdhani', sans-serif;
     }
 
-    body {
-      background: #ffffff;
-      color: #0b1c2d;
+   /* ===== CSS VARIABLES ===== */
+:root {
+    --finco-navy: #001A3D;
+    --finco-orange: #FF9500;
+    --finco-orange-5: rgba(255, 149, 0, 0.05);
+    --finco-orange-10: rgba(255, 149, 0, 0.1);
+    --finco-orange-30: rgba(255, 149, 0, 0.3);
+    --white-10: rgba(255, 255, 255, 0.1);
+    --slate-400-30: rgba(148, 163, 184, 0.3);
+}
+
+/* ===== RESET & BASE =====*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fcfcfd;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* ===== FONTS ===== */
+h1, h2, h3, h4, h5, h6,
+.font-spartan {
+    font-family: 'League Spartan', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.bg-finco-navy { background-color: var(--finco-navy); }
+.text-finco-navy { color: var(--finco-navy); }
+.bg-finco-orange { background-color: var(--finco-orange); }
+.text-finco-orange { color: var(--finco-orange); }
+.border-finco-orange { border-color: var(--finco-orange); }
+.bg-finco-orange-5 { background-color: var(--finco-orange-5); }
+.bg-finco-orange-10 { background-color: var(--finco-orange-10); }
+.border-finco-orange-10 { border-color: var(--finco-orange-10); }
+.border-finco-orange-30 { border-color: var(--finco-orange-30); }
+.border-white-10 { border-color: var(--white-10); }
+.bg-slate-400-30 { background-color: var(--slate-400-30); }
+
+/* DISPLAY */
+.min-h-screen { min-height: 100vh; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-grow { flex-grow: 1; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+
+/* SIZING */
+.w-full { width: 100%; }
+.w-px { width: 1px; }
+.w-16 { width: 4rem; }
+.w-24 { width: 6rem; }
+.w-32 { width: 8rem; }
+.h-full { height: 100%; }
+.h-10 { height: 2.5rem; }
+.h-16 { height: 4rem; }
+.h-24 { height: 6rem; }
+.h-1-5 { height: 0.375rem; }
+
+/* PADDING */
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.p-10 { padding: 2.5rem; }
+.p-12 { padding: 3rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-32 { padding-top: 8rem; padding-bottom: 8rem; }
+.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-auto { margin-top: auto; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.pt-8 { padding-top: 2rem; }
+.pt-2 { padding-top: 0.5rem; }
+.pt-4 { padding-top: 1rem; }
+
+/* BORDERS & RADIUS */
+.border { border: 1px solid #e2e8f0; }
+.border-b-8 { border-bottom: 8px solid; }
+.border-2 { border: 2px solid; }
+.border-t { border-top: 1px solid; }
+.border-t-transparent { border-top-color: transparent; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-3xl { border-radius: 1.5rem; }
+.rounded-full { border-radius: 9999px; }
+.rounded-lg { border-radius: 0.5rem; }
+.overflow-hidden { overflow: hidden; }
+
+/* TYPOGRAPHY */
+.text-xs { font-size: 0.75rem; }
+.text-9 { font-size: 0.5625rem; }
+.text-10 { font-size: 0.625rem; }
+.text-sm { font-size: 0.875rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-5xl { font-size: 3rem; }
+.text-7xl { font-size: 4.5rem; }
+.text-14 { font-size: 0.875rem; }
+.text-18 { font-size: 1.125rem; }
+
+.font-light { font-weight: 300; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+.uppercase { text-transform: uppercase; }
+.italic { font-style: italic; }
+.leading-none { line-height: 1; }
+.leading-tight { line-height: 1.25; }
+.leading-relaxed { line-height: 1.625; }
+
+.tracking-2 { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-tighter { letter-spacing: -0.05em; }
+
+.text-white { color: white; }
+.text-slate-400 { color: #94a3b8; }
+.text-slate-500 { color: #64748b; }
+.text-slate-600 { color: #475569; }
+.text-slate-900 { color: #0f172a; }
+
+/* SHADOWS */
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+
+/* HOVER & TRANSITIONS */
+.transition-all { transition: all 0.3s ease; }
+.transition-colors { transition: color 0.3s, background-color 0.3s; }
+.transition-colors { transition: all 0.3s ease; }
+.duration-300 { transition-duration: 0.3s; }
+.duration-500 { transition-duration: 0.5s; }
+.duration-700 { transition-duration: 0.7s; }
+
+button:hover {
+    cursor: pointer;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
     }
-
-    /* ================= HERO ================= */
-    .hero {
-      height: 270px;
-      background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0, 0, 0, 0.55)), url("/assests/f2.webp");
-      background-size: cover;
-      background-position: top-center;
-      background-repeat: no-repeat;
-      display: flex;
-      gap: 15px;
-      flex-direction: column;
-      padding: 5%;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    .hero h6 {
-      width: 20%;
-      padding-left: 15px;
-      border-left: #ff8b01 5px solid;
-      color: #ff8b01;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      line-height: 1.5em;
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
     }
-
-    .hero h1 {
-      font-size: 24px;
-      margin-top: 45px;
-      margin-left: 40px;
-      z-index: 1;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #ffffff;
+    to {
+        transform: rotate(360deg);
     }
+}
 
-    /* ================= INTRO ================= */
-    .intro {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 80px;
+.animate-fade-in {
+    animation: fadeIn 0.7s ease-out;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+    .md-px-12 { padding-left: 3rem; padding-right: 3rem; }
+    .md-py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+    .md-flex-row { flex-direction: row; }
+    .md-grid-cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md-text-10 { font-size: 0.625rem; }
+    .md-text-18 { font-size: 1.125rem; }
+    .md-text-2xl { font-size: 1.5rem; }
+    .md-text-4xl { font-size: 2.25rem; }
+    .md-text-5xl { font-size: 3rem; }
+    .md-text-7xl { font-size: 4.5rem; }
+    .md-h-12 { height: 3rem; }
+    .md-h-20 { height: 5rem; }
+    .md-p-12 { padding: 3rem; }
+    .md-p-10 { padding: 2.5rem; }
+    .md-text-right { text-align: right; }
+    .md-text-center { text-align: center; }
+    .md-items-center { align-items: center; }
+    .md-flex-row { flex-direction: row; }
+    .md-gap-8 { gap: 2rem; }
+}
+
+/* HOVER STATES */
+.hover-shadow-2xl:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.hover-border-finco-orange:hover {
+    border-color: var(--finco-orange);
+}
+
+.hover-text-finco-orange:hover {
+    color: var(--finco-orange);
+}
+
+.hover-text-finco-navy:hover {
+    color: var(--finco-navy);
+}
+
+.hover--translate-y-2:hover {
+    transform: translateY(-0.5rem);
+}
+
+.hover-bg-finco-orange-10:hover {
+    background-color: var(--finco-orange-10);
+}
+
+.hover-bg-slate-50:hover {
+    background-color: #f8fafc;
+}
+
+.hover-brightness-110:hover {
+    filter: brightness(1.1);
+}
+
+.hover-bg-slate-800:hover {
+    background-color: #1e293b;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
+.underline-offset-4 {
+    text-underline-offset: 1rem;
+}
+
+.active-scale-98:active {
+    transform: scale(0.98);
+}
+
+/* WHITESPACE */
+.whitespace-nowrap {
+    white-space: nowrap;
+}
+
+/* Z-INDEX */
+.z-50 { z-index: 50; }
+.z--10 { z-index: -10; }
+.sticky { position: sticky; }
+.top-0 { top: 0; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.right-8 { right: 2rem; }
+.top-6 { top: 1.5rem; }
+.brightness-0 { filter: brightness(0); }
+.invert { filter: invert(1); }
+
+/* GRID & SPACE */
+.grid { display: grid; }
+.gap-6 { gap: 1.5rem; }
+.space-y-10 > * + * { margin-top: 2.5rem; }
+.space-y-8 > * + * { margin-top: 2rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.space-y-1 > * + * { margin-top: 0.25rem; }
+
+.min-h-80 { min-height: 20rem; }
+
+/* FOCUS & OUTLINE */
+.outline-none { outline: none; }
+.focus-border-finco-orange:focus {
+    border-color: var(--finco-orange);
+}
+
+/* MAX WIDTH */
+.max-w-2xl { max-width: 42rem; }
+.max-w-5xl { max-width: 64rem; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-7xl { max-width: 80rem; }
+.max-w-xl { max-width: 36rem; }
+
+/* CURSOR */
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+/* OPACITY */
+.opacity-0 { opacity: 0; }
+.opacity-100 { opacity: 1; }
+.opacity-30 { opacity: 0.3; }
+.group-hover-opacity-100:hover {
+    opacity: 1;
+}
+
+/* MORE RESPONSIVE */
+@media (max-width: 767px) {
+    .md-px-12,
+    .md-py-24,
+    .md-text-10,
+    .md-text-18,
+    .md-h-12,
+    .md-h-20,
+    .md-p-12,
+    .md-p-10,
+    .md-flex-row,
+    .md-grid-cols-3,
+    .md-text-right,
+    .md-text-center,
+    .md-items-center {
+        /* Mobile defaults already applied */
     }
+}
+/* .max-w-2xl {
+    margin: 0 auto;
+} */
+/* CUSTOM BUTTON STYLES */
+button {
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* SVG SIZING */
+svg {
+    display: block;
+}
+#app {
+
+    padding-top: 95px !important;
+}
 
-    .intro h6 {
-      width: 6%;
-      padding-left: 16px;
-      border-left: #FD8D01 5px solid;
-      color: #001233;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.5em;
-      letter-spacing: 0.3px;
-    }
-
-    .intro h2 {
-      width: 100%;
-      font-size: 58px;
-      font-weight: 600;
-      text-align: center;
-      /* margin-bottom: 15px; */
-      padding-top: 32px;
-      color: #0A1931;
-      line-height: 1em;
-      letter-spacing: -3px;
-    }
-
-    .intro p {
-      width: 51%;
-      font-size: 18px;
-      font-weight: 500;
-      color: #0A1931;
-      text-align: center;
-      line-height: 1.5em;
-      padding-top: 20px;
-    }
-
-    /* ================= FAQ SECTION ================= */
-    .faq-section {
-      max-width: 1200px;
-      margin: 70px auto;
-      padding: 0 20px;
-    }
-
-    .faq-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 90px;
-    }
-
-    .question-answer {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-    }
-
-    .faq-block {
-      width: 50%;
-
-    }
-
-    .faq-block h3 {
-      font-size: 36px;
-      font-weight: 600;
-      margin-bottom: 30px;
-      padding-left: 16px;
-      border-left: #f7931e 5px solid;
-      line-height: 1.333em;
-      letter-spacing: -0.3px;
-      color: #001233;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid #e5e7eb;
-      padding: 18px 0;
-      cursor: pointer;
-    }
-
-    .faq-question {
-      display: flex;
-      justify-content: space-between;
-      font-size: 24px;
-      font-weight: 600;
-      color: #001233;
-      line-height: 1.333em;
-      letter-spacing: -0.3px;
-    }
-
-    .faq-item.active .faq-question {
-      color: #f7931e;
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, margin-top 0.35s ease;
-      color: #001233;
-      line-height: 1.6em;
-      font-size: 18px;
-      font-weight: 500;
-      margin-top: 0;
-    }
-
-    .faq-item.active .faq-answer {
-      margin-top: 12px;
-    }
-
-    .faq-item span {
-      transition: transform .3s;
-    }
-
-    .faq-item.active span {
-      transform: rotate(180deg);
-    }
-
-    .faq-img img {
-      width: 100%;
-      border-radius: 6px;
-      /* margin-top: 40px; */
-      height: 450px;
-    }
-
-    .answer-question {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-    }
-
-    /* ================= SERVICES + FORM ================= */
-
-    .hidden {
-      display: none;
-    }
-
-    /* ================= RESPONSIVE ================= */
-
-    /* TABLET (768px to 1024px) */
-    @media (max-width: 1024px) {
-
-      /* Hero Section */
-      .hero {
-        padding: 0px 40px;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-      }
-
-      .hero h3 {
-        width: 30%;
-        font-size: 18px;
-      }
-
-      /* Intro Section */
-      .intro {
-        padding: 60px 40px;
-      }
-
-      .intro h2 {
-        font-size: 40px;
-      }
-
-      .intro h3 {
-        width: 10%;
-        font-size: 16px;
-      }
-
-      .intro p {
-        width: 70%;
-        font-size: 16px;
-      }
-
-      /* FAQ Section */
-      .faq-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .faq-block h3 {
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 25px;
-      }
-
-      .faq-question {
-        font-size: 20px;
-
-      }
-
-      .faq-answer {
-        font-size: 18px;
-      }
-
-      .faq-img img {
-        height: 350px;
-      }
-
-      /* Services + Form */
-      .services-form {
-        flex-direction: column;
-        padding: 0 40px;
-        gap: 30px;
-      }
-
-      .services-inner {
-        width: 100%;
-        padding: 50px 0;
-      }
-
-      .services-inner h1 {
-        font-size: 24px;
-        font-weight: 600;
-      }
-
-      .services-inner h3 {
-        width: 20%;
-        font-size: 16px;
-      }
-
-      .services-inner p {
-        font-size: 18px;
-        font-weight: 500;
-      }
-
-      .loan-form {
-        width: 100%;
-        padding: 30px;
-      }
-
-      .loan-form h1 {
-        font-size: 24px;
-        font-weight: 600;
-      }
-
-      .loan-form p {
-        font-size: 18px;
-        font-weight: 500;
-      }
-
-      .app-buttons {
-        flex-wrap: wrap;
-      }
-
-      .app-buttons button {
-        flex: 0 1 calc(33.333% - 7px);
-      }
-    }
-
-    /* TARGET: Exact 768px — tighten responsive rules specifically for 768px width */
-    @media (width: 768px) {
-      .hero {
-        padding: 0px 40px;
-        background-position: center;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .hero h6 {
-        width: 100%;
-        padding-left: 0;
-      }
-
-      .intro p {
-        width: 100%;
-        font-size: 16px;
-      }
-
-      .faq-section {
-        padding: 0 15px;
-      }
-
-      .faq-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-
-      .faq-answer {
-        max-height: none;
-      }
-
-      .services-form {
-        flex-direction: column;
-        padding: 0 20px;
-      }
-
-      .loan-form {
-        width: 100%;
-      }
-    }
-
-    /* MOBILE LANDSCAPE (425px to 768px) */
-    @media (max-width: 768px) {
-
-      /* Hero Section */
-      .hero {
-        padding: 0px 40px;
-        background-position: center;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-        font-weight: 600;
-        margin-left: 0;
-      }
-
-      .hero h6 {
-        width: 40%;
-        font-size: 16px;
-        font-weight: 700;
-      }
-
-      /* Intro Section */
-      .intro {
-        padding: 50px 20px;
-      }
-
-      .intro h2 {
-        font-size: 28px;
-        font-weight: 600;
-        letter-spacing: -0.3px;
-        line-height: 1em;
-        padding-top: 32px;
-
-      }
-
-      .intro h6 {
-        width: 15%;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      .intro p {
-        width: 100%;
-        font-size: 15px;
-        line-height: 22px;
-      }
-
-      /* FAQ Section */
-      .faq-section {
-        max-width: 100%;
-        padding: 0 15px;
-        margin: 50px auto;
-      }
-
-      .faq-grid {
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-      }
-
-      .faq-block h3 {
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-
-      .faq-question {
-        font-size: 18px;
-        gap: 10px;
-      }
-
-      .faq-answer {
-        font-size: 15px;
-        max-height: 300px;
-        line-height: 1.5;
-      }
-
-      .faq-item {
-        padding: 15px 0;
-      }
-
-      /* Services + Form */
-      .services-form {
-        padding: 0 20px;
-        margin-top: 50px;
-        gap: 20px;
-      }
-
-      .services-inner {
-        width: 100%;
-        padding: 40px 0;
-      }
-
-      .services-inner h1 {
-        font-size: 24px;
-        margin: 15px 0;
-      }
-
-      .services-inner h3 {
-        width: 25%;
-        font-size: 14px;
-      }
-
-      .services-inner p {
-        font-size: 15px;
-        line-height: 22px;
-      }
-
-      .loan-form {
-        width: 100%;
-        padding: 25px;
-        border-radius: 6px;
-      }
-
-      .loan-form h1 {
-        font-size: 24px;
-        margin-bottom: 12px;
-      }
-
-      .loan-form p {
-        font-size: 15px;
-        margin-bottom: 20px;
-      }
-
-      .app-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-
-      .app-buttons {
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 15px;
-      }
-
-      .app-buttons button {
-        flex: 1;
-        padding: 15px 0;
-        font-size: 14px;
-      }
-
-      .form-group input,
-      .form-group select {
-        padding: 16px 12px;
-        font-size: 14px;
-      }
-
-      .submit-btn {
-        padding: 12px;
-        font-size: 14px;
-      }
-    }
-
-    /* MOBILE PORTRAIT (320px to 425px) */
-    @media (max-width: 425px) {
-      * {
-        font-family: 'Rajdhani', sans-serif;
-      }
-
-      /* Hero Section */
-      .hero {
-        padding: 10px 40px;
-        gap: 2px;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-        font-weight: 600;
-        padding: 0;
-      }
-
-      .hero h6 {
-        width: 50%;
-        font-size: 16px;
-        font-weight: 700;
-        padding-left: 16px;
-      }
-
-      /* Intro Section */
-      .intro {
-        padding: 40px 20px;
-      }
-
-      .intro h2 {
-        font-size: 28px;
-        font-weight: 600;
-        letter-spacing: -0.3px;
-        line-height: 1em;
-        padding-top: 32px;
-      }
-
-      .intro h6 {
-        width: 20%;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 0px;
-        padding-left: 16px;
-      }
-
-      .intro p {
-        width: 100%;
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 28px;
-      }
-
-      /* FAQ Section */
-      .faq-section {
-        max-width: 100%;
-        padding: 0 20px;
-        margin: 40px auto;
-      }
-
-      .faq-grid {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-      }
-
-      .faq-block {
-        width: 100%;
-      }
-
-      .question-answer {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .answer-question {
-        display: flex;
-        flex-direction: column-reverse;
-      }
-
-      .faq-block h3 {
-        font-size: 24px;
-        font-weight: 600;
-        letter-spacing: -0.3px;
-        line-height: 1em;
-      }
-
-      .faq-question {
-        font-size: 20px;
-        font-weight: 600;
-        gap: 8px;
-        line-height: 1.3;
-      }
-
-      .faq-answer {
-        font-size: 18px;
-        font-weight: 500;
-        max-height: 250px;
-        line-height: 1.4em;
-      }
-
-      .faq-item {
-        padding: 12px 0;
-        border-bottom: 1px solid #e5e7eb;
-      }
-
-      .faq-item span {
-        font-size: 14px;
-        min-width: 20px;
-        text-align: right;
-      }
-
-      /* Services + Form */
-      .services-form {
-        padding: 0 20px;
-        margin-top: 40px;
-        gap: 15px;
-        background-size: cover;
-      }
-
-      .services-inner {
-        width: 100%;
-        padding: 30px 0;
-      }
-
-      .services-inner h1 {
-        font-size: 24px;
-        font-weight: 600;
-        margin: 12px 0;
-        padding: 5px 0;
-      }
-
-      .services-inner h6 {
-        width: 30%;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        padding-left: 10px;
-      }
-
-      .services-inner p {
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 28px;
-        padding-bottom: 15px;
-      }
-
-      .loan-form {
-        width: 100%;
-        padding: 20px;
-      }
-
-      .loan-form h3 {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-
-      .loan-form p {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 15px;
-        line-height: 1.5;
-      }
-
-      .app-title h3 {
-        font-size: 16px;
-        margin-bottom: 1px;
-      }
-
-      .app-buttons {
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 15px;
-      }
-
-      .app-buttons button {
-        padding: 14px 0;
-        font-size: 18px;
-        font-weight: 700;
-      }
-
-      .form-group {
-        margin-bottom: 12px;
-      }
-
-      .form-group input,
-      .form-group select {
-        padding: 14px 10px;
-        font-size: 16px;
-        font-weight: 700;
-      }
-
-      .submit-btn {
-        padding: 10px;
-        font-size: 18px;
-        font-weight: 700;
-      }
-    }
-
-    /* Final override for exact 768px to ensure intended layout at that width */
-    @media (width: 768px) {
-      .hero {
-
-        background-position: center;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .hero h6 {
-        width: 100%;
-        padding-left: 0;
-      }
-
-      .intro p {
-        width: 100%;
-        font-size: 16px;
-      }
-
-      .faq-section {
-        padding: 0 15px;
-      }
-
-      .faq-grid {
-
-        gap: 30px;
-      }
-
-      .faq-answer {
-        max-height: none;
-      }
-
-      .services-form {
-        flex-direction: column;
-        padding: 0 20px;
-      }
-
-      .loan-form {
-        width: 100%;
-      }
-    }
-  </style>
   </style>
 </head>
 
@@ -779,206 +434,657 @@
 <!-- header -->
 <!-- sections -->
 <!-- HERO -->
-<section class="hero">
-  <h1>FAQs<i class="fa-solid fa-arrow-right" style="font-size: 15px;"></i></h1>
-</section>
-
-<!-- INTRO -->
-<section class="intro">
-  <h6>FAQ</h6>
-  <h2>Frequently asked question</h2>
-  <p>
-    At Finco Capital, we believe in keeping our customers informed and confident about their banking decisions. Here
-    you’ll find answers to the most common questions about our services, loans, and financial solutions.
-  </p>
-</section>
-
-<!-- FAQ -->
-<section class="faq-section">
-  <div class="faq-grid">
-    <div class="question-answer">
-      <div class="faq-block">
-        <h3>General</h3>
-
-        <div class="faq-item active">
-          <div class="faq-question">What are Finco Capital working hours? <span>▲</span></div>
-          <div class="faq-answer">Finco Capital branches are open Monday to Friday, 9:00 AM – 5:00 PM, and closed on
-            weekends and public holidays.</div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">How can I open an account with Finco Capital?<span>▲</span></div>
-          <div class="faq-answer">You can easily open an account online through the Finco Capital website or mobile app,
-            or visit your nearest branch with valid ID proof.</div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">What is Finco Capital?<span>▲</span></div>
-          <div class="faq-answer">Finco Capital is a modern financial institution offering reliable banking, savings, and
-            digital finance solutions for individuals and businesses.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">What types of loans are available?<span>▲</span></div>
-          <div class="faq-answer">We offer personal loans, home loans, business loans, and auto financing with
-            flexible repayment options.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">How can I report suspicious activity on my account?<span>▲</span></div>
-          <div class="faq-answer">Immediately contact our 24/7 helpline or email the fraud department if you notice
-            any unauthorized transaction.</div>
-        </div>
-
-      </div>
-      <div class="faq-img">
-        <img src="/assests/f1.webp">
-      </div>
+    <div id="app" class="min-h-screen flex flex-col selection-bg-finco-orange selection-text-white">
+        <main class="flex-grow w-full px-4 py-16 md-py-24" id="main-content"></main>
     </div>
 
-    <div class="answer-question">
-      <div class="faq-img">
-        <img src="/assests/f3.webp">
-      </div>
+    <script src="script.js"></script>
+    <script>
+        // ===== QUESTIONS DATA =====
+const QUESTIONS = {
+    HOME: [
+        {
+            id: 'h1',
+            text: 'Where are you in your property journey right now?',
+            options: [
+                'Buying my first home',
+                'Buying or upgrading',
+                'Buying before selling',
+                'Refinancing',
+                'Managing repayments',
+                'Investor (Reviewing investment portfolio)',
+                'Not sure',
+                'Other'
+            ]
+        },
+        {
+            id: 'h2',
+            text: 'What are you mainly looking to do right now?',
+            options: [
+                { label: 'Buy my first home', excludeIfSelected: ['Refinancing', 'Managing repayments', 'Buying or upgrading', 'Buying before selling', 'Investor (Reviewing investment portfolio)'] },
+                { label: 'Buy or upgrade', excludeIfSelected: ['Refinancing', 'Managing repayments', 'Buying my first home', 'Investor (Reviewing investment portfolio)'] },
+                { label: 'Improve my current loan', excludeIfSelected: ['Buying my first home', 'Buying or upgrading', 'Buying before selling'] },
+                { label: 'Expand my portfolio (New acquisition)', excludeIfSelected: ['Buying my first home', 'Buying or upgrading', 'Buying before selling', 'Refinancing', 'Managing repayments'] },
+                { label: 'Consolidate or reduce properties', excludeIfSelected: ['Buying my first home', 'Buying or upgrading', 'Buying before selling', 'Refinancing', 'Managing repayments'] },
+                { label: 'Increase borrowing power', excludeIfSelected: [] },
+                { label: 'Manage repayments or future rate changes', excludeIfSelected: ['Buying my first home'] },
+                { label: 'Prepare for a future move or investment', excludeIfSelected: [] },
+                { label: 'Other' }
+            ],
+            multiSelect: true
+        },
+        {
+            id: 'h3',
+            text: 'Why is getting this right important for you now?',
+            options: [
+                'I want confidence before deciding',
+                'I want to avoid financial stress',
+                'Timing matters',
+                'I want guidance',
+                'I need to optimize my tax or cashflow structure',
+                'Not sure',
+                'Other'
+            ]
+        },
+        {
+            id: 'h4',
+            text: 'After this step, what would success look like?',
+            options: [
+                'Owning comfortably',
+                'Stable repayments',
+                'Flexibility for the future',
+                'Ready for the next step',
+                'A more efficient and scalable portfolio',
+                'Haven\'t thought that far yet',
+                'Other'
+            ]
+        }
+    ],
+    COMMERCIAL: [
+        {
+            id: 'c1',
+            text: 'Which option best describes your business and how income comes in?',
+            options: [
+                'Contract or project-based',
+                'Seasonal or cyclical',
+                'Retail or trade',
+                'Professional or advisory',
+                'Asset-heavy (property or equipment)',
+                'Growth-led or asset-light',
+                'Other'
+            ]
+        },
+        {
+            id: 'c2',
+            text: 'What are you hoping this loan or funding will help you with?',
+            options: [
+                { label: 'Reducing financial pressure', excludeIfSelected: ['Growth-led or asset-light'] },
+                { label: 'Reviewing or restructuring a loan', excludeIfSelected: [] },
+                { label: 'Being declined by a bank', excludeIfSelected: [] },
+                { label: 'Fixed-rate ending or loan review', excludeIfSelected: [] },
+                { label: 'Accessing equity', excludeIfSelected: [] },
+                { label: 'Business growth or acquisition', excludeIfSelected: ['Reducing financial pressure'] },
+                { label: 'Other', excludeIfSelected: [] }
+            ],
+            multiSelect: true
+        },
+        {
+            id: 'c3',
+            text: 'If nothing changed over the next 6–12 months, what would that mean?',
+            options: [
+                'More financial pressure',
+                'Missed growth opportunities',
+                'Forced decisions later',
+                'Not urgent, but want clarity',
+                'Other'
+            ]
+        },
+        {
+            id: 'c4',
+            text: 'How do you expect this loan to be managed over time?',
+            options: [
+                'Repaid from business cashflow',
+                'Reviewed or refinanced later',
+                'Paid down through asset sale',
+                'Part of a growth or restructure plan',
+                'Other'
+            ]
+        }
+    ],
+    SMSF: [
+        {
+            id: 's1',
+            text: 'Which option best describes your SMSF\'s current position?',
+            options: [
+                'Newly established SMSF',
+                'Established SMSF, no property yet',
+                'SMSF owns property with a loan',
+                'SMSF owns property outright',
+                'Considering refinance or restructure',
+                'Not sure',
+                'Other'
+            ]
+        },
+        {
+            id: 's2',
+            text: 'What prompted you to explore an SMSF loan now?',
+            options: [
+                { label: 'Purchase property', excludeIfSelected: ['SMSF owns property with a loan', 'Considering refinance or restructure'] },
+                { label: 'Improve cashflow inside the SMSF', excludeIfSelected: ['Newly established SMSF'] },
+                { label: 'Refinance or review an SMSF loan', excludeIfSelected: ['Newly established SMSF', 'Established SMSF, no property yet'] },
+                { label: 'Fixed rate ending', excludeIfSelected: ['Newly established SMSF', 'Established SMSF, no property yet'] },
+                { label: 'Unlock equity', excludeIfSelected: ['Newly established SMSF'] },
+                { label: 'Align with retirement planning', excludeIfSelected: [] },
+                { label: 'Other' }
+            ],
+            multiSelect: true
+        },
+        {
+            id: 's3',
+            text: 'If this isn\'t addressed in the next 6–12 months, what\'s the impact?',
+            options: [
+                'Reduced cashflow or contribution pressure',
+                'Missed investment opportunities',
+                'Increased compliance risk',
+                'Forced decisions later',
+                'Not urgent, want clarity',
+                'Other'
+            ]
+        },
+        {
+            id: 's4',
+            text: 'How do you expect this SMSF loan or property to be managed over time?',
+            options: [
+                'Gradually paid down',
+                'Refinance later',
+                'Held long-term for retirement',
+                'Sold as part of strategy',
+                'Haven\'t thought about it yet',
+                'Other'
+            ]
+        }
+    ]
+};
 
-      <div class="faq-block">
-        <h3>Services</h3>
+// ===== APP STATE =====
+const appState = {
+    loanType: null,
+    step: 0,
+    answers: [],
+    isProcessing: false,
+    result: null
+};
 
-        <div class="faq-item">
-          <div class="faq-question">Does Finco Capital provide financial guidance to customers? <span>▲</span></div>
-          <div class="faq-answer">Yes, Finco Capital offers personalized financial advice to help customers manage
-            savings, investments, and future goals efficiently.</div>
+let selectedOptions = [];
+let otherText = '';
+
+// ===== GEMINI API CALL =====
+async function solveCase(loanType, answers) {
+    const userContext = answers.map(a => `${a.questionText}: ${a.answers.join(', ')}`).join('\n');
+    
+    const systemPrompts = {
+        HOME: `You are FINCO CAPITAL's digital Case Solver. Using FINCO's Home Loan Case Classification framework, identify the client segment, dominant mindset, and map to FINCO strategy pathways. Avoid products, lenders, or approvals. Use British English spelling.`,
+        COMMERCIAL: `You are FINCO CAPITAL's digital Case Solver. Identify primary client segment, secondary factors, and primary risk driver. Map to FINCO strategy pathways. Do NOT mention products, rates, or lenders. Use British English spelling.`,
+        SMSF: `You are FINCO CAPITAL's digital Case Solver. Identify SMSF case segment, primary constraints, and likely FINCO strategy pathways. Do NOT assess eligibility or compliance. Use British English spelling.`
+    };
+
+    const userMessage = `CASE INFORMATION:\n${userContext}\n\nPlease analyse this case and provide a client-facing analysis in markdown format. Start with a Level 1 heading for the case title.`;
+
+    try {
+        // Using Google Gemini API directly
+        const apiKey = localStorage.getItem('geminiApiKey') || '';
+        if (!apiKey) {
+            return 'Please add your Gemini API key. (Note: For demo, you can generate a sample response)';
+        }
+
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                systemInstruction: { parts: [{ text: systemPrompts[loanType] }] },
+                contents: [{ role: 'user', parts: [{ text: userMessage }] }]
+            })
+        });
+
+        const data = await response.json();
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Error processing case. Please try again.';
+    } catch (error) {
+        console.error('API Error:', error);
+        return 'Unable to process case. Please check your API key and internet connection.';
+    }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function getFilteredOptions(filteredOptions) {
+    const allSelectedAnswers = appState.answers.flatMap(pa => pa.answers);
+    return filteredOptions.filter(opt => {
+        const option = typeof opt === 'string' ? { label: opt } : opt;
+        if (!option.excludeIfSelected || option.excludeIfSelected.length === 0) return true;
+        const isExcluded = option.excludeIfSelected.some(exclusion => allSelectedAnswers.includes(exclusion));
+        return !isExcluded;
+    });
+}
+
+// ===== RENDER FUNCTIONS =====
+function showLoanTypeSelector() {
+    const cards = [
+        { id: 'HOME', title: 'Home Loan', desc: 'Classification for buying, refinancing, or residential portfolio building.', icon: '🏠', tag: 'Personal', bgColor: '#accbff' },
+        { id: 'COMMERCIAL', title: 'Commercial Lending', desc: 'Complex business debt, cashflow optimisation, and asset-backed growth.', icon: '🏢', tag: 'Corporate', bgColor: '#FFC067' },
+        { id: 'SMSF', title: 'SMSF LRBA', desc: 'Specialised strategy for lending within your Self-Managed Super Fund.', icon: '📈', tag: 'Trust', bgColor: '#96b85d' }
+    ];
+
+    let html = `
+        <div class="max-w-5xl mx-auto space-y-16 animate-fade-in">
+            <div class="text-center space-y-8">
+                <h1 class="text-4xl md-text-7xl font-black text-finco-navy leading-none font-spartan uppercase tracking-tighter">
+                    Identify Your <br/>
+                    <span class="text-finco-orange">Strategic Pathway</span>
+                </h1>
+                <div class="space-y-4">
+                    <p class="text-slate-500 text-xl md-text-2xl max-w-2xl mx-auto font-light leading-relaxed">
+                        Select your lending focus to begin a framework-driven classification of your case.
+                    </p>
+                    <p class="text-finco-orange font-bold text-sm tracking-widest uppercase font-spartan">
+                        FINCO CAPITAL: Financial Confidence. Unlocked.
+                    </p>
+                </div>
+            </div>
+            <div class="grid md-grid-cols-3 gap-8">
+    `;
+
+    cards.forEach(card => {
+        html += `
+            <button onclick="selectLoanType('${card.id}')" style="background-color: ${card.bgColor}" class="group relative p-10 rounded-3xl border border-slate-200 shadow-sm hover-shadow-2xl hover-border-finco-orange hover--translate-y-2 transition-all duration-500 text-left flex flex-col items-start min-h-80">
+                <div class="absolute top-6 right-8 text-10 font-bold uppercase tracking-widest text-white transition-colors font-spartan">
+                    ${card.tag}
+                </div>
+                <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-4xl mb-8 group-hover-bg-finco-orange-10 transition-colors">
+                    ${card.icon}
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-3xl font-bold text-finco-navy group-hover-text-finco-orange transition-colors font-spartan leading-none uppercase tracking-tight">${card.title}</h3>
+                    <p class="text-finco-navy text-base leading-relaxed font-light">${card.desc}</p>
+                </div>
+                <div class="mt-auto pt-8 flex items-center text-finco-orange text-sm font-bold opacity-0 group-hover-opacity-100 transition-all font-spartan uppercase tracking-widest">
+                    Begin Analysis <span class="ml-2">→</span>
+                </div>
+            </button>
+        `;
+    });
+
+    html += `
+            </div>
         </div>
+    `;
 
-        <div class="faq-item">
-          <div class="faq-question">Can I get help with budgeting and saving plans?<span>▲</span></div>
-          <div class="faq-answer">Absolutely. Our advisors can help you create a monthly budget and suggest savings
-            plans that fit your lifestyle and income.</div>
+    document.getElementById('main-content').innerHTML = html;
+}
+
+function showQuestionnaire() {
+    const currentQuestions = QUESTIONS[appState.loanType];
+    const q = currentQuestions[appState.step];
+    const progress = ((appState.step + 1) / currentQuestions.length) * 100;
+
+    const filteredOptions = getFilteredOptions(q.options);
+
+    let html = `
+        <div class="max-w-2xl mx-auto space-y-10 animate-fade-in">
+            <div class="flex items-center justify-between">
+                <button onclick="goBack()" class="group text-slate-400 hover-text-finco-navy font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-all font-spartan">
+                    <span class="text-lg">←</span> Return to Previous
+                </button>
+                <span class="px-3 py-1 bg-slate-100 rounded-full text-10 font-bold text-slate-500 uppercase tracking-widest font-spartan">Step ${appState.step + 1} of 4</span>
+            </div>
+
+            <div class="w-full bg-slate-100 h-1-5 rounded-full overflow-hidden">
+                <div class="bg-finco-orange h-full transition-all duration-700 ease-out" style="width: ${progress}%"></div>
+            </div>
+
+            <div class="space-y-8">
+                <h2 class="text-3xl md-text-5xl font-extrabold text-finco-navy leading-tight font-spartan uppercase tracking-tight">${q.text}</h2>
+                ${q.multiSelect ? `
+                    <div class="flex items-center gap-2 text-finco-orange bg-finco-orange-5 border border-finco-orange-10 px-4 py-2 rounded-lg w-fit">
+                        <span class="text-lg">ⓘ</span>
+                        <p class="text-xs font-bold uppercase tracking-widest font-spartan">Select up to two that apply</p>
+                    </div>
+                ` : ''}
+                
+                <div class="grid gap-4" id="options-container">
+    `;
+
+    filteredOptions.forEach(opt => {
+        const label = typeof opt === 'string' ? opt : opt.label;
+        html += `
+            <button onclick="selectOption('${label.replace(/'/g, "\\'")}')" class="group p-6 rounded-2xl border-2 text-left transition-all duration-300 relative overflow-hidden bg-white border-slate-200 text-slate-600 hover-border-finco-orange-30 hover-bg-slate-50">
+                <div class="flex items-center justify-between relative">
+                    <span class="text-lg font-medium">${label}</span>
+                </div>
+            </button>
+        `;
+    });
+
+    html += `
+                </div>
+
+                <div id="other-text-area" style="display: none;" class="space-y-4">
+                    <label class="block text-sm font-bold text-finco-navy uppercase tracking-widest font-spartan">Please provide more details:</label>
+                    <textarea id="other-text-input" class="w-full p-6 rounded-2xl border-2 border-slate-200 focus-border-finco-orange outline-none transition-all text-slate-700 font-light" rows="4" placeholder="Tell us a bit more about your situation..."></textarea>
+                </div>
+            </div>
+
+            <button onclick="goNext()" class="w-full py-5 rounded-2xl font-extrabold text-lg shadow-2xl transition-all font-spartan uppercase tracking-widest bg-finco-orange text-white hover-brightness-110">
+                ${appState.step === 3 ? 'Finalise Strategy' : 'Continue'}
+            </button>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">Does the bank give investment advice?<span>▲</span></div>
-          <div class="faq-answer">Yes, Finco Capital provides expert guidance on mutual funds, fixed deposits, and
-            long-term investment options.</div>
+    `;
+
+    document.getElementById('main-content').innerHTML = html;
+}
+
+function showLoadingState() {
+    const html = `
+        <div class="flex flex-col items-center justify-center py-32 space-y-8 text-center">
+            <div class="relative w-24 h-24">
+                <div class="absolute inset-0 border-6 border-finco-orange border-t-transparent rounded-full animate-spin"></div>
+                <div class="absolute inset-0 border-6 border-slate-100 rounded-full z--10"></div>
+            </div>
+            <div class="space-y-3">
+                <h3 class="text-3xl font-spartan font-bold text-finco-navy italic uppercase tracking-tighter">Analysing Case Parameters...</h3>
+                <p class="text-slate-400 font-medium tracking-widest uppercase text-xs font-spartan">Mapping results to FINCO strategy frameworks</p>
+            </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">Does Finco Capital offer business growth tips?<span>▲</span></div>
-          <div class="faq-answer">Yes, our Business Banking experts help you with financial planning, loan management,
-            and digital payment strategies to grow your business.</div>
+    `;
+    document.getElementById('main-content').innerHTML = html;
+}
+
+function showResultScreen() {
+    const result = appState.result;
+    const loanType = appState.loanType;
+    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const refNumber = `REF-${date}-${random}`;
+
+    const parseResult = (text) => {
+        const lines = text.split('\n');
+        let caseTitle = "Your Strategic Blueprint";
+        const sections = [];
+        let currentSection = null;
+        let foundTitle = false;
+
+        lines.forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed) return;
+            
+            if (!foundTitle && trimmed.startsWith('#')) {
+                caseTitle = trimmed.replace(/[#*]/g, '').replace(/:$/, '').trim();
+                foundTitle = true;
+                return;
+            }
+            
+            if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+                if (currentSection) sections.push(currentSection);
+                currentSection = { title: trimmed.replace(/\*\*/g, '').replace(/:/g, ''), content: [] };
+            } else if (currentSection) {
+                if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+                    currentSection.content.push({ type: 'bullet', text: trimmed.replace(/^[* -] /, '') });
+                } else {
+                    currentSection.content.push({ type: 'paragraph', text: trimmed });
+                }
+            }
+        });
+        
+        if (currentSection) sections.push(currentSection);
+        return { caseTitle, sections };
+    };
+
+    const { caseTitle, sections } = parseResult(result);
+
+    let html = `
+        <div class="max-w-5xl mx-auto space-y-12 animate-fade-in pb-20">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <!-- Letterhead -->
+                <div class="p-8 md-p-12 border-b-8 border-finco-navy flex flex-col md-flex-row justify-between items-start md-items-center gap-8 bg-slate-50">
+                    <svg viewBox="0 0 500 150" class="h-16 md-h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
+                        <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
+                        <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
+                        <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
+                        <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
+                        <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
+                        <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan';">$</text>
+                        <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan'; letter-spacing: -1px;">FC</text>
+                        <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan'; letter-spacing: -4px;">FINC<tspan fill="#FF9500">O</tspan></text>
+                        <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan'; letter-spacing: 10px;">CAPITAL</text>
+                    </svg>
+                    <div class="text-right space-y-1">
+                        <p class="text-finco-navy font-bold text-sm tracking-widest uppercase font-spartan">Preliminary Strategic Analysis Report</p>
+                        <p class="text-slate-500 text-xs font-semibold font-spartan">${new Date().toLocaleDateString('en-GB', { dateStyle: 'full' })}</p>
+                        <p class="text-finco-orange font-mono text-sm font-bold">${refNumber}</p>
+                    </div>
+                </div>
+
+                <div class="p-8 md-p-12 space-y-10">
+                    <!-- Header Block -->
+                    <div class="text-center space-y-4 mb-12">
+                        <span class="text-finco-orange text-xs font-bold uppercase tracking-widest font-spartan">Strategic Classification</span>
+                        <h2 class="text-4xl md-text-5xl font-extrabold text-finco-navy font-spartan italic leading-tight uppercase">
+                            ${caseTitle}
+                        </h2>
+                        <p class="text-slate-500 text-lg font-light">A framework-based analysis of your unique lending scenario.</p>
+                    </div>
+
+                    <div class="grid gap-6">
+    `;
+
+    sections.forEach((section, idx) => {
+        const isFirst = idx === 0;
+        let sectionBg = 'bg-white border-slate-200 shadow-sm';
+        let titleColor = 'text-finco-navy';
+        let contentColor = 'text-slate-600';
+
+        if (isFirst) {
+            if (loanType === 'COMMERCIAL') {
+                sectionBg = 'bg-[#FF9500] shadow-2xl';
+                titleColor = 'text-[#001A3D]';
+                contentColor = 'text-white font-medium';
+            } else if (loanType === 'SMSF') {
+                sectionBg = 'bg-[#656933] shadow-2xl';
+                titleColor = 'text-[#FF9500]';
+                contentColor = 'text-white font-medium';
+            } else {
+                sectionBg = 'bg-[#001A3D] shadow-2xl';
+                titleColor = 'text-[#FF9500]';
+                contentColor = 'text-white font-medium';
+            }
+        }
+
+        html += `
+            <div class="p-8 md-p-10 rounded-3xl border transition-all ${sectionBg}">
+                <h3 class="text-xl font-extrabold uppercase tracking-widest mb-6 font-spartan ${titleColor}">
+                    ${section.title}
+                </h3>
+                <div class="${contentColor}">
+        `;
+
+        section.content.forEach(item => {
+            if (item.type === 'bullet') {
+                html += `<div class="flex gap-3 mb-3"><span class="mt-1">●</span><span class="text-lg">${item.text}</span></div>`;
+            } else {
+                html += `<div class="text-lg leading-relaxed mb-4">${item.text}</div>`;
+            }
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="bg-finco-orange-5 border-2 border-finco-orange rounded-3xl p-8 md-p-10 text-center space-y-6">
+                        <h3 class="text-2xl font-extrabold text-finco-navy font-spartan uppercase">Ready to take the next step?</h3>
+                        <div class="text-slate-600 text-lg max-w-xl mx-auto space-y-4">
+                            <p>This analysis identifies the pathways available to you.</p>
+                            <p>For a bespoke assessment, email us at <a href="mailto:service@fincocapital.com.au" class="text-finco-navy font-bold hover-underline underline-offset-4">service@fincocapital.com.au</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="bg-slate-50 rounded-2xl p-8 space-y-4 border border-slate-200">
+                        <h4 class="text-slate-900 font-bold uppercase tracking-widest text-xs font-spartan">Financial & Compliance Disclaimer</h4>
+                        <p class="text-xs leading-relaxed italic text-slate-500 font-light">
+                            The information provided by the FINCO Case Solver is for educational and strategic classification purposes only. It does not constitute financial advice, credit assistance, or a commitment to lend.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md-flex-row gap-4 justify-center items-center pt-8">
+                <button onclick="resetApp()" class="bg-white text-finco-navy border-2 border-slate-200 px-6 py-4 rounded-2xl font-extrabold text-sm hover-bg-slate-50 transition-all font-spartan uppercase shadow-sm">
+                    Reset Analysis
+                </button>
+            </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-question">Does Finco Capital offer retirement or future planning advice?<span>▲</span></div>
-          <div class="faq-answer">Yes, Finco Capital helps customers create a secure retirement plan through savings
-            schemes and investment portfolios.</div>
-        </div>
-      </div>
-    </div>
+    `;
 
-  </div>
-</section>
+    document.getElementById('main-content').innerHTML = html;
+}
 
-<!-- SERVICES + FORM -->
+// ===== EVENT HANDLERS =====
+function selectLoanType(type) {
+    appState.loanType = type;
+    appState.step = 0;
+    appState.answers = [];
+    appState.isProcessing = false;
+    appState.result = null;
+    selectedOptions = [];
+    otherText = '';
+    showQuestionnaire();
+    scrollToTop();
+}
 
+function selectOption(label) {
+    const currentQuestions = QUESTIONS[appState.loanType];
+    const q = currentQuestions[appState.step];
 
-<script>
-  // Accordion behavior: only one FAQ open at a time
-  // Uses dynamic max-height so answers fully collapse/expand on all screens
-  const faqItems = document.querySelectorAll('.faq-item');
-  const faqQuestions = document.querySelectorAll('.faq-question');
+    if (q.multiSelect) {
+        if (selectedOptions.includes(label)) {
+            selectedOptions = selectedOptions.filter(s => s !== label);
+        } else if (selectedOptions.length < 2) {
+            selectedOptions.push(label);
+        }
+        showQuestionnaire();
+    } else {
+        if (label === 'Other') {
+            selectedOptions = ['Other'];
+            showQuestionnaire();
+        } else {
+            goNext([label]);
+        }
+    }
+}
 
-  function closeAllFaqs() {
-    faqItems.forEach(item => {
-      item.classList.remove('active');
-      const ans = item.querySelector('.faq-answer');
-      if (ans) ans.style.maxHeight = '0px';
-      const q = item.querySelector('.faq-question');
-      if (q) q.setAttribute('aria-expanded', 'false');
+function goNext(preselected = null) {
+    if (preselected) {
+        selectedOptions = preselected;
+    }
+
+    const currentQuestions = QUESTIONS[appState.loanType];
+    const q = currentQuestions[appState.step];
+
+    if (selectedOptions.length === 0) return;
+
+    const finalAnswers = selectedOptions.map(s => {
+        if (s === 'Other') {
+            const input = document.getElementById('other-text-input');
+            return input && input.value.trim() ? `Other: ${input.value}` : s;
+        }
+        return s;
     });
-  }
 
-  faqQuestions.forEach(q => {
-    q.setAttribute('role', 'button');
-    q.setAttribute('tabindex', '0');
-    const parent = q.closest('.faq-item');
-    const ans = parent.querySelector('.faq-answer');
-    q.setAttribute('aria-expanded', parent.classList.contains('active') ? 'true' : 'false');
+    const newAnswer = {
+        questionId: q.id,
+        questionText: q.text,
+        answers: finalAnswers
+    };
 
-    q.addEventListener('click', () => {
-      const wasActive = parent.classList.contains('active');
-      closeAllFaqs();
-      if (!wasActive) {
-        parent.classList.add('active');
-        if (ans) ans.style.maxHeight = ans.scrollHeight + 'px';
-        q.setAttribute('aria-expanded', 'true');
-      }
-    });
+    appState.answers.push(newAnswer);
+    selectedOptions = [];
+    otherText = '';
 
-    q.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        q.click();
-      }
-    });
-  });
+    if (appState.step < 3) {
+        appState.step += 1;
+        showQuestionnaire();
+    } else {
+        processResult();
+    }
 
-  // Initialize: set max-height for only the first active item on page load
-  window.addEventListener('load', () => {
-    let foundActive = false;
-    faqItems.forEach(item => {
-      const ans = item.querySelector('.faq-answer');
-      const q = item.querySelector('.faq-question');
-      if (item.classList.contains('active') && !foundActive) {
-        foundActive = true;
-        ans.style.maxHeight = ans.scrollHeight + 'px';
-        if (q) q.setAttribute('aria-expanded', 'true');
-      } else {
-        item.classList.remove('active');
-        if (ans) ans.style.maxHeight = '0px';
-        if (q) q.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
+    scrollToTop();
+}
 
-  // Keep open item's height correct on resize
-  window.addEventListener('resize', () => {
-    faqItems.forEach(item => {
-      if (item.classList.contains('active')) {
-        const ans = item.querySelector('.faq-answer');
-        if (ans) ans.style.maxHeight = ans.scrollHeight + 'px';
-      }
-    });
-  });
+function goBack() {
+    if (appState.step === 0) {
+        appState.loanType = null;
+        appState.answers = [];
+        selectedOptions = [];
+        showLoanTypeSelector();
+    } else {
+        appState.step -= 1;
+        appState.answers.pop();
+        selectedOptions = [];
+        showQuestionnaire();
+    }
+    scrollToTop();
+}
 
-  const tabs = document.querySelectorAll('.tab');
-  const sections = document.querySelectorAll('.form-section');
+async function processResult() {
+    appState.isProcessing = true;
+    showLoadingState();
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+    const result = await solveCase(appState.loanType, appState.answers);
+    appState.isProcessing = false;
+    appState.result = result;
+    showResultScreen();
+    scrollToTop();
+}
 
-      sections.forEach(sec => sec.classList.add('hidden'));
-      document.getElementById(tab.dataset.target).classList.remove('hidden');
-    });
-  });
-</script>
-<!-- sections -->
+function resetApp() {
+    appState.loanType = null;
+    appState.step = 0;
+    appState.answers = [];
+    appState.isProcessing = false;
+    appState.result = null;
+    selectedOptions = [];
+    otherText = '';
+    showLoanTypeSelector();
+    scrollToTop();
+}
 
+// ===== INITIALIZE APP =====
+document.addEventListener('DOMContentLoaded', () => {
+    showLoanTypeSelector();
+});
 
+    </script>
+</body>
+</html>
 
-
-<!-- Scripts (same as index, adjusted paths) -->
-<!-- <script src="../js/constants.js" defer></script> -->
-<!-- <script src="../js/utils.js" defer></script> -->
-<!-- <script src="../js/calculations.js" defer></script>
-    <script src="../js/ui.js" defer></script>
-    <script src="../js/home_extras.js" defer></script> -->
-<script src="../js/eventListeners.js" defer></script>
-
-<script src="../js/commercial_financial.js" defer></script>
-<script src="../js/smsf_financial.js" defer></script>
-
-
-<!-- footer container - dynamically loaded -->
 <div id="footer-container"></div>
 <script src="../js/load-components.js"></script>
+    <!-- Scripts (same as index, adjusted paths) -->
+    <script src="../js/constants.js" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/calculations.js" defer></script>
+    <!-- <script src="../js/ui.js" defer></script> -->
+    <script src="../js/home_extras.js" defer></script>
+    <script src="../js/eventListeners.js" defer></script>
 </body>
 
 </html>
