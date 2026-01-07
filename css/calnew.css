@@ -831,7 +831,8 @@ input[readonly] {
 }
 
 .step {
-  text-align: center
+  text-align: center;
+  padding: 10px 0px;
 }
 
 .step-title {
@@ -2294,13 +2295,16 @@ select#extraRepaymentFrequency:focus {
 }
 
 /* LEFT CONTENT */
+.divider{
+  margin: 40px 0;
+}
 
 .about-content {
   padding: 0px 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 48%;
+  width: 49%;
 }
 
 .about-tag {
@@ -2324,14 +2328,14 @@ select#extraRepaymentFrequency:focus {
 .about-content h2 {
   font-size: 58px;
   line-height: 1em;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
   color: #001333;
   margin-bottom: 22px;
   font-weight: 600;
 }
 
 .about-content p {
-  font-size: 18px;
+  font-size: 17px;
   color: #001333;
   font-weight: 500;
   line-height: 1.8;
