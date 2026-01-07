@@ -133,7 +133,7 @@ header h1 {
 }
 
 .image {
-  width: 13%;
+  width: 16%;
   /* text-align: start; */
   border-right: 1px solid #c4c4c4;
 }
@@ -190,7 +190,7 @@ header h1 {
   }
 
   .image {
-    width: 30%;
+    width: 50%;
     margin-left: -90px;
 
   }
@@ -1011,7 +1011,7 @@ input[readonly] {
 }
 
 #dashboardCard.flip-transition {
-  transition: transform 360ms ease-in-out;
+  transition: transform 650ms ease-in-out !important;
 }
 
 #dashboardCard.flipped {
@@ -1578,7 +1578,11 @@ button[type="submit"] {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
-    height: 100%;
+    height: 100% !important;
+    max-height: 600px !important;
+   
+    margin-top: -53px !important;
+    margin-bottom: -27px !important;
 }
 .welcome-message-initial1 img{
   height: 100%;
@@ -1589,14 +1593,15 @@ button[type="submit"] {
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
   width: 60%;
-  height: 100%;
+  height: 300px;
+
   border-radius: 18px;
   grid-row: 1px !important;
   display: flex;
   justify-content: start;
   flex-direction: column;
   align-items: center;
-  padding: 10px !important;
+  padding: 0px !important;
 
 }
 
@@ -1980,7 +1985,7 @@ button[type="submit"] {
 
 .welcome-message-initial {
   width: 100%;
-  min-width: 780px;
+  min-width: 760px;
   height: 198px;
   display: flex;
   flex-direction: column;
@@ -2043,6 +2048,7 @@ button[type="submit"] {
   .welcome-message-initial {
     width: 100%;
     min-width: 10px !important;
+    margin: 0px !important;
   }
 }
 
@@ -2290,7 +2296,8 @@ select#extraRepaymentFrequency:focus {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 90px;
+  gap: 30px;
+  padding-bottom: 50px;
 
 }
 
@@ -2304,7 +2311,7 @@ select#extraRepaymentFrequency:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 49%;
+  width: 70%;
 }
 
 .about-tag {
@@ -2376,7 +2383,7 @@ select#extraRepaymentFrequency:focus {
 
 .about-image img {
   width: 100%;
-  height: 450px;
+  height: 500px;
 
   object-fit: cover;
 }
@@ -3330,9 +3337,10 @@ select#extraRepaymentFrequency:focus {
 /* footer css */
 footer {
   width: 100%;
-  background-color: #0a1931;
+  background-color: #fafafa;
   padding: 50px 30px 0px 30px;
   /* margin-top: 130px; */
+  border-top:1px solid #001b3a;
 }
 
 .footer-content {
@@ -3435,7 +3443,7 @@ footer {
 }
 
 .fink p {
-  color: white;
+  color: #001b3a;
   width: 85%;
   font-weight: 500;
   font-size: 18px;
@@ -3446,13 +3454,14 @@ footer {
 }
 
 .footer-menu h1 {
-  color: #ffffff;
+  color: #001b3a;
   font-weight: 700;
   font-size: 22px;
   margin-bottom: 20px;
   width: 10px;
   border-left: 5px solid #fd8b02;
   padding-left: 10px;
+  width: 60%;
 }
 
 .footer-menu ul {
@@ -3464,7 +3473,7 @@ footer {
 
 .footer-menu ul li a {
   text-decoration: none;
-  color: #ffffff;
+  color: #001b3a;
   font-size: 18px;
   font-weight: 600;
 }
@@ -3479,7 +3488,7 @@ footer {
 
 .footer-menu p {
   padding-bottom: 13px;
-  color: #ffffff;
+  color: #001b3a;
   font-weight: 600;
   font-size: 16px;
 }
@@ -3510,7 +3519,7 @@ footer {
 .copyright p {
   width: 100%;
   text-align: center;
-  color: #ffffff;
+  color: #001b3a;
   padding: 0px;
   font-weight: 600;
   font-size: 18px;
@@ -3518,6 +3527,10 @@ footer {
   padding-bottom: 20px;
 }
 
+.copyright p a{
+  color: #001b3a;
+  text-decoration: none;
+}
 /* ========== RESPONSIVE FOOTER ========== */
 
 /* Tablets (768px to 1024px) */
