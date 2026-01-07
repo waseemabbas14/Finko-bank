@@ -2291,12 +2291,12 @@ select#extraRepaymentFrequency:focus {
 .about-container {
   width: 100%;
   margin: 0 auto;
-  padding: 0px;
+  padding: 0px 0px 0px 70px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 90px;
+  gap: 20px;
 
 }
 
@@ -2306,7 +2306,7 @@ select#extraRepaymentFrequency:focus {
 }
 
 .about-content {
-  padding: 0px 70px;
+  padding: 0px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2413,7 +2413,7 @@ select#extraRepaymentFrequency:focus {
   }
 
   .about-section {
-    padding: 50px 0px;
+    padding: 50px 20px;
   }
 
 }
