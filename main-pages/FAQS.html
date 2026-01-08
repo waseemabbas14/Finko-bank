@@ -10,213 +10,185 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Rajdhani', sans-serif;
-    }
-
-   /* ===== CSS VARIABLES ===== */
-:root {
+<style>
+   :root {
     --finco-navy: #001A3D;
     --finco-orange: #FF9500;
-    --finco-orange-5: rgba(255, 149, 0, 0.05);
-    --finco-orange-10: rgba(255, 149, 0, 0.1);
-    --finco-orange-30: rgba(255, 149, 0, 0.3);
-    --white-10: rgba(255, 255, 255, 0.1);
-    --slate-400-30: rgba(148, 163, 184, 0.3);
+    --finco-light-blue: #accbff;
+    --finco-light-orange: #FFC067;
+    --finco-green: #96b85d;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
 }
 
-/* ===== RESET & BASE =====*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-}
-
 body {
     font-family: 'Inter', sans-serif;
     background-color: #fcfcfd;
-    color: #1e293b;
+    color: var(--gray-800);
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ===== FONTS ===== */
-h1, h2, h3, h4, h5, h6,
-.font-spartan {
+/* Header Styles */
+.header {
+    background-color: var(--finco-navy);
+    color: white;
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.finco-logo {
+    height: 40px;
+    width: auto;
+}
+
+@media (min-width: 768px) {
+    .finco-logo {
+        height: 48px;
+    }
+}
+
+.vertical-divider {
+    height: 40px;
+    width: 1px;
+    background-color: rgba(148, 163, 184, 0.3);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-title {
+    font-size: 14px;
     font-family: 'League Spartan', sans-serif;
-    letter-spacing: -0.02em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.font-serif {
-    font-family: 'Playfair Display', serif;
+@media (min-width: 768px) {
+    .logo-title {
+        font-size: 18px;
+    }
 }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar {
-    width: 8px;
+.logo-subtitle {
+    font-size: 9px;
+    color: var(--finco-orange);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-top: 0.25rem;
+    white-space: nowrap;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+@media (min-width: 768px) {
+    .logo-subtitle {
+        font-size: 10px;
+    }
 }
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+.empowering-text {
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 11px;
+    text-align: right;
+    line-height: 1.3;
 }
 
-/* ===== UTILITY CLASSES ===== */
-.bg-finco-navy { background-color: var(--finco-navy); }
-.text-finco-navy { color: var(--finco-navy); }
-.bg-finco-orange { background-color: var(--finco-orange); }
-.text-finco-orange { color: var(--finco-orange); }
-.border-finco-orange { border-color: var(--finco-orange); }
-.bg-finco-orange-5 { background-color: var(--finco-orange-5); }
-.bg-finco-orange-10 { background-color: var(--finco-orange-10); }
-.border-finco-orange-10 { border-color: var(--finco-orange-10); }
-.border-finco-orange-30 { border-color: var(--finco-orange-30); }
-.border-white-10 { border-color: var(--white-10); }
-.bg-slate-400-30 { background-color: var(--slate-400-30); }
+/* Main Content */
+.main-content {
+    flex: 1;
+    width: 100%;
+    padding: 10rem 1rem !important;
 
-/* DISPLAY */
-.min-h-screen { min-height: 100vh; }
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.flex-row { flex-direction: row; }
-.flex-grow { flex-grow: 1; }
-.items-center { align-items: center; }
-.items-start { align-items: flex-start; }
-.justify-between { justify-content: space-between; }
-.justify-center { justify-content: center; }
-.gap-4 { gap: 1rem; }
-.gap-6 { gap: 1.5rem; }
-.gap-8 { gap: 2rem; }
-.gap-2 { gap: 0.5rem; }
-.gap-3 { gap: 0.75rem; }
-
-/* SIZING */
-.w-full { width: 100%; }
-.w-px { width: 1px; }
-.w-16 { width: 4rem; }
-.w-24 { width: 6rem; }
-.w-32 { width: 8rem; }
-.h-full { height: 100%; }
-.h-10 { height: 2.5rem; }
-.h-16 { height: 4rem; }
-.h-24 { height: 6rem; }
-.h-1-5 { height: 0.375rem; }
-
-/* PADDING */
-.p-4 { padding: 1rem; }
-.p-6 { padding: 1.5rem; }
-.p-8 { padding: 2rem; }
-.p-10 { padding: 2.5rem; }
-.p-12 { padding: 3rem; }
-.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
-.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-.py-32 { padding-top: 8rem; padding-bottom: 8rem; }
-.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
-.px-4 { padding-left: 1rem; padding-right: 1rem; }
-.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-.px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
-.mb-8 { margin-bottom: 2rem; }
-.mb-12 { margin-bottom: 3rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mb-3 { margin-bottom: 0.75rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mt-1 { margin-top: 0.25rem; }
-.mt-auto { margin-top: auto; }
-.mx-auto { margin-left: auto; margin-right: auto; }
-.pt-8 { padding-top: 2rem; }
-.pt-2 { padding-top: 0.5rem; }
-.pt-4 { padding-top: 1rem; }
-
-/* BORDERS & RADIUS */
-.border { border: 1px solid #e2e8f0; }
-.border-b-8 { border-bottom: 8px solid; }
-.border-2 { border: 2px solid; }
-.border-t { border-top: 1px solid; }
-.border-t-transparent { border-top-color: transparent; }
-.rounded-2xl { border-radius: 1rem; }
-.rounded-3xl { border-radius: 1.5rem; }
-.rounded-full { border-radius: 9999px; }
-.rounded-lg { border-radius: 0.5rem; }
-.overflow-hidden { overflow: hidden; }
-
-/* TYPOGRAPHY */
-.text-xs { font-size: 0.75rem; }
-.text-9 { font-size: 0.5625rem; }
-.text-10 { font-size: 0.625rem; }
-.text-sm { font-size: 0.875rem; }
-.text-base { font-size: 1rem; }
-.text-lg { font-size: 1.125rem; }
-.text-xl { font-size: 1.25rem; }
-.text-2xl { font-size: 1.5rem; }
-.text-3xl { font-size: 1.875rem; }
-.text-4xl { font-size: 2.25rem; }
-.text-5xl { font-size: 3rem; }
-.text-7xl { font-size: 4.5rem; }
-.text-14 { font-size: 0.875rem; }
-.text-18 { font-size: 1.125rem; }
-
-.font-light { font-weight: 300; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
-.font-extrabold { font-weight: 800; }
-.font-black { font-weight: 900; }
-
-.uppercase { text-transform: uppercase; }
-.italic { font-style: italic; }
-.leading-none { line-height: 1; }
-.leading-tight { line-height: 1.25; }
-.leading-relaxed { line-height: 1.625; }
-
-.tracking-2 { letter-spacing: 0.05em; }
-.tracking-widest { letter-spacing: 0.1em; }
-.tracking-tight { letter-spacing: -0.025em; }
-.tracking-tighter { letter-spacing: -0.05em; }
-
-.text-white { color: white; }
-.text-slate-400 { color: #94a3b8; }
-.text-slate-500 { color: #64748b; }
-.text-slate-600 { color: #475569; }
-.text-slate-900 { color: #0f172a; }
-
-/* SHADOWS */
-.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-
-/* HOVER & TRANSITIONS */
-.transition-all { transition: all 0.3s ease; }
-.transition-colors { transition: color 0.3s, background-color 0.3s; }
-.transition-colors { transition: all 0.3s ease; }
-.duration-300 { transition-duration: 0.3s; }
-.duration-500 { transition-duration: 0.5s; }
-.duration-700 { transition-duration: 0.7s; }
-
-button:hover {
-    cursor: pointer;
 }
 
-/* ANIMATIONS */
-@keyframes fadeIn {
+@media (min-width: 768px) {
+    .main-content {
+        padding: 6rem 1rem;
+    }
+}
+
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Loan Type Selection */
+.loan-selector-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(1rem);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -224,197 +196,1244 @@ button:hover {
     }
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+.hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    color: var(--finco-navy);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 5rem;
     }
+}
+
+.hero-highlight {
+    color: var(--finco-orange);
+}
+
+.hero-description {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-text {
+    color: var(--gray-500);
+    font-size: 1.25rem;
+    font-weight: 300;
+    max-width: 42rem;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+    .hero-text {
+        font-size: 1.5rem;
+    }
+}
+
+.hero-tagline {
+    color: var(--finco-orange);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+}
+
+.loan-cards-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .loan-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+.loan-card {
+    position: relative;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.5s;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+    cursor: pointer;
+}
+
+.loan-card:hover {
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--finco-orange);
+    transform: translateY(-8px);
+}
+
+.loan-tag {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+    transition: color 0.3s;
+}
+
+.loan-card:hover .loan-tag {
+    color: var(--finco-navy);
+}
+
+.loan-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s;
+}
+
+.loan-card:hover .loan-icon {
+    background-color: rgba(255, 149, 0, 0.1);
+}
+
+.loan-content {
+    flex: 1;
+}
+
+.loan-title {
+    font-size: 1.875rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--finco-navy);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
+}
+
+.loan-card:hover .loan-title {
+    color: var(--finco-orange);
+}
+
+.loan-desc {
+    color: var(--finco-navy);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.loan-cta {
+    margin-top: auto;
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    color: var(--finco-orange);
+    font-family: 'League Spartan', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.loan-card:hover .loan-cta {
+    opacity: 1;
+}
+
+.arrow {
+    margin-left: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.loan-card:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Questionnaire */
+.questionnaire-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    animation: slideInRight 0.7s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+}
+
+.back-button {
+    color: var(--gray-400);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.back-button:hover {
+    color: var(--finco-navy);
+}
+
+.back-arrow {
+    font-size: 1.125rem;
+    transition: transform 0.3s;
+}
+
+.back-button:hover .back-arrow {
+    transform: translateX(-4px);
+}
+
+.step-counter {
+    padding: 0.25rem 0.75rem;
+    background-color: var(--gray-100);
+    border-radius: 9999px;
+    font-size: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: var(--gray-100);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--finco-orange);
+    width: 25%;
+    transition: width 0.7s ease-out;
+}
+
+.question-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.question-text {
+    font-size: 1.875rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    color: var(--finco-navy);
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+    .question-text {
+        font-size: 3rem;
+    }
+}
+
+.multi-select-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--finco-orange);
+    background-color: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+}
+
+.info-icon {
+    font-size: 1.125rem;
+}
+
+.multi-select-note p {
+    font-size: 0.75rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.options-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.option-button {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--gray-100);
+    text-align: left;
+    background-color: white;
+    color: var(--gray-600);
+    font-size: 1.125rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.option-button:hover {
+    border-color: rgba(255, 149, 0, 0.3);
+    background-color: var(--gray-50);
+}
+
+.option-button.selected {
+    background-color: var(--finco-navy);
+    border-color: var(--finco-navy);
+    color: white;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateX(4px);
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+}
+
+.checkmark {
+    color: var(--finco-orange);
+    font-size: 1.25rem;
+}
+
+.other-input-container {
+    animation: fadeInZoom 0.3s ease;
+    display: none;
+}
+
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.other-input-container.active {
+    display: block;
+}
+
+.other-input-container label {
+    display: block;
+    font-size: 0.75rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+#otherText {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--gray-200);
+    font-size: 1rem;
+    color: var(--gray-700);
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: vertical;
+}
+
+#otherText:focus {
+    border-color: var(--finco-orange);
+}
+
+.confirm-button {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.confirm-button.enabled {
+    background-color: var(--finco-orange);
+    color: white;
+}
+
+.confirm-button.enabled:hover {
+    filter: brightness(110%);
+    transform: translateY(-2px);
+}
+
+.confirm-button:disabled {
+    background-color: var(--gray-200);
+    color: var(--gray-400);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Loading Screen */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 1rem;
+    text-align: center;
+}
+
+.loading-spinner {
+    position: relative;
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 2rem;
+}
+
+.spinner-outer {
+    position: absolute;
+    inset: 0;
+    border: 6px solid var(--finco-orange);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-inner {
+    position: absolute;
+    inset: 0;
+    border: 6px solid var(--gray-100);
+    border-radius: 50%;
+    z-index: -10;
+}
+
+@keyframes spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-.animate-fade-in {
-    animation: fadeIn 0.7s ease-out;
+.loading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
-.animate-spin {
-    animation: spin 1s linear infinite;
+.loading-title {
+    font-size: 1.875rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--finco-navy);
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
-/* RESPONSIVE */
+.loading-subtitle {
+    color: var(--gray-400);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+}
+
+/* Results Screen */
+.results-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 2rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: fadeInUp 1s ease;
+}
+
+.report-letterhead {
+    padding: 2rem 3rem;
+    border-bottom: 8px solid var(--finco-navy);
+    background-color: var(--gray-50);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 @media (min-width: 768px) {
-    .md-px-12 { padding-left: 3rem; padding-right: 3rem; }
-    .md-py-24 { padding-top: 6rem; padding-bottom: 6rem; }
-    .md-flex-row { flex-direction: row; }
-    .md-grid-cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .md-text-10 { font-size: 0.625rem; }
-    .md-text-18 { font-size: 1.125rem; }
-    .md-text-2xl { font-size: 1.5rem; }
-    .md-text-4xl { font-size: 2.25rem; }
-    .md-text-5xl { font-size: 3rem; }
-    .md-text-7xl { font-size: 4.5rem; }
-    .md-h-12 { height: 3rem; }
-    .md-h-20 { height: 5rem; }
-    .md-p-12 { padding: 3rem; }
-    .md-p-10 { padding: 2.5rem; }
-    .md-text-right { text-align: right; }
-    .md-text-center { text-align: center; }
-    .md-items-center { align-items: center; }
-    .md-flex-row { flex-direction: row; }
-    .md-gap-8 { gap: 2rem; }
+    .report-letterhead {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
-/* HOVER STATES */
-.hover-shadow-2xl:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+.report-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
 }
 
-.hover-border-finco-orange:hover {
-    border-color: var(--finco-orange);
-}
-
-.hover-text-finco-orange:hover {
+.report-header-tag {
     color: var(--finco-orange);
+    font-size: 0.75rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    margin-bottom: 1rem;
 }
 
-.hover-text-finco-navy:hover {
+.report-title {
+    font-size: 2.25rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    color: var(--finco-navy);
+    font-style: italic;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .report-title {
+        font-size: 3rem;
+    }
+}
+
+.report-subtitle {
+    color: var(--gray-500);
+    font-size: 1.125rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.report-note {
+    color: var(--gray-400);
+    font-size: 0.875rem;
+    font-style: italic;
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.report-content {
+    padding: 2rem 3rem 3rem;
+}
+
+@media (min-width: 768px) {
+    .report-content {
+        padding: 3rem;
+    }
+}
+
+.report-section {
+    padding: 2rem;
+    border-radius: 2rem;
+    border: 1px solid var(--gray-100);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s;
+}
+
+@media (min-width: 768px) {
+    .report-section {
+        padding: 2.5rem;
+    }
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.section-content {
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+.section-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.section-content li {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.bullet {
+    margin-top: 0.5rem;
+}
+
+.section-cta {
+    background-color: rgba(255, 149, 0, 0.05);
+    border: 2px solid var(--finco-orange);
+    border-radius: 2rem;
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+    .section-cta {
+        padding: 2.5rem;
+    }
+}
+
+.cta-title {
+    font-size: 1.5rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.cta-content {
+    color: var(--gray-600);
+    font-size: 1.125rem;
+    max-width: 36rem;
+    margin: 0 auto;
+}
+
+.cta-content a {
+    color: var(--finco-navy);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.cta-content a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.cta-emphasis {
+    color: var(--finco-navy);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1rem;
+    border-top: 1px solid rgba(255, 149, 0, 0.2);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.reference-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+
+.reference-text {
+    color: var(--gray-400);
+    font-size: 0.75rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.disclaimer-section {
+    background-color: var(--gray-50);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--gray-200);
+    margin-top: 2rem;
+}
+
+.disclaimer-title {
+    color: var(--gray-900);
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.disclaimer-text {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--gray-500);
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.disclaimer-footer {
+    font-size: 10px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+}
+
+.results-actions {
+    max-width: 1000px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .results-actions {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.action-button {
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.download-btn {
+    background-color: var(--finco-orange);
+    color: white;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn:hover {
+    filter: brightness(110%);
+}
+
+.download-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.primary-btn {
+    background-color: var(--finco-navy);
+    color: white;
+    padding: 1.25rem 2.5rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn:hover {
+    background-color: var(--gray-800);
+}
+
+.secondary-btn {
+    background-color: white;
+    color: var(--finco-navy);
+    border: 2px solid var(--gray-200);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.secondary-btn:hover {
+    background-color: var(--gray-50);
+}
+
+.btn-icon {
+    font-size: 1.125rem;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 26, 61, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    overflow-y: auto;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    width: 100%;
+    max-width: 42rem;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    margin: auto;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: var(--gray-400);
+    font-size: 2rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
     color: var(--finco-navy);
 }
 
-.hover--translate-y-2:hover {
-    transform: translateY(-0.5rem);
+.modal-header {
+    background-color: var(--gray-50);
+    padding: 2rem;
+    border-bottom: 1px solid var(--gray-100);
 }
 
-.hover-bg-finco-orange-10:hover {
-    background-color: var(--finco-orange-10);
+.modal-logo-svg {
+    height: 40px;
+    width: auto;
+    margin-bottom: 1rem;
 }
 
-.hover-bg-slate-50:hover {
-    background-color: #f8fafc;
+.modal-title {
+    font-size: 1.875rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 800;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
-.hover-brightness-110:hover {
-    filter: brightness(1.1);
+.modal-subtitle {
+    color: var(--gray-500);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
 }
 
-.hover-bg-slate-800:hover {
-    background-color: #1e293b;
+.modal-body {
+    padding: 2rem;
 }
 
-.hover-underline:hover {
-    text-decoration: underline;
+@media (min-width: 768px) {
+    .modal-body {
+        padding: 2.5rem;
+    }
 }
 
-.underline-offset-4 {
-    text-underline-offset: 1rem;
+.form-step {
+    display: none;
 }
 
-.active-scale-98:active {
-    transform: scale(0.98);
+.form-step.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
 }
 
-/* WHITESPACE */
-.whitespace-nowrap {
-    white-space: nowrap;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-/* Z-INDEX */
-.z-50 { z-index: 50; }
-.z--10 { z-index: -10; }
-.sticky { position: sticky; }
-.top-0 { top: 0; }
-.relative { position: relative; }
-.absolute { position: absolute; }
-.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-.right-8 { right: 2rem; }
-.top-6 { top: 1.5rem; }
-.brightness-0 { filter: brightness(0); }
-.invert { filter: invert(1); }
+.form-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
 
-/* GRID & SPACE */
-.grid { display: grid; }
-.gap-6 { gap: 1.5rem; }
-.space-y-10 > * + * { margin-top: 2.5rem; }
-.space-y-8 > * + * { margin-top: 2rem; }
-.space-y-4 > * + * { margin-top: 1rem; }
-.space-y-6 > * + * { margin-top: 1.5rem; }
-.space-y-3 > * + * { margin-top: 0.75rem; }
-.space-y-1 > * + * { margin-top: 0.25rem; }
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
-.min-h-80 { min-height: 20rem; }
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
 
-/* FOCUS & OUTLINE */
-.outline-none { outline: none; }
-.focus-border-finco-orange:focus {
+.form-group label {
+    font-size: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 1rem;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    color: var(--gray-700);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
     border-color: var(--finco-orange);
 }
 
-/* MAX WIDTH */
-.max-w-2xl { max-width: 42rem; }
-.max-w-5xl { max-width: 64rem; }
-.max-w-6xl { max-width: 72rem; }
-.max-w-7xl { max-width: 80rem; }
-.max-w-xl { max-width: 36rem; }
-
-/* CURSOR */
-.cursor-not-allowed {
-    cursor: not-allowed;
+.form-note {
+    background-color: rgba(255, 149, 0, 0.05);
+    border: 1px solid rgba(255, 149, 0, 0.2);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
 }
 
-/* OPACITY */
-.opacity-0 { opacity: 0; }
-.opacity-100 { opacity: 1; }
-.opacity-30 { opacity: 0.3; }
-.group-hover-opacity-100:hover {
-    opacity: 1;
+.form-note p {
+    color: var(--finco-navy);
+    font-size: 0.75rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    font-style: italic;
 }
 
-/* MORE RESPONSIVE */
-@media (max-width: 767px) {
-    .md-px-12,
-    .md-py-24,
-    .md-text-10,
-    .md-text-18,
-    .md-h-12,
-    .md-h-20,
-    .md-p-12,
-    .md-p-10,
-    .md-flex-row,
-    .md-grid-cols-3,
-    .md-text-right,
-    .md-text-center,
-    .md-items-center {
-        /* Mobile defaults already applied */
+.form-submit {
+    width: 100%;
+    padding: 1.25rem;
+    background-color: var(--finco-navy);
+    color: white;
+    border-radius: 1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-submit:hover {
+    background-color: var(--gray-800);
+}
+
+.verification-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.verification-header h3 {
+    font-size: 1.5rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.verification-header p {
+    color: var(--gray-500);
+    font-size: 0.875rem;
+}
+
+.verification-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.otp-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.otp-group label {
+    font-size: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.otp-input {
+    width: 8rem;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 0.75rem;
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: 0.5em;
+    color: var(--gray-700);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.otp-input:focus {
+    border-color: var(--finco-orange);
+}
+
+.verify-btn {
+    width: 100%;
+    padding: 1.25rem;
+    background-color: var(--finco-orange);
+    color: white;
+    border-radius: 1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+.verify-btn:hover {
+    filter: brightness(110%);
+}
+
+.verify-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.success-icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: #d1fae5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #059669;
+    margin: 0 auto 2rem;
+}
+
+.success-content {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.success-content h3 {
+    font-size: 1.875rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    color: var(--finco-navy);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.success-content p {
+    color: var(--gray-600);
+    font-size: 1.125rem;
+    max-width: 24rem;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.success-btn {
+    width: 100%;
+    padding: 1.25rem;
+    background-color: var(--finco-navy);
+    color: white;
+    border-radius: 1rem;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.success-btn:hover {
+    background-color: var(--gray-800);
+}
+
+/* Footer */
+.footer {
+    padding: 3rem 1.5rem;
+    background-color: white;
+    border-top: 1px solid var(--gray-100);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 }
-/* .max-w-2xl {
-    margin: 0 auto;
-} */
-/* CUSTOM BUTTON STYLES */
-button {
-    border: none;
-    font-family: inherit;
-    cursor: pointer;
+
+.footer-logo-svg {
+    height: 40px;
+    width: auto;
 }
 
-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+.footer-text {
+    color: var(--gray-400);
+    font-size: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-align: center;
 }
 
-/* SVG SIZING */
-svg {
-    display: block;
-}
-#app {
-
-    padding-top: 95px !important;
+@media (min-width: 768px) {
+    .footer-text {
+        text-align: right;
+    }
 }
 
-  </style>
+/* Utility Classes */
+.text-bold {
+    font-weight: 800;
+}
+
+.text-finco-navy {
+    color: var(--finco-navy);
+}
+
+.text-finco-orange {
+    color: var(--finco-orange);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-400);
+}
+</style>
 </head>
-
+<body>
 
 <!-- header container - dynamically loaded -->
 <div id="header-container"></div>
@@ -434,13 +1453,262 @@ svg {
 <!-- header -->
 <!-- sections -->
 <!-- HERO -->
-    <div id="app" class="min-h-screen flex flex-col selection-bg-finco-orange selection-text-white">
-        <main class="flex-grow w-full px-4 py-16 md-py-24" id="main-content"></main>
+   <main class="main-content">
+        <!-- Loan Type Selection Screen -->
+        <div id="loanTypeScreen" class="screen active">
+            <div class="loan-selector-container">
+                <div class="hero-section">
+                    <h1 class="hero-title">Identify Your <br><span class="hero-highlight">Strategic Pathway</span></h1>
+                    <div class="hero-description">
+                        <p class="hero-text">Select your lending focus to begin a framework-driven classification of your case.</p>
+                        <p class="hero-tagline">FINCO CAPITAL: Financial Confidence. Unlocked.</p>
+                    </div>
+                </div>
+                
+                <div class="loan-cards-grid">
+                    <div class="loan-card" data-loan-type="HOME" style="background-color: #accbff;">
+                        <div class="loan-tag">Personal</div>
+                        <div class="loan-icon">🏠</div>
+                        <div class="loan-content">
+                            <h3 class="loan-title">Home Loan</h3>
+                            <p class="loan-desc">Classification for buying, refinancing, or residential portfolio building.</p>
+                        </div>
+                        <div class="loan-cta">
+                            Begin Analysis <span class="arrow">→</span>
+                        </div>
+                    </div>
+                    
+                    <div class="loan-card" data-loan-type="COMMERCIAL" style="background-color: #FFC067;">
+                        <div class="loan-tag">Corporate</div>
+                        <div class="loan-icon">🏢</div>
+                        <div class="loan-content">
+                            <h3 class="loan-title">Commercial Lending</h3>
+                            <p class="loan-desc">Complex business debt, cashflow optimisation, and asset-backed growth.</p>
+                        </div>
+                        <div class="loan-cta">
+                            Begin Analysis <span class="arrow">→</span>
+                        </div>
+                    </div>
+                    
+                    <div class="loan-card" data-loan-type="SMSF" style="background-color: #96b85d;">
+                        <div class="loan-tag">Trust</div>
+                        <div class="loan-icon">📈</div>
+                        <div class="loan-content">
+                            <h3 class="loan-title">SMSF LRBA</h3>
+                            <p class="loan-desc">Specialised strategy for lending within your Self-Managed Super Fund.</p>
+                        </div>
+                        <div class="loan-cta">
+                            Begin Analysis <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questionnaire Screen -->
+        <div id="questionnaireScreen" class="screen">
+            <div class="questionnaire-container">
+                <div class="question-header">
+                    <button id="backButton" class="back-button">
+                        <span class="back-arrow">←</span> Return to Previous
+                    </button>
+                    <span class="step-counter">Step <span id="currentStep">1</span> of 4</span>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+
+                <div class="question-content">
+                    <h2 id="questionText" class="question-text"></h2>
+                    
+                    <div id="multiSelectNote" class="multi-select-note">
+                        <span class="info-icon">ⓘ</span>
+                        <p>Select up to two that apply</p>
+                    </div>
+                    
+                    <div id="optionsContainer" class="options-grid">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+                    
+                    <div id="otherInputContainer" class="other-input-container">
+                        <label>Please provide more details:</label>
+                        <textarea id="otherText" rows="4" placeholder="Tell us a bit more about your situation..."></textarea>
+                    </div>
+                    
+                    <button id="confirmButton" class="confirm-button">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="screen">
+            <div class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-outer"></div>
+                    <div class="spinner-inner"></div>
+                </div>
+                <div class="loading-text">
+                    <h3 class="loading-title">Analysing Case Parameters...</h3>
+                    <p class="loading-subtitle">Mapping results to FINCO strategy frameworks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-container">
+                <!-- Report will be dynamically inserted here -->
+            </div>
+            
+            <div class="results-actions">
+                <button id="downloadPDF" class="action-button download-btn">
+                    <span class="btn-icon">📄</span> Download Report (PDF)
+                </button>
+                
+                <button id="bookSession" class="action-button primary-btn">
+                    Book a Free Expert Strategy Session
+                </button>
+                
+                <button id="resetAnalysis" class="action-button secondary-btn">
+                    Reset Analysis
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Strategy Session Modal -->
+    <div id="sessionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="modal-close">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <svg viewBox="0 0 500 150" class="modal-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
+                        <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
+                        <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
+                        <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
+                        <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
+                        <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
+                        <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan', sans-serif">$</text>
+                        <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan', sans-serif; letter-spacing: -1px">FC</text>
+                        <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan', sans-serif; letter-spacing: -4px">FINC<tspan fill="#FF9500">O</tspan></text>
+                        <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan', sans-serif; letter-spacing: 10px; text-transform: uppercase">CAPITAL</text>
+                    </svg>
+                </div>
+                <h2 class="modal-title">Book Strategy Session</h2>
+                <p class="modal-subtitle">Free Expert Consultation</p>
+            </div>
+
+            <div class="modal-body">
+                <div id="formStep" class="form-step active">
+                    <form id="bookingForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="fullName" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number *</label>
+                                <input type="tel" id="mobile" required placeholder="0400 000 000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="email" required placeholder="john@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Why are you requesting this session? *</label>
+                            <textarea id="briefNote" rows="2" required placeholder="Brief explanation..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Preferred Call-back Time *</label>
+                            <select id="preferredTime" required>
+                                <option value="">Select a slot</option>
+                                <option value="Mon, 9:00 AM - 10:00 AM">Mon, 9:00 AM - 10:00 AM</option>
+                                <option value="Mon, 2:00 PM - 3:00 PM">Mon, 2:00 PM - 3:00 PM</option>
+                                <option value="Tue, 10:00 AM - 11:00 AM">Tue, 10:00 AM - 11:00 AM</option>
+                                <option value="Wed, 1:00 PM - 2:00 PM">Wed, 1:00 PM - 2:00 PM</option>
+                                <option value="Thu, 3:00 PM - 4:00 PM">Thu, 3:00 PM - 4:00 PM</option>
+                                <option value="Fri, 11:00 AM - 12:00 PM">Fri, 11:00 AM - 12:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Additional Comments (Optional)</label>
+                            <textarea id="comments" rows="2" placeholder="Any focus areas or context..."></textarea>
+                        </div>
+                        
+                        <div class="form-note">
+                            <p>"Your personalised report will be emailed to you in PDF format."</p>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">Continue to Verification</button>
+                    </form>
+                </div>
+                
+                <div id="verificationStep" class="form-step">
+                    <div class="verification-header">
+                        <h3>Security Verification</h3>
+                        <p>Please enter the 4-digit codes sent to your email and mobile.</p>
+                    </div>
+                    
+                    <div class="verification-inputs">
+                        <div class="otp-group">
+                            <label>Email Code (Sent to <span id="emailDisplay"></span>)</label>
+                            <input type="text" id="emailOtp" maxlength="4" placeholder="0000" class="otp-input">
+                        </div>
+                        
+                        <div class="otp-group">
+                            <label>Mobile Code (Sent to <span id="mobileDisplay"></span>)</label>
+                            <input type="text" id="mobileOtp" maxlength="4" placeholder="0000" class="otp-input">
+                        </div>
+                    </div>
+                    
+                    <button id="verifyButton" class="verify-btn">Complete Booking</button>
+                </div>
+                
+                <div id="successStep" class="form-step">
+                    <div class="success-icon">✓</div>
+                    <div class="success-content">
+                        <h3>Booking Confirmed</h3>
+                        <p>Thank you for booking your Free Expert Strategy Session. Your personalised report is on its way to your email.</p>
+                    </div>
+                    <button id="returnToReport" class="success-btn">Return to Report</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        // ===== QUESTIONS DATA =====
+    <!-- Footer -->
+
+              <span id="currentYear" style="display: none;"></span>
+
+ 
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Main JavaScript -->
+   <script>
+    // Application State
+const AppState = {
+    loanType: null,
+    step: 0,
+    answers: [],
+    isProcessing: false,
+    result: null,
+    selectedLoanType: null
+};
+
+// Questions Data
 const QUESTIONS = {
     HOME: [
         {
@@ -606,476 +1874,735 @@ const QUESTIONS = {
     ]
 };
 
-// ===== APP STATE =====
-const appState = {
-    loanType: null,
-    step: 0,
-    answers: [],
-    isProcessing: false,
-    result: null
+// DOM Elements
+const screens = {
+    loanType: document.getElementById('loanTypeScreen'),
+    questionnaire: document.getElementById('questionnaireScreen'),
+    loading: document.getElementById('loadingScreen'),
+    results: document.getElementById('resultsScreen')
 };
 
-let selectedOptions = [];
-let otherText = '';
+const loanCards = document.querySelectorAll('.loan-card');
+const backButton = document.getElementById('backButton');
+const currentStepElement = document.getElementById('currentStep');
+const progressFill = document.getElementById('progressFill');
+const questionText = document.getElementById('questionText');
+const multiSelectNote = document.getElementById('multiSelectNote');
+const optionsContainer = document.getElementById('optionsContainer');
+const otherInputContainer = document.getElementById('otherInputContainer');
+const otherText = document.getElementById('otherText');
+const confirmButton = document.getElementById('confirmButton');
+const downloadPDF = document.getElementById('downloadPDF');
+const bookSession = document.getElementById('bookSession');
+const resetAnalysis = document.getElementById('resetAnalysis');
+const sessionModal = document.getElementById('sessionModal');
+const closeModal = document.getElementById('closeModal');
+const bookingForm = document.getElementById('bookingForm');
+const formStep = document.getElementById('formStep');
+const verificationStep = document.getElementById('verificationStep');
+const successStep = document.getElementById('successStep');
+const emailDisplay = document.getElementById('emailDisplay');
+const mobileDisplay = document.getElementById('mobileDisplay');
+const emailOtp = document.getElementById('emailOtp');
+const mobileOtp = document.getElementById('mobileOtp');
+const verifyButton = document.getElementById('verifyButton');
+const returnToReport = document.getElementById('returnToReport');
+const currentYear = document.getElementById('currentYear');
 
-// ===== GEMINI API CALL =====
-async function solveCase(loanType, answers) {
-    const userContext = answers.map(a => `${a.questionText}: ${a.answers.join(', ')}`).join('\n');
+// Current selection state for questionnaire
+let currentSelectedOptions = [];
+let currentMultiSelect = false;
+let currentQuestionData = null;
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Set current year in footer
+    currentYear.textContent = new Date().getFullYear();
     
-    const systemPrompts = {
-        HOME: `You are FINCO CAPITAL's digital Case Solver. Using FINCO's Home Loan Case Classification framework, identify the client segment, dominant mindset, and map to FINCO strategy pathways. Avoid products, lenders, or approvals. Use British English spelling.`,
-        COMMERCIAL: `You are FINCO CAPITAL's digital Case Solver. Identify primary client segment, secondary factors, and primary risk driver. Map to FINCO strategy pathways. Do NOT mention products, rates, or lenders. Use British English spelling.`,
-        SMSF: `You are FINCO CAPITAL's digital Case Solver. Identify SMSF case segment, primary constraints, and likely FINCO strategy pathways. Do NOT assess eligibility or compliance. Use British English spelling.`
-    };
+    // Initialize event listeners
+    initializeEventListeners();
+    
+    // Show initial screen
+    showScreen('loanType');
+});
 
-    const userMessage = `CASE INFORMATION:\n${userContext}\n\nPlease analyse this case and provide a client-facing analysis in markdown format. Start with a Level 1 heading for the case title.`;
-
-    try {
-        // Using Google Gemini API directly
-        const apiKey = localStorage.getItem('geminiApiKey') || '';
-        if (!apiKey) {
-            return 'Please add your Gemini API key. (Note: For demo, you can generate a sample response)';
-        }
-
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                systemInstruction: { parts: [{ text: systemPrompts[loanType] }] },
-                contents: [{ role: 'user', parts: [{ text: userMessage }] }]
-            })
+function initializeEventListeners() {
+    // Loan type selection
+    loanCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const loanType = card.getAttribute('data-loan-type');
+            selectLoanType(loanType);
         });
+    });
+    
+    // Back button
+    backButton.addEventListener('click', goBack);
+    
+    // Confirm button
+    confirmButton.addEventListener('click', handleConfirm);
+    
+    // Other text input
+    otherText.addEventListener('input', updateConfirmButton);
+    
+    // Results actions
+    downloadPDF.addEventListener('click', handleDownloadPDF);
+    bookSession.addEventListener('click', () => {
+        sessionModal.classList.add('active');
+    });
+    resetAnalysis.addEventListener('click', resetApp);
+    
+    // Modal actions
+    closeModal.addEventListener('click', () => {
+        sessionModal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside
+    sessionModal.addEventListener('click', (e) => {
+        if (e.target === sessionModal) {
+            sessionModal.classList.remove('active');
+        }
+    });
+    
+    // Booking form
+    bookingForm.addEventListener('submit', handleFormSubmit);
+    
+    // Verification
+    verifyButton.addEventListener('click', handleVerification);
+    
+    // Return to report
+    returnToReport.addEventListener('click', () => {
+        sessionModal.classList.remove('active');
+    });
+    
+    // OTP inputs
+    emailOtp.addEventListener('input', formatOtpInput);
+    mobileOtp.addEventListener('input', formatOtpInput);
+}
 
-        const data = await response.json();
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Error processing case. Please try again.';
-    } catch (error) {
-        console.error('API Error:', error);
-        return 'Unable to process case. Please check your API key and internet connection.';
+function selectLoanType(loanType) {
+    AppState.loanType = loanType;
+    AppState.step = 0;
+    AppState.answers = [];
+    AppState.selectedLoanType = loanType;
+    
+    showScreen('questionnaire');
+    loadQuestion();
+    scrollToTop();
+}
+
+function showScreen(screenName) {
+    // Hide all screens
+    Object.values(screens).forEach(screen => {
+        screen.classList.remove('active');
+    });
+    
+    // Show selected screen
+    if (screens[screenName]) {
+        screens[screenName].classList.add('active');
     }
 }
 
-// ===== UTILITY FUNCTIONS =====
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function getFilteredOptions(filteredOptions) {
-    const allSelectedAnswers = appState.answers.flatMap(pa => pa.answers);
-    return filteredOptions.filter(opt => {
+function loadQuestion() {
+    const questions = QUESTIONS[AppState.loanType];
+    const currentQuestion = questions[AppState.step];
+    currentQuestionData = currentQuestion;
+    
+    // Update UI
+    currentStepElement.textContent = AppState.step + 1;
+    progressFill.style.width = `${((AppState.step + 1) / questions.length) * 100}%`;
+    questionText.textContent = currentQuestion.text;
+    
+    // Show/hide multi-select note
+    if (currentQuestion.multiSelect) {
+        multiSelectNote.style.display = 'flex';
+        currentMultiSelect = true;
+        confirmButton.textContent = AppState.step === 3 ? 'Finalise Strategy' : 'Continue';
+    } else {
+        multiSelectNote.style.display = 'none';
+        currentMultiSelect = false;
+        confirmButton.textContent = 'Continue';
+    }
+    
+    // Get filtered options
+    const filteredOptions = getFilteredOptions(currentQuestion);
+    
+    // Clear options
+    optionsContainer.innerHTML = '';
+    currentSelectedOptions = [];
+    
+    // Add options
+    filteredOptions.forEach(option => {
+        const label = typeof option === 'string' ? option : option.label;
+        const optionElement = document.createElement('button');
+        optionElement.className = 'option-button';
+        optionElement.innerHTML = `
+            <div class="option-content">
+                <span>${label}</span>
+                <span class="checkmark">✓</span>
+            </div>
+        `;
+        
+        optionElement.addEventListener('click', () => {
+            handleOptionClick(label, optionElement);
+        });
+        
+        optionsContainer.appendChild(optionElement);
+    });
+    
+    // Reset other input
+    otherInputContainer.classList.remove('active');
+    otherText.value = '';
+    
+    // Update confirm button state
+    updateConfirmButton();
+}
+
+function getFilteredOptions(question) {
+    const allSelectedAnswers = AppState.answers.flatMap(answer => answer.answers);
+    
+    return question.options.filter(opt => {
         const option = typeof opt === 'string' ? { label: opt } : opt;
         if (!option.excludeIfSelected || option.excludeIfSelected.length === 0) return true;
-        const isExcluded = option.excludeIfSelected.some(exclusion => allSelectedAnswers.includes(exclusion));
+        
+        const isExcluded = option.excludeIfSelected.some(exclusion => 
+            allSelectedAnswers.includes(exclusion)
+        );
         return !isExcluded;
     });
 }
 
-// ===== RENDER FUNCTIONS =====
-function showLoanTypeSelector() {
-    const cards = [
-        { id: 'HOME', title: 'Home Loan', desc: 'Classification for buying, refinancing, or residential portfolio building.', icon: '🏠', tag: 'Personal', bgColor: '#accbff' },
-        { id: 'COMMERCIAL', title: 'Commercial Lending', desc: 'Complex business debt, cashflow optimisation, and asset-backed growth.', icon: '🏢', tag: 'Corporate', bgColor: '#FFC067' },
-        { id: 'SMSF', title: 'SMSF LRBA', desc: 'Specialised strategy for lending within your Self-Managed Super Fund.', icon: '📈', tag: 'Trust', bgColor: '#96b85d' }
-    ];
-
-    let html = `
-        <div class="max-w-5xl mx-auto space-y-16 animate-fade-in">
-            <div class="text-center space-y-8">
-                <h1 class="text-4xl md-text-7xl font-black text-finco-navy leading-none font-spartan uppercase tracking-tighter">
-                    Identify Your <br/>
-                    <span class="text-finco-orange">Strategic Pathway</span>
-                </h1>
-                <div class="space-y-4">
-                    <p class="text-slate-500 text-xl md-text-2xl max-w-2xl mx-auto font-light leading-relaxed">
-                        Select your lending focus to begin a framework-driven classification of your case.
-                    </p>
-                    <p class="text-finco-orange font-bold text-sm tracking-widest uppercase font-spartan">
-                        FINCO CAPITAL: Financial Confidence. Unlocked.
-                    </p>
-                </div>
-            </div>
-            <div class="grid md-grid-cols-3 gap-8">
-    `;
-
-    cards.forEach(card => {
-        html += `
-            <button onclick="selectLoanType('${card.id}')" style="background-color: ${card.bgColor}" class="group relative p-10 rounded-3xl border border-slate-200 shadow-sm hover-shadow-2xl hover-border-finco-orange hover--translate-y-2 transition-all duration-500 text-left flex flex-col items-start min-h-80">
-                <div class="absolute top-6 right-8 text-10 font-bold uppercase tracking-widest text-white transition-colors font-spartan">
-                    ${card.tag}
-                </div>
-                <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-4xl mb-8 group-hover-bg-finco-orange-10 transition-colors">
-                    ${card.icon}
-                </div>
-                <div class="space-y-3">
-                    <h3 class="text-3xl font-bold text-finco-navy group-hover-text-finco-orange transition-colors font-spartan leading-none uppercase tracking-tight">${card.title}</h3>
-                    <p class="text-finco-navy text-base leading-relaxed font-light">${card.desc}</p>
-                </div>
-                <div class="mt-auto pt-8 flex items-center text-finco-orange text-sm font-bold opacity-0 group-hover-opacity-100 transition-all font-spartan uppercase tracking-widest">
-                    Begin Analysis <span class="ml-2">→</span>
-                </div>
-            </button>
-        `;
-    });
-
-    html += `
-            </div>
-        </div>
-    `;
-
-    document.getElementById('main-content').innerHTML = html;
-}
-
-function showQuestionnaire() {
-    const currentQuestions = QUESTIONS[appState.loanType];
-    const q = currentQuestions[appState.step];
-    const progress = ((appState.step + 1) / currentQuestions.length) * 100;
-
-    const filteredOptions = getFilteredOptions(q.options);
-
-    let html = `
-        <div class="max-w-2xl mx-auto space-y-10 animate-fade-in">
-            <div class="flex items-center justify-between">
-                <button onclick="goBack()" class="group text-slate-400 hover-text-finco-navy font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-all font-spartan">
-                    <span class="text-lg">←</span> Return to Previous
-                </button>
-                <span class="px-3 py-1 bg-slate-100 rounded-full text-10 font-bold text-slate-500 uppercase tracking-widest font-spartan">Step ${appState.step + 1} of 4</span>
-            </div>
-
-            <div class="w-full bg-slate-100 h-1-5 rounded-full overflow-hidden">
-                <div class="bg-finco-orange h-full transition-all duration-700 ease-out" style="width: ${progress}%"></div>
-            </div>
-
-            <div class="space-y-8">
-                <h2 class="text-3xl md-text-5xl font-extrabold text-finco-navy leading-tight font-spartan uppercase tracking-tight">${q.text}</h2>
-                ${q.multiSelect ? `
-                    <div class="flex items-center gap-2 text-finco-orange bg-finco-orange-5 border border-finco-orange-10 px-4 py-2 rounded-lg w-fit">
-                        <span class="text-lg">ⓘ</span>
-                        <p class="text-xs font-bold uppercase tracking-widest font-spartan">Select up to two that apply</p>
-                    </div>
-                ` : ''}
-                
-                <div class="grid gap-4" id="options-container">
-    `;
-
-    filteredOptions.forEach(opt => {
-        const label = typeof opt === 'string' ? opt : opt.label;
-        html += `
-            <button onclick="selectOption('${label.replace(/'/g, "\\'")}')" class="group p-6 rounded-2xl border-2 text-left transition-all duration-300 relative overflow-hidden bg-white border-slate-200 text-slate-600 hover-border-finco-orange-30 hover-bg-slate-50">
-                <div class="flex items-center justify-between relative">
-                    <span class="text-lg font-medium">${label}</span>
-                </div>
-            </button>
-        `;
-    });
-
-    html += `
-                </div>
-
-                <div id="other-text-area" style="display: none;" class="space-y-4">
-                    <label class="block text-sm font-bold text-finco-navy uppercase tracking-widest font-spartan">Please provide more details:</label>
-                    <textarea id="other-text-input" class="w-full p-6 rounded-2xl border-2 border-slate-200 focus-border-finco-orange outline-none transition-all text-slate-700 font-light" rows="4" placeholder="Tell us a bit more about your situation..."></textarea>
-                </div>
-            </div>
-
-            <button onclick="goNext()" class="w-full py-5 rounded-2xl font-extrabold text-lg shadow-2xl transition-all font-spartan uppercase tracking-widest bg-finco-orange text-white hover-brightness-110">
-                ${appState.step === 3 ? 'Finalise Strategy' : 'Continue'}
-            </button>
-        </div>
-    `;
-
-    document.getElementById('main-content').innerHTML = html;
-}
-
-function showLoadingState() {
-    const html = `
-        <div class="flex flex-col items-center justify-center py-32 space-y-8 text-center">
-            <div class="relative w-24 h-24">
-                <div class="absolute inset-0 border-6 border-finco-orange border-t-transparent rounded-full animate-spin"></div>
-                <div class="absolute inset-0 border-6 border-slate-100 rounded-full z--10"></div>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-3xl font-spartan font-bold text-finco-navy italic uppercase tracking-tighter">Analysing Case Parameters...</h3>
-                <p class="text-slate-400 font-medium tracking-widest uppercase text-xs font-spartan">Mapping results to FINCO strategy frameworks</p>
-            </div>
-        </div>
-    `;
-    document.getElementById('main-content').innerHTML = html;
-}
-
-function showResultScreen() {
-    const result = appState.result;
-    const loanType = appState.loanType;
-    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const refNumber = `REF-${date}-${random}`;
-
-    const parseResult = (text) => {
-        const lines = text.split('\n');
-        let caseTitle = "Your Strategic Blueprint";
-        const sections = [];
-        let currentSection = null;
-        let foundTitle = false;
-
-        lines.forEach(line => {
-            const trimmed = line.trim();
-            if (!trimmed) return;
-            
-            if (!foundTitle && trimmed.startsWith('#')) {
-                caseTitle = trimmed.replace(/[#*]/g, '').replace(/:$/, '').trim();
-                foundTitle = true;
-                return;
-            }
-            
-            if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
-                if (currentSection) sections.push(currentSection);
-                currentSection = { title: trimmed.replace(/\*\*/g, '').replace(/:/g, ''), content: [] };
-            } else if (currentSection) {
-                if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
-                    currentSection.content.push({ type: 'bullet', text: trimmed.replace(/^[* -] /, '') });
-                } else {
-                    currentSection.content.push({ type: 'paragraph', text: trimmed });
-                }
-            }
-        });
-        
-        if (currentSection) sections.push(currentSection);
-        return { caseTitle, sections };
-    };
-
-    const { caseTitle, sections } = parseResult(result);
-
-    let html = `
-        <div class="max-w-5xl mx-auto space-y-12 animate-fade-in pb-20">
-            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                <!-- Letterhead -->
-                <div class="p-8 md-p-12 border-b-8 border-finco-navy flex flex-col md-flex-row justify-between items-start md-items-center gap-8 bg-slate-50">
-                    <svg viewBox="0 0 500 150" class="h-16 md-h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
-                        <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
-                        <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
-                        <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
-                        <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
-                        <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
-                        <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan';">$</text>
-                        <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan'; letter-spacing: -1px;">FC</text>
-                        <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan'; letter-spacing: -4px;">FINC<tspan fill="#FF9500">O</tspan></text>
-                        <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan'; letter-spacing: 10px;">CAPITAL</text>
-                    </svg>
-                    <div class="text-right space-y-1">
-                        <p class="text-finco-navy font-bold text-sm tracking-widest uppercase font-spartan">Preliminary Strategic Analysis Report</p>
-                        <p class="text-slate-500 text-xs font-semibold font-spartan">${new Date().toLocaleDateString('en-GB', { dateStyle: 'full' })}</p>
-                        <p class="text-finco-orange font-mono text-sm font-bold">${refNumber}</p>
-                    </div>
-                </div>
-
-                <div class="p-8 md-p-12 space-y-10">
-                    <!-- Header Block -->
-                    <div class="text-center space-y-4 mb-12">
-                        <span class="text-finco-orange text-xs font-bold uppercase tracking-widest font-spartan">Strategic Classification</span>
-                        <h2 class="text-4xl md-text-5xl font-extrabold text-finco-navy font-spartan italic leading-tight uppercase">
-                            ${caseTitle}
-                        </h2>
-                        <p class="text-slate-500 text-lg font-light">A framework-based analysis of your unique lending scenario.</p>
-                    </div>
-
-                    <div class="grid gap-6">
-    `;
-
-    sections.forEach((section, idx) => {
-        const isFirst = idx === 0;
-        let sectionBg = 'bg-white border-slate-200 shadow-sm';
-        let titleColor = 'text-finco-navy';
-        let contentColor = 'text-slate-600';
-
-        if (isFirst) {
-            if (loanType === 'COMMERCIAL') {
-                sectionBg = 'bg-[#FF9500] shadow-2xl';
-                titleColor = 'text-[#001A3D]';
-                contentColor = 'text-white font-medium';
-            } else if (loanType === 'SMSF') {
-                sectionBg = 'bg-[#656933] shadow-2xl';
-                titleColor = 'text-[#FF9500]';
-                contentColor = 'text-white font-medium';
-            } else {
-                sectionBg = 'bg-[#001A3D] shadow-2xl';
-                titleColor = 'text-[#FF9500]';
-                contentColor = 'text-white font-medium';
-            }
-        }
-
-        html += `
-            <div class="p-8 md-p-10 rounded-3xl border transition-all ${sectionBg}">
-                <h3 class="text-xl font-extrabold uppercase tracking-widest mb-6 font-spartan ${titleColor}">
-                    ${section.title}
-                </h3>
-                <div class="${contentColor}">
-        `;
-
-        section.content.forEach(item => {
-            if (item.type === 'bullet') {
-                html += `<div class="flex gap-3 mb-3"><span class="mt-1">●</span><span class="text-lg">${item.text}</span></div>`;
-            } else {
-                html += `<div class="text-lg leading-relaxed mb-4">${item.text}</div>`;
-            }
-        });
-
-        html += `
-                </div>
-            </div>
-        `;
-    });
-
-    html += `
-                    </div>
-
-                    <!-- CTA -->
-                    <div class="bg-finco-orange-5 border-2 border-finco-orange rounded-3xl p-8 md-p-10 text-center space-y-6">
-                        <h3 class="text-2xl font-extrabold text-finco-navy font-spartan uppercase">Ready to take the next step?</h3>
-                        <div class="text-slate-600 text-lg max-w-xl mx-auto space-y-4">
-                            <p>This analysis identifies the pathways available to you.</p>
-                            <p>For a bespoke assessment, email us at <a href="mailto:service@fincocapital.com.au" class="text-finco-navy font-bold hover-underline underline-offset-4">service@fincocapital.com.au</a></p>
-                        </div>
-                    </div>
-
-                    <!-- Disclaimer -->
-                    <div class="bg-slate-50 rounded-2xl p-8 space-y-4 border border-slate-200">
-                        <h4 class="text-slate-900 font-bold uppercase tracking-widest text-xs font-spartan">Financial & Compliance Disclaimer</h4>
-                        <p class="text-xs leading-relaxed italic text-slate-500 font-light">
-                            The information provided by the FINCO Case Solver is for educational and strategic classification purposes only. It does not constitute financial advice, credit assistance, or a commitment to lend.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md-flex-row gap-4 justify-center items-center pt-8">
-                <button onclick="resetApp()" class="bg-white text-finco-navy border-2 border-slate-200 px-6 py-4 rounded-2xl font-extrabold text-sm hover-bg-slate-50 transition-all font-spartan uppercase shadow-sm">
-                    Reset Analysis
-                </button>
-            </div>
-        </div>
-    `;
-
-    document.getElementById('main-content').innerHTML = html;
-}
-
-// ===== EVENT HANDLERS =====
-function selectLoanType(type) {
-    appState.loanType = type;
-    appState.step = 0;
-    appState.answers = [];
-    appState.isProcessing = false;
-    appState.result = null;
-    selectedOptions = [];
-    otherText = '';
-    showQuestionnaire();
-    scrollToTop();
-}
-
-function selectOption(label) {
-    const currentQuestions = QUESTIONS[appState.loanType];
-    const q = currentQuestions[appState.step];
-
-    if (q.multiSelect) {
-        if (selectedOptions.includes(label)) {
-            selectedOptions = selectedOptions.filter(s => s !== label);
-        } else if (selectedOptions.length < 2) {
-            selectedOptions.push(label);
-        }
-        showQuestionnaire();
-    } else {
-        if (label === 'Other') {
-            selectedOptions = ['Other'];
-            showQuestionnaire();
+function handleOptionClick(label, element) {
+    if (currentMultiSelect) {
+        if (currentSelectedOptions.includes(label)) {
+            // Deselect
+            currentSelectedOptions = currentSelectedOptions.filter(opt => opt !== label);
+            element.classList.remove('selected');
         } else {
-            goNext([label]);
+            // Select (max 2)
+            if (currentSelectedOptions.length < 2) {
+                currentSelectedOptions.push(label);
+                element.classList.add('selected');
+            }
         }
+        
+        // Handle "Other" selection
+        if (label === 'Other') {
+            if (currentSelectedOptions.includes('Other')) {
+                otherInputContainer.classList.add('active');
+            } else {
+                otherInputContainer.classList.remove('active');
+            }
+        } else {
+            // If selecting a non-other option, deselect "Other"
+            const otherIndex = currentSelectedOptions.indexOf('Other');
+            if (otherIndex > -1) {
+                currentSelectedOptions.splice(otherIndex, 1);
+                document.querySelectorAll('.option-button').forEach(btn => {
+                    if (btn.textContent.includes('Other')) {
+                        btn.classList.remove('selected');
+                    }
+                });
+                otherInputContainer.classList.remove('active');
+            }
+        }
+    } else {
+        // Single select
+        if (label === 'Other') {
+            currentSelectedOptions = ['Other'];
+            otherInputContainer.classList.add('active');
+            
+            // Deselect all other options
+            document.querySelectorAll('.option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        } else {
+            // Directly proceed for single select (non-other)
+            handleNext([label]);
+            return;
+        }
+    }
+    
+    updateConfirmButton();
+}
+
+function updateConfirmButton() {
+    const hasSelection = currentSelectedOptions.length > 0;
+    const hasOtherText = !currentSelectedOptions.includes('Other') || 
+                        (currentSelectedOptions.includes('Other') && otherText.value.trim() !== '');
+    
+    if (hasSelection && hasOtherText) {
+        confirmButton.classList.add('enabled');
+        confirmButton.disabled = false;
+    } else {
+        confirmButton.classList.remove('enabled');
+        confirmButton.disabled = true;
     }
 }
 
-function goNext(preselected = null) {
-    if (preselected) {
-        selectedOptions = preselected;
-    }
-
-    const currentQuestions = QUESTIONS[appState.loanType];
-    const q = currentQuestions[appState.step];
-
-    if (selectedOptions.length === 0) return;
-
-    const finalAnswers = selectedOptions.map(s => {
-        if (s === 'Other') {
-            const input = document.getElementById('other-text-input');
-            return input && input.value.trim() ? `Other: ${input.value}` : s;
+function handleConfirm() {
+    if (currentSelectedOptions.length === 0) return;
+    
+    const finalAnswers = currentSelectedOptions.map(opt => {
+        if (opt === 'Other' && otherText.value.trim() !== '') {
+            return `Other: ${otherText.value.trim()}`;
         }
-        return s;
+        return opt;
     });
+    
+    handleNext(finalAnswers);
+}
 
-    const newAnswer = {
-        questionId: q.id,
-        questionText: q.text,
-        answers: finalAnswers
-    };
-
-    appState.answers.push(newAnswer);
-    selectedOptions = [];
-    otherText = '';
-
-    if (appState.step < 3) {
-        appState.step += 1;
-        showQuestionnaire();
+function handleNext(selectedAnswers) {
+    const questions = QUESTIONS[AppState.loanType];
+    const currentQuestion = questions[AppState.step];
+    
+    // Save answer
+    AppState.answers.push({
+        questionId: currentQuestion.id,
+        questionText: currentQuestion.text,
+        answers: selectedAnswers
+    });
+    
+    // Check if we should proceed to next question or process result
+    if (AppState.step < questions.length - 1) {
+        AppState.step++;
+        loadQuestion();
+        scrollToTop();
     } else {
+        // Process result
         processResult();
     }
-
-    scrollToTop();
 }
 
 function goBack() {
-    if (appState.step === 0) {
-        appState.loanType = null;
-        appState.answers = [];
-        selectedOptions = [];
-        showLoanTypeSelector();
+    if (AppState.step === 0) {
+        // Return to loan type selection
+        AppState.loanType = null;
+        AppState.step = 0;
+        AppState.answers = [];
+        showScreen('loanType');
     } else {
-        appState.step -= 1;
-        appState.answers.pop();
-        selectedOptions = [];
-        showQuestionnaire();
+        // Go to previous question
+        AppState.step--;
+        AppState.answers.pop();
+        loadQuestion();
     }
     scrollToTop();
 }
 
 async function processResult() {
-    appState.isProcessing = true;
-    showLoadingState();
+    showScreen('loading');
+    
+    // Simulate API call with setTimeout
+    setTimeout(() => {
+        const result = generateMockResult();
+        AppState.result = result;
+        showScreen('results');
+        renderResult(result);
+        scrollToTop();
+    }, 2000);
+}
 
-    const result = await solveCase(appState.loanType, appState.answers);
-    appState.isProcessing = false;
-    appState.result = result;
-    showResultScreen();
-    scrollToTop();
+function generateMockResult() {
+    const loanType = AppState.selectedLoanType;
+    const refNumber = generateReferenceNumber();
+    
+    let caseTitle, sections;
+    
+    switch(loanType) {
+        case 'HOME':
+            caseTitle = "# The Strategic Refinance Case";
+            sections = [
+                {
+                    title: "What this means for you",
+                    content: "Your responses indicate a focus on optimising your existing residential portfolio while managing potential cashflow pressure. This aligns with the 'Refinance with Buffer Planning' segment, where clients seek both improved terms and strategic breathing room for future opportunities."
+                },
+                {
+                    title: "Specific Challenges found in this type of cases",
+                    content: [
+                        "Timing refinance to avoid break costs while capturing better rates.",
+                        "Balancing debt consolidation with maintaining borrowing capacity for future investments.",
+                        "Aligning loan structure with potential future investment tax benefits."
+                    ]
+                },
+                {
+                    title: "The FINCO Approach",
+                    content: "We typically explore strategy-level pathways such as education-led loan structuring to match your repayment comfort, sequencing of debt recycling where appropriate, and creating contractual buffers to manage rate variability. Any mention of taxation-related strategies, such as potential future investment tax benefits through debt segregation, is framed as a potential consideration only."
+                },
+                {
+                    title: "Summary",
+                    content: [
+                        "Portfolio optimisation with a refinance-led strategy.",
+                        "Cashflow management paired with strategic buffer creation.",
+                        "Structure designed for both current comfort and future optionality."
+                    ]
+                }
+            ];
+            break;
+            
+        case 'COMMERCIAL':
+            caseTitle = "# The Growth-Led Commercial Expansion Case";
+            sections = [
+                {
+                    title: "What this means for you",
+                    content: "Your scenario fits the 'Growth-Led' commercial segment, where business expansion or acquisition is the primary driver, accompanied by secondary timing or policy constraints. The dominant risk driver appears to be structure, ensuring the debt supports rather than hinders growth."
+                },
+                {
+                    title: "Specific Challenges found in this type of cases",
+                    content: [
+                        "Aligning loan terms with irregular or project-based business cashflow.",
+                        "Navigating lender policy for growth-focused ventures versus established cashflow.",
+                        "Structuring debt to allow for future capital draws or staged acquisition."
+                    ]
+                },
+                {
+                    title: "The FINCO Approach",
+                    content: "Likely pathways include exploring interest-only restructuring during intensive growth phases, creating cashflow buffers for volatility, detailed lender policy mapping to match your business model, and staged funding structures for phased projects."
+                },
+                {
+                    title: "Summary",
+                    content: [
+                        "Debt structured as a growth engine, not just a facility.",
+                        "Strategic buffer planning for cashflow variability.",
+                        "Lender alignment focused on business trajectory, not just history."
+                    ]
+                }
+            ];
+            break;
+            
+        case 'SMSF':
+            caseTitle = "# The SMSF Portfolio Alignment Case";
+            sections = [
+                {
+                    title: "What this means for you",
+                    content: "Your case aligns with the 'Acquisition & Cashflow Alignment' segment within SMSF lending. The primary focus is on integrating a new property acquisition or restructuring existing debt within the strict compliance framework of an SMSF, while aligning the repayments with the fund's contribution strategy."
+                },
+                {
+                    title: "Specific Challenges found in this type of cases",
+                    content: [
+                        "Balancing LRBA (Limited Recourse Borrowing Arrangement) loan terms with the SMSF's illiquid asset structure.",
+                        "Aligning repayment schedules with mandatory contribution flows and caps.",
+                        "Ensuring all structuring is within ATO guidelines and lender-specific SMSF policies."
+                    ]
+                },
+                {
+                    title: "The FINCO Approach",
+                    content: "We focus on LRBA structuring that considers the fund's liquidity, comparing interest-only versus principal & interest planning in the context of the member's retirement timeline, optimising refinance timing to avoid compliance pitfalls, and exploring compliance-safe restructuring to improve the fund's overall position."
+                },
+                {
+                    title: "Summary",
+                    content: [
+                        "SMSF loan structure prioritising compliance and contribution alignment.",
+                        "Repayment strategy integrated with the fund's long-term retirement objectives.",
+                        "Proactive planning for regulatory and liquidity constraints."
+                    ]
+                }
+            ];
+            break;
+    }
+    
+    // Add footer
+    const footer = `
+**Not just loan writers. Case solvers.**
+
+*FINCO CAPITAL: Financial Confidence. Unlocked.*
+`;
+    
+    return {
+        caseTitle,
+        sections,
+        footer,
+        refNumber
+    };
+}
+
+function generateReferenceNumber() {
+    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `REF-${date}-${random}`;
+}
+
+function renderResult(result) {
+    const resultsContainer = document.querySelector('.results-container');
+    const loanType = AppState.selectedLoanType;
+    
+    // Get color scheme based on loan type
+    let colorScheme;
+    switch(loanType) {
+        case 'COMMERCIAL':
+            colorScheme = {
+                primaryBg: 'bg-[#FF9500]',
+                primaryText: 'text-[#001A3D]',
+                secondaryText: 'text-[#FFFFFF]',
+                boldText: 'text-[#001A3D]'
+            };
+            break;
+        case 'SMSF':
+            colorScheme = {
+                primaryBg: 'bg-[#656933]',
+                primaryText: 'text-[#FF9500]',
+                secondaryText: 'text-[#FFFFFF]',
+                boldText: 'text-[#FF9500]'
+            };
+            break;
+        case 'HOME':
+        default:
+            colorScheme = {
+                primaryBg: 'bg-[#001A3D]',
+                primaryText: 'text-[#FF9500]',
+                secondaryText: 'text-[#FFFFFF]',
+                boldText: 'text-[#FFFFFF]'
+            };
+            break;
+    }
+    
+    // Build report HTML
+    let reportHTML = `
+        <div class="report-letterhead">
+            <div class="finco-logo">
+                <svg viewBox="0 0 500 150" class="finco-logo" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
+                    <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
+                    <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
+                    <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
+                    <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
+                    <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
+                    <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan', sans-serif">$</text>
+                    <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan', sans-serif; letter-spacing: -1px">FC</text>
+                    <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan', sans-serif; letter-spacing: -4px">FINC<tspan fill="#FF9500">O</tspan></text>
+                    <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan', sans-serif; letter-spacing: 10px; text-transform: uppercase">CAPITAL</text>
+                </svg>
+            </div>
+            <div class="text-right">
+                <p class="font-spartan font-bold text-finco-navy text-sm tracking-widest uppercase">Preliminary Strategic Analysis Report</p>
+                <p class="text-slate-500 text-xs font-semibold font-spartan">${new Date().toLocaleDateString('en-GB', { dateStyle: 'full' })}</p>
+                <p class="text-finco-orange font-mono text-sm font-bold">${result.refNumber}</p>
+            </div>
+        </div>
+        
+        <div class="report-content">
+            <div class="report-header">
+                <p class="report-header-tag">Strategic Classification</p>
+                <h2 class="report-title">${result.caseTitle.replace('# ', '').replace('**', '').replace('**', '')}</h2>
+                <p class="report-subtitle">A framework-based analysis of your unique lending scenario.</p>
+                <p class="report-note">This report identifies strategic themes and potential pathways only. It does not assess suitability, appropriateness, or lender policy alignment, which can only be determined after a full fact-finding process.</p>
+            </div>
+            
+            <div class="report-sections">
+    `;
+    
+    // Add sections
+    result.sections.forEach((section, index) => {
+        const isFirstSection = index === 0;
+        const sectionClass = isFirstSection ? `report-section ${colorScheme.primaryBg} border-none shadow-2xl` : 'report-section bg-white border-slate-100 shadow-sm';
+        const titleClass = isFirstSection ? `section-title ${colorScheme.primaryText}` : 'section-title text-finco-navy';
+        const contentClass = isFirstSection ? `section-content ${colorScheme.secondaryText} font-medium` : 'section-content text-slate-600';
+        
+        let contentHTML = '';
+        if (Array.isArray(section.content)) {
+            contentHTML = `
+                <ul>
+                    ${section.content.map(item => `
+                        <li>
+                            <span class="${isFirstSection ? colorScheme.primaryText : 'text-finco-navy'} mt-1">●</span>
+                            <span class="text-lg ${contentClass}">${formatBoldText(item, isFirstSection ? colorScheme.boldText : 'text-finco-navy')}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        } else {
+            contentHTML = `<div class="text-lg leading-relaxed ${contentClass}">${formatBoldText(section.content, isFirstSection ? colorScheme.boldText : 'text-finco-navy')}</div>`;
+        }
+        
+        reportHTML += `
+            <div class="${sectionClass}">
+                <h3 class="${titleClass}">${section.title}</h3>
+                <div class="${contentClass}">
+                    ${contentHTML}
+                </div>
+            </div>
+        `;
+    });
+    
+    // Add CTA section
+    reportHTML += `
+            <div class="section-cta">
+                <h3 class="cta-title">Ready to take the next step?</h3>
+                <div class="cta-content">
+                    <p>This analysis identifies the pathways available to you.</p>
+                    <p>For a bespoke assessment, please click the button below to book your Free Expert Strategy Session, or email us at <a href="mailto:service@fincocapital.com.au">service@fincocapital.com.au</a>.</p>
+                    <p class="cta-emphasis">A copy of your personalised report will be emailed to you automatically when you book your Free Expert Strategy Session.</p>
+                </div>
+                <div class="reference-note">
+                    <p class="reference-text">Quote Reference: ${result.refNumber}</p>
+                </div>
+            </div>
+            
+            <div class="disclaimer-section">
+                <h4 class="disclaimer-title">Financial & Compliance Disclaimer</h4>
+                <p class="disclaimer-text">The information provided by the FINCO Case Solver is for educational and strategic classification purposes only. It does not constitute financial advice, credit assistance, or a commitment to lend. All lending scenarios are subject to full assessment by a qualified FINCO CAPITAL Specialist Broker and the respective credit policies of potential lenders. We do not guarantee outcomes or specific interest rates based on this automated framework analysis.</p>
+                <p class="disclaimer-footer">FINCO CAPITAL | AUSTRALIAN CREDIT REPRESENTATIVE NUMBER: 569933</p>
+            </div>
+        </div>
+    `;
+    
+    resultsContainer.innerHTML = reportHTML;
+}
+
+function formatBoldText(text, boldClass = 'text-finco-navy font-extrabold') {
+    if (!text) return text;
+    
+    // Simple bold formatting: **text** to <strong>text</strong>
+    return text.replace(/\*\*(.*?)\*\*/g, `<strong class="${boldClass}">$1</strong>`);
+}
+
+async function handleDownloadPDF() {
+    downloadPDF.disabled = true;
+    downloadPDF.innerHTML = '<span class="btn-icon">⏳</span> Preparing...';
+    
+    try {
+        const { jsPDF } = window.jspdf;
+        const reportElement = document.querySelector('.results-container');
+        
+        // Capture the report as an image
+        const canvas = await html2canvas(reportElement, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+        });
+        
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+        
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+        const imgX = (pdfWidth - imgWidth * ratio) / 2;
+        const imgY = 0;
+        
+        pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        
+        const refNumber = AppState.result.refNumber;
+        const fileName = `FINCO-Analysis-${refNumber}.pdf`;
+        pdf.save(fileName);
+        
+        // Simulate email sending
+        console.log("PDF generated and saved as:", fileName);
+        console.log("Simulating email sending to customer...");
+        
+    } catch (error) {
+        console.error('PDF Generation Error:', error);
+        alert('Failed to generate PDF. Please try again.');
+    } finally {
+        downloadPDF.disabled = false;
+        downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
+    }
+}
+
+function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const formData = {
+        fullName: document.getElementById('fullName').value,
+        mobile: document.getElementById('mobile').value,
+        email: document.getElementById('email').value,
+        briefNote: document.getElementById('briefNote').value,
+        comments: document.getElementById('comments').value,
+        preferredTime: document.getElementById('preferredTime').value
+    };
+    
+    // Show verification step
+    formStep.classList.remove('active');
+    verificationStep.classList.add('active');
+    
+    // Display email and mobile for verification
+    emailDisplay.textContent = formData.email;
+    mobileDisplay.textContent = formData.mobile;
+    
+    // Store form data for later use
+    AppState.bookingFormData = formData;
+}
+
+function formatOtpInput(e) {
+    // Remove non-numeric characters
+    e.target.value = e.target.value.replace(/\D/g, '');
+    
+    // Limit to 4 characters
+    if (e.target.value.length > 4) {
+        e.target.value = e.target.value.substring(0, 4);
+    }
+}
+
+function handleVerification() {
+    const emailCode = emailOtp.value;
+    const mobileCode = mobileOtp.value;
+    
+    if (emailCode.length !== 4 || mobileCode.length !== 4) {
+        alert("Please enter both 4-digit verification codes.");
+        return;
+    }
+    
+    verifyButton.disabled = true;
+    verifyButton.textContent = 'Confirming...';
+    
+    // Simulate verification process
+    setTimeout(() => {
+        verificationStep.classList.remove('active');
+        successStep.classList.add('active');
+        
+        // Simulate sending emails
+        const formData = AppState.bookingFormData;
+        console.log("SENDING EMAIL TO service@fincocapital.com.au");
+        console.log("Form Data:", formData);
+        console.log("PDF Report Reference:", AppState.result.refNumber);
+        console.log("Message: A new Free Expert Strategy Session request has been submitted. Customer details and the generated PDF report are attached for review and follow-up.");
+        
+        console.log(`SENDING EMAIL TO CUSTOMER: ${formData.email}`);
+        console.log("Message: Thank you for booking your Free Expert Strategy Session with FINCO CAPITAL. Attached is a copy of your personalised lending report for your records. One of our Specialist Brokers will review your information and contact you at your selected time.");
+        
+        verifyButton.disabled = false;
+        verifyButton.textContent = 'Complete Booking';
+    }, 1500);
 }
 
 function resetApp() {
-    appState.loanType = null;
-    appState.step = 0;
-    appState.answers = [];
-    appState.isProcessing = false;
-    appState.result = null;
-    selectedOptions = [];
-    otherText = '';
-    showLoanTypeSelector();
+    AppState.loanType = null;
+    AppState.step = 0;
+    AppState.answers = [];
+    AppState.isProcessing = false;
+    AppState.result = null;
+    AppState.selectedLoanType = null;
+    AppState.bookingFormData = null;
+    
+    showScreen('loanType');
     scrollToTop();
+    
+    // Reset modal if open
+    sessionModal.classList.remove('active');
+    formStep.classList.add('active');
+    verificationStep.classList.remove('active');
+    successStep.classList.remove('active');
+    
+    // Reset form
+    if (bookingForm) {
+        bookingForm.reset();
+    }
+    emailOtp.value = '';
+    mobileOtp.value = '';
 }
-
-// ===== INITIALIZE APP =====
-document.addEventListener('DOMContentLoaded', () => {
-    showLoanTypeSelector();
-});
-
-    </script>
-</body>
-</html>
-
+   </script>
 <div id="footer-container"></div>
 <script src="../js/load-components.js"></script>
     <!-- Scripts (same as index, adjusted paths) -->
