@@ -8,10 +8,10 @@ window.emailjsReady = false;
 
 (function() {
   // EmailJS Configuration
-  const EMAILJS_SERVICE_ID = 'service_finco_calculator';
-  const EMAILJS_TEMPLATE_ID = 'template_calculation_res';
-  const EMAILJS_PUBLIC_KEY = '_3-Pa82P2kn0pPq_M'; // Will be replaced with actual key
-  const RECIPIENT_EMAIL = 'denove@fincocapital.com.au';
+  const EMAILJS_SERVICE_ID = 'service_q4mgort';
+  const EMAILJS_TEMPLATE_ID = 'template_ubsx2jl';
+  const EMAILJS_PUBLIC_KEY = '5f_ySckYmfJAv-10x'; // Will be replaced with actual key
+  const RECIPIENT_EMAIL = 'wsmabbas13@gmail.com';
 
   // Configuration: whether to automatically send emails after every calculation.
   // Default is false — emails will only be sent when the user clicks "Send Results to Email".
