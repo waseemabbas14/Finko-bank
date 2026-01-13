@@ -12,285 +12,995 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'rajdhani', sans-serif;
-        }
-
-        body {
-            background: #ffffff;
-            color: #222;
-        }
-
-        @media(max-width:900px) {
-            .top-contact {
-                display: none;
-            }
-        }
-
-        /* HEADER */
-
-        /* HERO */
-
-        .hero {
-            /* height: 330px; */
-            height: 260px;
-            background: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0, 0, 0, 0.55)), url('/assests/conatct-banner.webp') center/cover no-repeat;
-            display: flex;
-            align-items: start;
-            padding-left: 40px;
-            color: #fff;
-            position: relative;
-            z-index: -100;
-            padding: 5%;
-        }
-
-    .hero h1 {
-      font-size: 24px;
-      margin-top: 45px;
-      margin-left: 40px;
-      z-index: 1;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-        /* CONTACT */
-        .contact-section {
-            max-width: 1200px;
-            margin: -100px auto 80px;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 30px;
-            padding: 0 20px;
-            background-color: #ffffff;
-            padding: 20px 20px 20px 20px;
-            border-radius: 5px 5px 5px 5px;
-        }
-
-        /* LEFT CARD */
-        .contact-left {
-            background: #fff;
-            padding: 35px;
-            font-size: 14px;
-
-        }
-
-        .contact-left h3 {
-            margin-bottom: 15px;
-            color: #001b38;
-        }
-
-        .contact-left p {
-            color: #555;
-            margin-bottom: 20px;
-            color: #001b38;
-            font-size: 17px;
-            line-height: 1.7em;
-            font-weight: 500;
-        }
-
-        .contact-left ul {
-            list-style: none;
-            color: #001b38;
-            line-height: 1.75em;
-            font-size: 19px;
-            font-weight: 500;
-            letter-spacing: px;
-
-        }
-
-        .contact-left li {
-            margin-bottom: 12px;
-            font-size: 14px;
-            font-size: 15px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            width: 36px;
-            height: 36px;
-            align-items: center;
-            justify-content: center;
-            background: #fc8b02;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        .social-icons svg {
-            width: 18px;
-            height: 18px;
-            fill: #061a2f;
-        }
-
-        .con {
-
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            font-size: 17px;
-            font-weight: 700;
-            color: #ff8a00;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        .con::before {
-            content: "";
-            width: 4px;
-            height: 14px;
-            background-color: #ff8a00;
-
-        }
-
-        /* FORM CARD */
-        .contact-form {
-            background: #061a2f;
-            color: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-        }
-
-        .contact-form h3 {
-            margin-bottom: 20px;
-            line-height: 1.5;
-            color: #fa8d01;
-            font-size: 36px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-
-        .contact-form p {
-            margin-bottom: 25px;
-            line-height: 1.75;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            ;
-
-        }
-
-        .btn-group button {
-            flex: 1;
-            padding: 15px;
-            background: #fff;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 10px;
-            font-size: 16px;
-            line-height: 1.75;
-        }
-
-        .btn-group button:hover {
-            background: #c4c4c4;
-            color: #ffffff;
-            opacity: 100%;
-        }
-
-        .contact-form input {
-            width: 100%;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            background-color: white;
-            color: black;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: #ff9800;
-            border: none;
-            color: #fff;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .form-box {
+        /* Custom modal styles */
+        .success-modal {
             display: none;
-            margin-top: 20px;
-            padding: 1px;
-        }
-
-        .btn-wrapper button {
-            margin-right: 10px;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
-
-        select {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 13px;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
             background-color: white;
-            color: black;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.5s ease;
         }
-
-
-
-        /* NEWSLETTER */
-
-        /* FOOTER */
-
-        /* RESPONSIVE */
-        @media(max-width:425px) {
-            .btn-group button {
-                flex: 1;
-                padding: 10px;
-                background: #fff;
-                border: none;
-                cursor: pointer;
-                font-weight: 600;
-                border-radius: 10px;
-                font-size: 10px;
-                line-height: 1.75;
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-
-        @media(max-width:900px) {
-            .contact-section {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .newsletter .news-inner {
-                flex-direction: column;
-                text-align: center;
-            }
+        
+        .modal-icon {
+            font-size: 60px;
+            color: #10b981;
+            margin-bottom: 20px;
+            animation: bounce 1s;
         }
-
-        input[type="text"] {
-            -webkit-appearance: textfield !important;
-            appearance: textfield !important;
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
         }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #001334;
+            margin-bottom: 15px;
+        }
+        
+        .modal-message {
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .modal-button {
+            padding: 12px 40px;
+            background-color: #001334;
+            color: #ffbc00;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-button:hover {
+            background-color: #001a3d;
+            transform: translateY(-2px);
+        }
+        /* 
+   FINCO Capital Enquiry Form - Authoritative Brand Styles
+   Colors: #001334 (Blue), #ffbc00 (Orange)
+*/
+
+
+
+
+
+.container50 {
+   width: 100%;
+   /* border: 10px solid blue; */
+    margin: 0 auto;
+    padding: 200px 0;
+}
+
+/* Header Styles */
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-header h1 {
+    font-size: 35px;
+    font-weight: 700;
+    color: #001334;
+    margin-bottom: 16px;
+}
+
+.form-header p{
+    font-size: 18px;
+    font-weight: 500;
+}
+.subtitle {
+    color: #64748b;
+    max-width: 800px;
+    margin: 0 auto 24px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.notice-banner {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 9999px;
+    color: #92400e;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 16px;
+}
+
+/* Form Styles */
+.finco-form {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.3s forwards;
+    margin: 0px 180px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.form-content {
+    padding: 40px;
+}
+
+.form-section {
+    margin-bottom: 48px;
+    transition: all 0.3s ease;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.step-badge {
+    background-color: #001334;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.section-label h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #001334;
+    margin: 0;
+}
+
+/* Card Options with Smooth Animation */
+.card-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.card-option {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUpFadeIn 0.5s ease forwards;
+}
+
+.card-option:nth-child(1) { animation-delay: 0.1s; }
+.card-option:nth-child(2) { animation-delay: 0.2s; }
+.card-option:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-option:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-option.active {
+    border-color: #001334;
+    background-color: rgba(0, 19, 52, 0.05);
+    box-shadow: 0 0 0 2px rgba(0, 19, 52, 0.1), 0 10px 20px rgba(0, 19, 52, 0.05);
+    transform: scale(1.02);
+}
+
+.card-icon {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.card-option.active .card-icon {
+    background-color: #001334;
+    color: white;
+    transform: scale(1.1);
+}
+
+.card-option:not(.active) .card-icon {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.card-option h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #001334;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.card-option p {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.5;
+    flex-grow: 1;
+    transition: color 0.3s ease;
+}
+
+.card-checkmark {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #ffbc00;
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.card-option.active .card-checkmark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* No Selection Message */
+.no-selection-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.5s forwards;
+}
+
+/* Selected Banner with Smooth Transition */
+.selected-banner {
+    background-color: rgba(0, 19, 52, 0.05);
+    color: #001334;
+    border: 1px solid rgba(0, 19, 52, 0.1);
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selected-banner.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.selected-banner strong {
+    font-weight: 700;
+}
+
+.change-text {
+    font-size: 0.875rem;
+    opacity: 0.7;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.mt-6 {
+    margin-top: 24px;
+}
+
+/* Input Groups - FIXED */
+.input-group {
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.input-group.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155 !important;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.required {
+    color: #ef4444;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.verified-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #001334;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.verified-badge.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.verified-badge i {
+    color: #ffbc00;
+    font-size: 0.875rem;
+}
+
+/* Form Inputs with Icons - FIXED FOR PLACEHOLDER */
+.input-with-icon, .select-with-icon, .textarea-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-with-icon i, .select-with-icon i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 0.875rem;
+    width: 16px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.textarea-with-icon i {
+    position: absolute;
+    left: 12px;
+    top: 16px;
+    color: #64748b;
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+/* Input padding fixes for icons - FIXED */
+.input-with-icon input {
+    padding-left: 38px;
+    padding-right: 12px;
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    background-color: transparent;
+}
+
+.textarea-with-icon textarea {
+    padding-left: 38px;
+    padding-right: 12px;
+    width: 100%;
+}
+
+.select-with-icon select {
+    padding-left: 38px;
+    padding-right: 32px;
+    width: 100%;
+}
+
+/* Form Inputs - FIXED */
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    background-color: white;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+/* Placeholder styling - FIXED */
+.form-input::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+    font-size: 0.9375rem;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #001334 !important;
+    box-shadow: 0 0 0 3px rgba(0, 19, 52, 0.1);
+}
+
+/* Select dropdown styling - FIXED */
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+    border-color:#cbd5e1 ;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+}
+
+.form-input option{
+    background-color: transparent;
+}
+
+/* Time Slots */
+.time-slots-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8fafc;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.time-slots-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.time-slots-header {
+    background-color: #f1f5f9;
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-slots-grid {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.time-slot {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 0.875rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.time-slot:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.time-slot.selected {
+    background-color: #001334;
+    color: white;
+    border-color: #001334;
+    transform: scale(1.05);
+}
+
+/* Checkbox Styles */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.checkbox-group.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    color: #334155;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.checkbox-label:hover {
+    color: #001334;
+}
+
+.complexity-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    accent-color: #001334;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.complexity-checkbox:checked {
+    transform: scale(1.1);
+}
+
+/* Case Specifics with Animation */
+.case-specifics {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-specifics.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.other-enquiry-message {
+    color: #64748b;
+    padding: 20px;
+    text-align: center;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.other-enquiry-message.show {
+    opacity: 1;
+}
+
+/* Upload Section with Animation */
+.uploads-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.uploads-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.upload-container {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 60px 40px;
+    background-color: #f8fafc;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.upload-container:hover {
+    border-color: #001334;
+    background-color: rgba(0, 19, 52, 0.02);
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.upload-container:hover .upload-icon {
+    color: #001334;
+    transform: scale(1.1);
+}
+
+.upload-text {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+.upload-container:hover .upload-text {
+    color: #64748b;
+}
+
+/* Consent Section with Animation */
+.consent-section {
+    padding-top: 32px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.consent-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.consent-group {
+    margin-bottom: 40px;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.consent-group.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.consent-label:hover {
+    transform: translateX(5px);
+}
+
+.consent-checkbox {
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    accent-color: #001334;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.consent-checkbox:checked {
+    transform: scale(1.1);
+}
+
+.consent-text {
+    font-size: 0.875rem;
+    color: #334155;
+    line-height: 1.5;
+}
+
+/* Submit Button with Animation - FIXED (Always visible) */
+.submit-button {
+    padding: 18px 48px;
+    background-color: #001334;
+    color: #ffbc00;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 19, 52, 0.2);
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+    min-width: 200px;
+}
+
+.submit-button.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 19, 52, 0.3);
+    background-color: #001a3d;
+}
+
+.submit-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 19, 52, 0.2);
+}
+
+.submit-button:disabled {
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+/* Helper Text */
+.helper-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-style: italic;
+    margin-top: 8px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.helper-text.show {
+    opacity: 1;
+}
+
+/* Form Details Animation */
+.form-details {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-details.show {
+    opacity: 1;
+    max-height: 5000px;
+    display: block !important;
+}
+
+/* Focus states for better UX */
+.form-input:focus {
+    border-color: #001334;
+    box-shadow: 0 0 0 3px rgba(0, 19, 52, 0.1);
+    outline: none;
+}
+
+/* Remove number input spinner */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Custom animations */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 19, 52, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 19, 52, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 19, 52, 0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container50 {
+        padding: 20px 20px;
+    }
+    
+    .form-content {
+        padding: 24px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .card-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .time-slots-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .selected-banner {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        padding: 12px 16px;
+    }
+    
+    .submit-button {
+        width: 100%;
+        padding: 16px;
+        min-width: auto;
+    }
+    
+    .case-specifics {
+        padding: 20px;
+    }
+    
+    .upload-container {
+        padding: 40px 20px;
+    }
+    
+    .input-with-icon input,
+    .textarea-with-icon textarea,
+    .select-with-icon select {
+        padding-left: 36px;
+        font-size: 0.9375rem;
+    }
+    
+    .input-with-icon i,
+    .select-with-icon i {
+        left: 10px;
+        font-size: 0.875rem;
+    }
+    
+    .textarea-with-icon i {
+        left: 10px;
+        top: 14px;
+        font-size: 0.875rem;
+    }
+     .finco-form{
+        margin: 0px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container50 {
+        padding: 20px 20px;
+    }
+    
+    .form-content {
+        padding: 16px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .section-label h2 {
+        font-size: 1.2rem;
+    }
+    
+    .card-option {
+        padding: 16px;
+    }
+    
+    .input-with-icon input,
+    .textarea-with-icon textarea,
+    .select-with-icon select {
+        padding-left: 34px;
+        padding-right: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .input-with-icon i,
+    .select-with-icon i {
+        left: 8px;
+        font-size: 0.8rem;
+    }
+    
+    .textarea-with-icon i {
+        left: 8px;
+        top: 12px;
+        font-size: 0.8rem;
+    }
+    
+    .submit-button {
+        font-size: 1rem;
+        padding: 14px 24px;
+    }
+    .finco-form{
+        margin: 0px 20px;
+    }
+}
     </style>
 </head>
 
@@ -304,118 +1014,359 @@
     <!-- HEADER -->
 
     <!-- HERO -->
-    <section class="hero">
-        <h1>Contact Us<i class="fa-solid fa-arrow-right" style="font-size: 15px;"></i></h1>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact-section">
-        <div class="contact-left">
-            <image src="../assests/finko-removebg-preview.png" alt="Contact Icon"
-                style="width:210px; margin-bottom:20px; height: 100px;">
-                <p>At Finco Capital, we’re here to assist you with all your banking needs. Whether you have questions, need
-                    support, or want to learn more about our services, our team is ready to help</p>
-                <h3 class="con">Contact Us</h3>
-                <ul>
-                    <li>📍 Sydney Australia</li>
-                    <li>📞 0123456789</li>
-                    <li>✉️ abcdef@.com</li>
-                </ul>
-                <h3 class="con">Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook" title="Facebook">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path
-                                d="M22 12C22 6.48 17.52 2 12 2S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H8.9V12h1.54V9.79c0-1.52.9-2.37 2.28-2.37.66 0 1.35.12 1.35.12v1.49h-.76c-.75 0-.98.47-.98.95V12h1.66l-.27 2.89h-1.39v6.99C18.34 21.12 22 16.99 22 12z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="Twitter" title="Twitter">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path
-                                d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04 4.28 4.28 0 0 0-7.29 3.9A12.14 12.14 0 0 1 3.15 4.6a4.28 4.28 0 0 0 1.33 5.72c-.66-.02-1.28-.2-1.82-.5v.05c0 2.13 1.51 3.9 3.51 4.3-.37.1-.76.15-1.16.15-.28 0-.55-.03-.81-.08.55 1.72 2.15 2.97 4.05 3a8.6 8.6 0 0 1-5.33 1.84c-.35 0-.7-.02-1.04-.06a12.14 12.14 0 0 0 6.57 1.92c7.89 0 12.22-6.54 12.22-12.22l-.01-.56A8.7 8.7 0 0 0 22.46 6z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="LinkedIn" title="LinkedIn">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path
-                                d="M6.94 8.5H4.79V20h2.15V8.5zM5.86 6.95a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm3.8 1.55h2.06v1.55h.03c.29-.55 1-1.13 2.05-1.13 2.19 0 2.6 1.44 2.6 3.31V20h-2.15v-5.13c0-1.22-.02-2.78-1.69-2.78-1.7 0-1.96 1.33-1.96 2.7V20H9.66V8.5z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="Instagram" title="Instagram">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path
-                                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 7.5A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18.5 6.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z" />
-                        </svg>
-                    </a>
-                </div>
-        </div>
-
-        <div class="contact-form">
-            <h3>Apply Online for Finco Capital Loans & Services</h3>
-            <p>Finco Capital is dedicated to providing smart, secure, and reliable financial solutions that help you
-                achieve your dreams with confidence.</p>
-            <p>Application Type</p>
-
-            <div class="btn-group">
-                <button class="active" onclick="showForm(1)">Home Loan</button>
-                <button onclick="showForm(2)">Commercial Loan</button>
-                <button onclick="showForm(3)">SMSF Loan</button>
+     <div id="successModal" class="success-modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
             </div>
-            <form id="form1" class="form-box">
-                <select>
-                    <option value="purchase">BRIDGING LOANS</option>
-                    <option value="refinance">BUYING YOUR NEXT HOME - UPGRADE</option>
-                    <option value="construction">CONSTRUCTION LOANS</option>
-                    <option value="construction">CUSTOM-BUILT HOUSE & LAND PACKAGE</option>
-                    <option value="construction">DEBT CONSOLIDATION</option>
-                    <option value="construction">EQUITY RELEASE</option>
-                    <option value="construction">EXPAT HOME LOANS</option>
-                    <option value="construction">FIRST HOME BUYER</option>
-                    <option value="construction">HOME LOANS</option>
-                    <option value="construction">INVESTMENT LOANS</option>
-                    <option value="construction">REFINANCING</option>
-                    <option value="construction">REVERSE MORTGAGE</option>
-                    <option value="construction">SELF-EMPLOYED LOANS</option>
-
-                </select>
-                <input type="date">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Your Name">
-                <input type="text" placeholder="Phone Number">
-                <button type="submit" class="submit-btn">SUBMIT</button>
-            </form>
-            <form id="form2" class="form-box">
-
-                <select>
-                    <option value="purchase">Business Line of Credit</option>
-                    <option value="refinance">Commercial Property Loans</option>
-                    <option value="construction">Debtor Finance</option>
-                    <option value="construction">Equipment Finance</option>
-                    <option value="construction">Secured Business Loans</option>
-                    <option value="construction">Unsecured Business Loans</option>
-
-                </select>
-                <input type="date">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Your Name">
-                <input type="text" placeholder="Phone Number">
-                <button type="submit" class="submit-btn">SUBMIT</button>
-            </form>
-            <form id="form3" class="form-box">
-                <select>
-                    <option value="purchase">COMMERCIAL SMSF LOANS</option>
-                    <option value="refinance">RESIDENTIAL SMSF LOANS</option>
-
-                </select>
-                <input type="date">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Your Name">
-                <input type="text" placeholder="Phone Number">
-                <button type="submit" class="submit-btn">SUBMIT</button>
-            </form>
+            <h2 class="modal-title">Thank You!</h2>
+            <p class="modal-message">
+                Thank you for your enquiry! FINCO CAPITAL will contact you shortly to discuss your case.
+            </p>
+            <button id="modalOkButton" class="modal-button">OK</button>
         </div>
-    </section>
+    </div>
 
+    <div class="container50">
+        <!-- Header Section -->
+        <div class="form-header">
+            <h1>Start Your Enquiry — Let's Understand Your Case</h1>
+            <p class="subtitle">
+                This enquiry helps us understand your situation and constraints so we can assess your case and 
+                determine the most appropriate lending strategy before any formal application is considered.
+            </p>
+            <div class="notice-banner">
+                This is an enquiry only — FINCO CAPITAL does not accept loan applications online.
+            </div>
+        </div>
+
+        <!-- Main Form Container -->
+        <form id="fincoEnquiryForm" class="finco-form">
+            <div class="form-content">
+                <!-- Step 0: Enquiry Type Selection -->
+                <div class="form-section">
+                    <div class="section-label">
+                        <span class="step-badge">0</span>
+                        <h2>Select Your Enquiry Type</h2>
+                    </div>
+                    
+                    <div class="card-options" id="enquiryOptions">
+                        <!-- Cards will be generated by JavaScript -->
+                    </div>
+                    
+                    <div id="noSelectionMessage" class="no-selection-message">
+                        Please select an enquiry type above to begin your assessment.
+                    </div>
+                </div>
+
+                <!-- Form Content (shown when enquiry type selected) -->
+                <div id="formContent" class="form-details" style="display: none;">
+                    <!-- Selected Type Banner with smooth transition -->
+                    <div id="selectedBanner" class="selected-banner">
+                        <span id="selectedTypeText">You've selected: <strong>HOME Enquiry</strong>.</span>
+                        <span class="change-text">(You can change this at any time.)</span>
+                    </div>
+
+                    <!-- Step 1: Contact Information -->
+                    <div class="form-section contact-section">
+                        <div class="section-label">
+                            <span class="step-badge">1</span>
+                            <h2>Contact & Response Preference</h2>
+                        </div>
+
+                        <div class="form-grid">
+                            <!-- First Name -->
+                            <div class="input-group">
+                                <label for="firstName">First Name <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="firstName" class="form-input" 
+                                           placeholder="Enter your first name"
+                                           style="color: #334155;" 
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="input-group">
+                                <label for="lastName">Last Name <span class="required">*</span></label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="lastName" class="form-input" 
+                                           placeholder="Enter your last name"
+                                           style="color: #334155;"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Mobile -->
+                            <div class="input-group">
+                                <div class="label-row">
+                                    <label for="mobile">Mobile (AU format) <span class="required">*</span></label>
+                                    <span id="mobileVerified" class="verified-badge" style="display: none;">
+                                        <i class="fas fa-check-circle"></i> Verified
+                                    </span>
+                                </div>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="tel" id="mobile" class="form-input" 
+                                           placeholder="04XX XXX XXX"
+                                           style="color: #334155;"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="input-group">
+                                <div class="label-row">
+                                    <label for="email">Email <span class="required">*</span></label>
+                                    <span id="emailVerified" class="verified-badge" style="display: none;">
+                                        <i class="fas fa-check-circle"></i> Verified
+                                    </span>
+                                </div>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="email" class="form-input" 
+                                           placeholder="your.email@example.com"
+                                           style="color: #334155;"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Contact Preference -->
+                            <div class="input-group">
+                                <label for="contactPref">Preferred Contact Method <span class="required">*</span></label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-comment-alt"></i>
+                                    <select id="contactPref" class="form-input" required>
+                                        <option value="" style="color: #94a3b8;">Select...</option>
+                                        <option value="Call" style="color: #334155;">Call</option>
+                                        <option value="Email" style="color: #334155;">Email</option>
+                                        <option value="SMS" style="color: #334155;">SMS</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Best Time -->
+                            <div class="input-group">
+                                <label for="bestTime">Best Time to Reach You</label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-clock"></i>
+                                    <select id="bestTime" class="form-input">
+                                        <option value="" style="color: #94a3b8;">Select...</option>
+                                        <option value="Morning" style="color: #334155;">Morning</option>
+                                        <option value="Midday" style="color: #334155;">Midday</option>
+                                        <option value="Afternoon" style="color: #334155;">Afternoon</option>
+                                        <option value="Evening" style="color: #334155;">Evening</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="helper-text">"We'll contact you to understand your case — this is not a loan application."</p>
+                    </div>
+
+                    <!-- Step 2: Case Snapshot -->
+                    <div class="form-section case-snapshot">
+                        <div class="section-label">
+                            <span class="step-badge">2</span>
+                            <h2>Case Snapshot</h2>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="goals">What are you trying to achieve? <span class="required">*</span></label>
+                            <div class="textarea-with-icon">
+                                <i class="fas fa-bullseye"></i>
+                                <textarea id="goals" class="form-input textarea" 
+                                          rows="4" 
+                                          placeholder="Describe your financial goals (20-500 characters)"
+                                          style="color: #334155;"
+                                          required></textarea>
+                            </div>
+                            <p class="helper-text">Between 20-500 characters.</p>
+                        </div>
+
+                        <div class="form-grid mt-6">
+                            <!-- Appointment Slots -->
+                            <div class="input-group">
+                                <label>Preferred Appointment Time <span class="required">*</span></label>
+                                <div class="time-slots-container">
+                                    <div class="time-slots-header">
+                                        <i class="far fa-calendar-alt"></i> Available Slots (AEST)
+                                    </div>
+                                    <div class="time-slots-grid" id="timeSlots">
+                                        <!-- Time slots will be generated by JS -->
+                                    </div>
+                                </div>
+                                <p class="helper-text">Times pulled from Outlook (Mon-Sat, 9am-5pm)</p>
+                            </div>
+
+                            <!-- Complexity Flags -->
+                            <div class="input-group">
+                                <label>Complexity Flags (Optional)</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Self-employed / business income
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Multiple properties / debts
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Recent credit issues
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Non-standard security
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Multiple applicants / trusts
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" class="complexity-checkbox">
+                                        Urgent settlement
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="helper-text">"The more detail you share, the more precise our strategy assessment can be."</p>
+                    </div>
+
+                    <!-- Step 3: Case Specifics -->
+                    <div id="caseSpecifics" class="form-section case-specifics">
+                        <div class="section-label">
+                            <span class="step-badge">3</span>
+                            <h2>Case Specifics: <span id="enquiryTypeTitle">HOME</span></h2>
+                        </div>
+
+                        <!-- Home Enquiry Specific Fields -->
+                        <div id="homeEnquiryFields" class="form-grid">
+                            <div class="input-group">
+                                <label for="homeCategory">Home Enquiry Category <span class="required">*</span></label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-home"></i>
+                                    <select id="homeCategory" class="form-input">
+                                        <option value="" style="color: #94a3b8;">Select...</option>
+                                        <option value="Purchase" style="color: #334155;">Purchase</option>
+                                        <option value="Refinance" style="color: #334155;">Refinance</option>
+                                        <option value="Equity Release" style="color: #334155;">Equity Release</option>
+                                        <option value="Upgrade" style="color: #334155;">Upgrade</option>
+                                        <option value="Investment" style="color: #334155;">Investment</option>
+                                        <option value="Construction" style="color: #334155;">Construction</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="propertyState">Property Location (State) <span class="required">*</span></label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <select id="propertyState" class="form-input">
+                                        <option value="" style="color: #94a3b8;">Select...</option>
+                                        <option value="VIC" style="color: #334155;">VIC</option>
+                                        <option value="NSW" style="color: #334155;">NSW</option>
+                                        <option value="QLD" style="color: #334155;">QLD</option>
+                                        <option value="WA" style="color: #334155;">WA</option>
+                                        <option value="SA" style="color: #334155;">SA</option>
+                                        <option value="TAS" style="color: #334155;">TAS</option>
+                                        <option value="ACT" style="color: #334155;">ACT</option>
+                                        <option value="NT" style="color: #334155;">NT</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="propertyValue">Approx. Purchase Price / Property Value</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <input type="text" id="propertyValue" class="form-input" 
+                                           placeholder="Enter amount"
+                                           style="color: #334155;">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="loanAmount">Approx. Loan Required</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <input type="text" id="loanAmount" class="form-input" 
+                                           placeholder="Enter amount"
+                                           style="color: #334155;">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="employmentType">Employment Type <span class="required">*</span></label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                    <select id="employmentType" class="form-input">
+                                        <option value="" style="color: #94a3b8;">Select...</option>
+                                        <option value="PAYG" style="color: #334155;">PAYG</option>
+                                        <option value="Self-employed" style="color: #334155;">Self-employed</option>
+                                        <option value="Mixed" style="color: #334155;">Mixed</option>
+                                        <option value="Other" style="color: #334155;">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="yearsTradingGroup" class="input-group" style="display: none;">
+                                <label for="yearsTrading">Years Trading <span class="required">*</span></label>
+                                <div class="select-with-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <select id="yearsTrading" class="form-input">
+                                        <option value="<1" style="color: #334155;">&lt;1 Year</option>
+                                        <option value="1-2" style="color: #334155;">1–2 Years</option>
+                                        <option value="2-5" style="color: #334155;">2–5 Years</option>
+                                        <option value="5+" style="color: #334155;">5+ Years</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Commercial/SMSF Enquiry Message -->
+                        <div id="otherEnquiryMessage" class="other-enquiry-message" style="display: none;">
+                            Standard enquiry specifics for <span id="otherEnquiryType">COMMERCIAL</span> cases would be displayed here.
+                        </div>
+
+                        <p class="helper-text">"Figures are indicative and used to understand your case."</p>
+                    </div>
+
+                    <!-- Step 4: Uploads -->
+                    <div id="uploadsSection" class="form-section uploads-section">
+                        <div class="section-label">
+                            <span class="step-badge">4</span>
+                            <h2>Uploads (Optional)</h2>
+                        </div>
+                        <input type="file" id="fileUpload" style="display: none;" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" multiple>
+                        <div class="upload-container" id="uploadContainer">
+                            <i class="far fa-file-alt upload-icon"></i>
+                            <p class="upload-text">"Optional — documents help us assess faster."</p>
+                        </div>
+                        <div id="uploadedFiles" style="margin-top: 16px;"></div>
+                    </div>
+
+                    <!-- Step 5: Consent and Submit -->
+                    <div id="consentSection" class="form-section consent-section">
+                        <div class="consent-group">
+                            <label class="consent-label">
+                                <input type="checkbox" id="consentCheckbox" class="consent-checkbox">
+                                <span class="consent-text">
+                                    I understand this is an enquiry, not a loan application, and FINCO CAPITAL will contact me to discuss my situation. 
+                                    <span class="required">*</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="button" id="submitBtn" class="submit-button">
+                            Submit Enquiry
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <!-- main code -->
 
     <!-- footer container - dynamically loaded -->
@@ -428,146 +1379,769 @@
     <!-- <script src="../js/ui.js" defer></script> -->
     <script src="../js/home_extras.js" defer></script>
     <script src="../js/eventListeners.js" defer></script>
-
-    <script>
-        function showForm(formNumber) {
-
-            // Sab forms hide
-            document.getElementById("form1").style.display = "none";
-            document.getElementById("form2").style.display = "none";
-            document.getElementById("form3").style.display = "none";
-
-            // Selected form show
-            document.getElementById("form" + formNumber).style.display = "block";
-        }
-
-        document.querySelectorAll('.btn-group button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        function home() {
-            document.getElementById("content").style.display = "block";
-        }
-
-        // 🔥 Page load par Form 1 show hoga
-        window.onload = function () {
-            showForm(1);
-        };
-    </script>
     <script src="../js/load-components.js"></script>
-
-    <!-- EmailJS CDN and safe initializer + form handlers -->
-    <!-- Use same EmailJS bundle as index.html to ensure global `emailjs` is exported -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
     <script>
-        (function () {
+        // FINCO Capital Colors
+const COLORS = {
+    BLUE: '#001334',
+    ORANGE: '#ffbc00'
+};
 
-            /* ===============================
-               EMAILJS CONFIG
-            =============================== */
-            const RECIPIENT_EMAIL = "wsmabbas13@gmail.com";
+// Form State
+let formState = {
+    enquiryType: null,
+    formData: {
+        firstName: '',
+        lastName: '',
+        mobile: '',
+        email: '',
+        contactPref: '',
+        bestTime: '',
+        goals: '',
+        appointmentTime: '',
+        consent: false,
+        homeCategory: '',
+        propertyState: '',
+        propertyValue: '',
+        loanAmount: '',
+        employmentType: ''
+    },
+    verified: {
+        email: false,
+        mobile: false
+    },
+    uploadedFiles: [],
+    isSubmitted: false
+};
 
-            const PUBLIC_KEY = "5f_ySckYmfJAv-10x";
-            const SERVICE_ID = "service_q4mgort";
-            const TEMPLATE_ID = "template_f45afhw";
+// Enquiry Options Data
+const enquiryOptions = [
+    {
+        id: 'HOME',
+        title: 'Home Lending Enquiry',
+        description: 'For owner-occupiers, investors, refinances, upgrades, and complex personal scenarios.',
+        icon: 'fa-home'
+    },
+    {
+        id: 'COMMERCIAL',
+        title: 'Commercial & Business Finance Enquiry',
+        description: 'For business owners seeking strategic finance for growth, acquisition, or restructuring.',
+        icon: 'fa-briefcase'
+    },
+    {
+        id: 'SMSF',
+        title: 'SMSF Property Enquiry',
+        description: 'For trustees exploring property acquisition within a Self-Managed Super Fund.',
+        icon: 'fa-shield-alt'
+    }
+];
 
-            // Initialize EmailJS if available; otherwise wait briefly and retry
-            function initEmailJSOnce() {
-                if (typeof emailjs !== 'undefined' && typeof emailjs.init === 'function') {
-                    try { emailjs.init(PUBLIC_KEY); console.log('EmailJS initialized on Contact page'); }
-                    catch (err) { console.warn('EmailJS init failed:', err); }
-                    return true;
-                }
-                return false;
-            }
+// Time Slots Data
+const timeSlots = [
+    'Mon 9:30 AM',
+    'Mon 11:00 AM',
+    'Tue 2:00 PM',
+    'Wed 9:00 AM',
+    'Thu 4:30 PM',
+    'Sat 10:00 AM',
+    'Sat 2:30 PM'
+];
 
-            if (!initEmailJSOnce()) {
-                var _attempts = 0;
-                var _max = 50;
-                var _poll = setInterval(function () {
-                    _attempts++;
-                    if (initEmailJSOnce() || _attempts >= _max) clearInterval(_poll);
-                }, 100);
-            }
+// DOM Elements
+let enquiryOptionsContainer;
+let formContent;
+let formDetails;
+let selectedBanner;
+let selectedTypeText;
+let enquiryTypeTitle;
+let submitBtn;
+let consentCheckbox;
+let employmentTypeSelect;
+let yearsTradingGroup;
+let homeEnquiryFields;
+let otherEnquiryMessage;
+let otherEnquiryType;
+let caseSpecificsSection;
+let uploadsSection;
+let consentSection;
+let successModal;
+let modalOkButton;
 
-            /* ===============================
-               FORM SUBMIT HANDLER
-            =============================== */
-            function submitForm(e, formNumber) {
-                e.preventDefault();
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    // Get DOM elements
+    enquiryOptionsContainer = document.getElementById('enquiryOptions');
+    formContent = document.getElementById('formContent');
+    formDetails = document.querySelector('.form-details');
+    selectedBanner = document.getElementById('selectedBanner');
+    selectedTypeText = document.getElementById('selectedTypeText');
+    enquiryTypeTitle = document.getElementById('enquiryTypeTitle');
+    submitBtn = document.getElementById('submitBtn');
+    consentCheckbox = document.getElementById('consentCheckbox');
+    employmentTypeSelect = document.getElementById('employmentType');
+    yearsTradingGroup = document.getElementById('yearsTradingGroup');
+    homeEnquiryFields = document.getElementById('homeEnquiryFields');
+    otherEnquiryMessage = document.getElementById('otherEnquiryMessage');
+    otherEnquiryType = document.getElementById('otherEnquiryType');
+    caseSpecificsSection = document.getElementById('caseSpecifics');
+    uploadsSection = document.getElementById('uploadsSection');
+    consentSection = document.getElementById('consentSection');
+    successModal = document.getElementById('successModal');
+    modalOkButton = document.getElementById('modalOkButton');
+    
+    // Initialize the form
+    initEnquiryOptions();
+    initTimeSlots();
+    initEventListeners();
+    
+    // Initialize modal button
+    modalOkButton.addEventListener('click', closeModalAndResetForm);
+});
 
-                const form = document.getElementById("form" + formNumber);
-                if (!form) return;
+// Initialize enquiry option cards with smooth animations
+function initEnquiryOptions() {
+    enquiryOptionsContainer.innerHTML = '';
+    
+    enquiryOptions.forEach((option, index) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'card-option';
+        if (formState.enquiryType === option.id) {
+            card.classList.add('active');
+        }
+        
+        card.innerHTML = `
+            <div class="card-icon ${formState.enquiryType === option.id ? 'active' : ''}">
+                <i class="fas ${option.icon}"></i>
+            </div>
+            <h3>${option.title}</h3>
+            <p>${option.description}</p>
+            <div class="card-checkmark">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        `;
+        
+        card.addEventListener('click', () => handleEnquirySelection(option.id));
+        enquiryOptionsContainer.appendChild(card);
+    });
+}
 
-                const select = form.querySelector("select");
-                const inputs = form.querySelectorAll("input");
-
-                const loanType = select?.value || "";
-                const preferredDate = inputs[0]?.value || "";
-                const email = inputs[1]?.value || "";
-                const name = inputs[2]?.value || "";
-                const phone = inputs[3]?.value || "";
-
-                /* ===============================
-                   BASIC VALIDATION
-                =============================== */
-                if (!name || !email || !phone) {
-                    alert("Please fill all required fields");
-                    return;
-                }
-
-                const loanCategory =
-                    formNumber === 1 ? "Home Loan" :
-                        formNumber === 2 ? "Commercial Loan" :
-                            "SMSF Loan";
-
-                const emailParams = {
-                    recipient_email: "mehdiakbar905@gmail.com",
-                    from_name: name,
-                    from_email: email,
-                    phone: phone,
-                    loan_category: loanCategory,
-                    loan_type: loanType,
-                    preferred_date: preferredDate,
-                    message: `New ${loanCategory} application received from ${name}`,
-                    timestamp: new Date().toLocaleString("en-AU")
-                };
-
-                /* ===============================
-                   SEND EMAIL
-                =============================== */
-                emailjs.send(SERVICE_ID, TEMPLATE_ID, emailParams)
-                    .then(() => {
-                        alert("Thank you! Your application has been submitted.");
-                        form.reset();
-                    })
-                    .catch((error) => {
-                        console.error("EmailJS Error:", error);
-                        alert("Something went wrong. Please try again later.");
-                    });
-            }
-
-            /* ===============================
-               EVENT LISTENERS
-            =============================== */
-            document.addEventListener("DOMContentLoaded", () => {
-                for (let i = 1; i <= 3; i++) {
-                    const form = document.getElementById("form" + i);
-                    if (form) {
-                        form.addEventListener("submit", (e) => submitForm(e, i));
-                    }
-                }
+// Initialize time slots
+function initTimeSlots() {
+    const timeSlotsContainer = document.getElementById('timeSlots');
+    timeSlotsContainer.innerHTML = '';
+    
+    timeSlots.forEach(slot => {
+        const slotBtn = document.createElement('button');
+        slotBtn.type = 'button';
+        slotBtn.className = 'time-slot';
+        if (formState.formData.appointmentTime === slot) {
+            slotBtn.classList.add('selected');
+        }
+        slotBtn.textContent = slot;
+        
+        slotBtn.addEventListener('click', () => {
+            // Remove selected class from all slots
+            document.querySelectorAll('.time-slot').forEach(s => {
+                s.classList.remove('selected');
             });
+            
+            // Add selected class to clicked slot
+            slotBtn.classList.add('selected');
+            updateField('appointmentTime', slot);
+        });
+        
+        timeSlotsContainer.appendChild(slotBtn);
+    });
+}
 
-        })();
+// Initialize event listeners
+function initEventListeners() {
+    // Text inputs
+    document.getElementById('firstName').addEventListener('input', (e) => {
+        updateField('firstName', e.target.value);
+    });
+    
+    document.getElementById('lastName').addEventListener('input', (e) => {
+        updateField('lastName', e.target.value);
+    });
+    
+    document.getElementById('mobile').addEventListener('input', (e) => {
+        updateField('mobile', e.target.value);
+    });
+    
+    document.getElementById('email').addEventListener('input', (e) => {
+        updateField('email', e.target.value);
+    });
+    
+    // Select inputs
+    document.getElementById('contactPref').addEventListener('change', (e) => {
+        updateField('contactPref', e.target.value);
+    });
+    
+    document.getElementById('bestTime').addEventListener('change', (e) => {
+        updateField('bestTime', e.target.value);
+    });
+    
+    // Textarea
+    document.getElementById('goals').addEventListener('input', (e) => {
+        updateField('goals', e.target.value);
+    });
+    
+    // Home enquiry fields
+    document.getElementById('homeCategory').addEventListener('change', (e) => {
+        updateField('homeCategory', e.target.value);
+    });
+    
+    document.getElementById('propertyState').addEventListener('change', (e) => {
+        updateField('propertyState', e.target.value);
+    });
+    
+    document.getElementById('propertyValue').addEventListener('input', (e) => {
+        updateField('propertyValue', e.target.value);
+    });
+    
+    document.getElementById('loanAmount').addEventListener('input', (e) => {
+        updateField('loanAmount', e.target.value);
+    });
+    
+    // Employment type change
+    employmentTypeSelect.addEventListener('change', (e) => {
+        updateField('employmentType', e.target.value);
+        if (e.target.value === 'Self-employed') {
+            // Show years trading
+            yearsTradingGroup.style.display = 'block';
+            setTimeout(() => {
+                yearsTradingGroup.classList.add('show');
+            }, 10);
+        } else {
+            // Hide years trading
+            yearsTradingGroup.classList.remove('show');
+            setTimeout(() => {
+                yearsTradingGroup.style.display = 'none';
+            }, 300);
+        }
+    });
+    
+    // Years trading
+    document.getElementById('yearsTrading').addEventListener('change', (e) => {
+        updateField('yearsTrading', e.target.value);
+    });
+    
+    // Consent checkbox
+    consentCheckbox.addEventListener('change', (e) => {
+        updateField('consent', e.target.checked);
+    });
+    
+    // Complexity checkboxes
+    document.querySelectorAll('.complexity-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const field = e.target.nextSibling.textContent.trim();
+            updateField(field, e.target.checked);
+        });
+    });
+    
+    // Upload container click handler
+    const uploadContainer = document.getElementById('uploadContainer');
+    const fileUpload = document.getElementById('fileUpload');
+    
+    uploadContainer.addEventListener('click', () => {
+        fileUpload.click();
+    });
+    
+    // File input change handler
+    fileUpload.addEventListener('change', (e) => {
+        handleFileUpload(e.target.files);
+    });
+    
+    // Submit button - FIXED: Always visible
+    submitBtn.addEventListener('click', handleSubmit);
+}
+
+// Handle enquiry type selection with smooth animations
+function handleEnquirySelection(id) {
+    // If form was submitted, don't allow selection
+    if (formState.isSubmitted) {
+        return;
+    }
+    
+    // Get the selected option
+    const selectedOption = enquiryOptions.find(opt => opt.id === id);
+    
+    // Toggle selection
+    if (formState.enquiryType === id) {
+        formState.enquiryType = null;
+        hideFormSections();
+    } else {
+        formState.enquiryType = id;
+        showFormSections(selectedOption);
+    }
+    
+    // Update cards with animation
+    updateCardSelection(id);
+    
+    // Update submit button
+    updateSubmitButton();
+}
+
+// Update card selection with smooth animations
+function updateCardSelection(selectedId) {
+    const cards = document.querySelectorAll('.card-option');
+    cards.forEach(card => {
+        const cardId = card.querySelector('h3').textContent.includes('Home') ? 'HOME' :
+                      card.querySelector('h3').textContent.includes('Commercial') ? 'COMMERCIAL' : 'SMSF';
+        
+        if (cardId === selectedId && formState.enquiryType === selectedId) {
+            // Add active class with animation
+            setTimeout(() => {
+                card.classList.add('active');
+            }, 100);
+        } else {
+            // Remove active class
+            card.classList.remove('active');
+        }
+    });
+}
+
+// Show form sections with smooth animations
+function showFormSections(selectedOption) {
+    // Update banner text
+    selectedTypeText.innerHTML = `You've selected: <strong>${selectedOption.title}</strong>.`;
+    enquiryTypeTitle.textContent = formState.enquiryType;
+    
+    // Hide no selection message
+    document.getElementById('noSelectionMessage').style.display = 'none';
+    
+    // Show form details with animation
+    setTimeout(() => {
+        formDetails.style.display = 'block';
+        setTimeout(() => {
+            formDetails.classList.add('show');
+        }, 10);
+    }, 200);
+    
+    // Show selected banner with animation
+    setTimeout(() => {
+        selectedBanner.classList.add('show');
+    }, 300);
+    
+    // Show appropriate enquiry type fields
+    if (formState.enquiryType === 'HOME') {
+        // Hide other enquiry message
+        otherEnquiryMessage.style.display = 'none';
+        
+        // Show home enquiry fields with animation
+        setTimeout(() => {
+            homeEnquiryFields.style.display = 'grid';
+            homeEnquiryFields.classList.add('show');
+        }, 400);
+    } else {
+        // Hide home enquiry fields
+        homeEnquiryFields.classList.remove('show');
+        setTimeout(() => {
+            homeEnquiryFields.style.display = 'none';
+        }, 300);
+        
+        // Show other enquiry message with animation
+        otherEnquiryMessage.style.display = 'block';
+        otherEnquiryType.textContent = formState.enquiryType;
+        setTimeout(() => {
+            otherEnquiryMessage.classList.add('show');
+        }, 400);
+    }
+    
+    // Show input groups with animation
+    setTimeout(() => {
+        document.querySelectorAll('.input-group').forEach((group, index) => {
+            setTimeout(() => {
+                group.classList.add('show');
+            }, index * 50);
+        });
+    }, 400);
+    
+    // Show time slots container
+    setTimeout(() => {
+        document.querySelector('.time-slots-container').classList.add('show');
+    }, 500);
+    
+    // Show checkbox group
+    setTimeout(() => {
+        document.querySelector('.checkbox-group').classList.add('show');
+    }, 500);
+    
+    // Show case specifics section
+    setTimeout(() => {
+        caseSpecificsSection.classList.add('show');
+    }, 600);
+    
+    // Show uploads section
+    setTimeout(() => {
+        uploadsSection.classList.add('show');
+    }, 700);
+    
+    // Show consent section
+    setTimeout(() => {
+        consentSection.classList.add('show');
+        document.querySelector('.consent-group').classList.add('show');
+    }, 800);
+    
+    // Show submit button
+    setTimeout(() => {
+        submitBtn.classList.add('show');
+    }, 900);
+    
+    // Show helper texts
+    setTimeout(() => {
+        document.querySelectorAll('.helper-text').forEach(text => {
+            text.classList.add('show');
+        });
+    }, 500);
+}
+
+// Hide form sections with smooth animations
+function hideFormSections() {
+    // Hide form details with animation
+    formDetails.classList.remove('show');
+    setTimeout(() => {
+        formDetails.style.display = 'none';
+    }, 300);
+    
+    // Hide selected banner with animation
+    selectedBanner.classList.remove('show');
+    
+    // Hide other sections
+    homeEnquiryFields.classList.remove('show');
+    otherEnquiryMessage.classList.remove('show');
+    caseSpecificsSection.classList.remove('show');
+    uploadsSection.classList.remove('show');
+    consentSection.classList.remove('show');
+    
+    // Hide input groups
+    document.querySelectorAll('.input-group').forEach(group => {
+        group.classList.remove('show');
+    });
+    
+    // Hide other elements
+    document.querySelector('.time-slots-container').classList.remove('show');
+    document.querySelector('.checkbox-group').classList.remove('show');
+    document.querySelector('.consent-group').classList.remove('show');
+    submitBtn.classList.remove('show');
+    document.querySelectorAll('.helper-text').forEach(text => {
+        text.classList.remove('show');
+    });
+    
+    // Show no selection message
+    setTimeout(() => {
+        document.getElementById('noSelectionMessage').style.display = 'block';
+    }, 300);
+}
+
+// Update form field with smooth validation
+function updateField(name, value) {
+    formState.formData[name] = value;
+    
+    // Show/hide verification badge for email and mobile
+    if (name === 'email' && value.includes('@') && value.includes('.')) {
+        // Auto-verify email if format looks valid
+        setTimeout(() => {
+            formState.verified.email = true;
+            document.getElementById('emailVerified').style.display = 'flex';
+            document.getElementById('emailVerified').classList.add('show');
+            updateSubmitButton();
+        }, 500);
+    }
+    
+    if (name === 'mobile' && value.length >= 10) {
+        // Auto-verify mobile if length is sufficient
+        setTimeout(() => {
+            formState.verified.mobile = true;
+            document.getElementById('mobileVerified').style.display = 'flex';
+            document.getElementById('mobileVerified').classList.add('show');
+            updateSubmitButton();
+        }, 500);
+    }
+    
+    updateSubmitButton();
+}
+
+// Check if form is valid
+function isFormValid() {
+    // Check enquiry type
+    if (!formState.enquiryType) return false;
+    
+    // Check required fields
+    const requiredFields = ['firstName', 'lastName', 'mobile', 'email', 'contactPref', 'goals', 'appointmentTime'];
+    const allFieldsFilled = requiredFields.every(field => {
+        const value = formState.formData[field];
+        return value && value.toString().trim() !== '';
+    });
+    
+    // Check verification
+    const allVerified = formState.verified.email && formState.verified.mobile;
+    
+    // Check consent
+    const consentGiven = formState.formData.consent;
+    
+    // Additional checks for home enquiry
+    if (formState.enquiryType === 'HOME') {
+        const homeRequiredFields = ['homeCategory', 'propertyState', 'employmentType'];
+        const homeFieldsFilled = homeRequiredFields.every(field => {
+            const value = formState.formData[field];
+            return value && value.toString().trim() !== '';
+        });
+        
+        if (formState.formData.employmentType === 'Self-employed') {
+            if (!formState.formData.yearsTrading) return false;
+        }
+        
+        return allFieldsFilled && allVerified && consentGiven && homeFieldsFilled;
+    }
+    
+    return allFieldsFilled && allVerified && consentGiven;
+}
+
+// Update submit button state
+function updateSubmitButton() {
+    const isValid = isFormValid();
+    
+    if (isValid) {
+        // Enable button
+        submitBtn.disabled = false;
+        submitBtn.style.backgroundColor = COLORS.BLUE;
+        submitBtn.style.color = COLORS.ORANGE;
+        
+        // Add pulsing animation
+        submitBtn.style.animation = 'pulse 2s infinite';
+    } else {
+        // Disable button but keep it visible
+        submitBtn.disabled = true;
+        submitBtn.style.backgroundColor = '#e2e8f0';
+        submitBtn.style.color = '#94a3b8';
+        submitBtn.style.animation = 'none';
+    }
+}
+
+// Handle file upload
+function handleFileUpload(files) {
+    const uploadedFilesDiv = document.getElementById('uploadedFiles');
+    uploadedFilesDiv.innerHTML = '';
+    
+    // Store files in form state
+    formState.uploadedFiles = Array.from(files);
+    
+    if (files.length > 0) {
+        const filesList = document.createElement('div');
+        filesList.style.cssText = 'border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; background-color: #f8fafc;';
+        
+        const title = document.createElement('p');
+        title.style.cssText = 'font-weight: 600; color: #001334; margin: 0 0 12px 0; font-size: 0.875rem;';
+        title.textContent = `${files.length} file(s) selected:`;
+        filesList.appendChild(title);
+        
+        const fileItems = document.createElement('ul');
+        fileItems.style.cssText = 'list-style: none; padding: 0; margin: 0;';
+        
+        Array.from(files).forEach((file, index) => {
+            const li = document.createElement('li');
+            li.style.cssText = 'padding: 8px; color: #475569; font-size: 0.875rem; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;';
+            
+            if (index === files.length - 1) {
+                li.style.borderBottom = 'none';
+            }
+            
+            const fileInfo = document.createElement('span');
+            fileInfo.innerHTML = `<i class="fas fa-file" style="margin-right: 8px; color: #64748b;"></i> ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.textContent = '✕';
+            removeBtn.style.cssText = 'background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; padding: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;';
+            
+            removeBtn.addEventListener('click', () => {
+                const fileInput = document.getElementById('fileUpload');
+                const newFiles = Array.from(fileInput.files).filter((_, i) => i !== index);
+                
+                // Create a new DataTransfer to update the file input
+                const dataTransfer = new DataTransfer();
+                newFiles.forEach(file => dataTransfer.items.add(file));
+                fileInput.files = dataTransfer.files;
+                
+                // Recursively handle the updated files
+                handleFileUpload(fileInput.files);
+            });
+            
+            li.appendChild(fileInfo);
+            li.appendChild(removeBtn);
+            fileItems.appendChild(li);
+        });
+        
+        filesList.appendChild(fileItems);
+        uploadedFilesDiv.appendChild(filesList);
+    }
+}
+
+// Add shake animation to CSS
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
+
+// Add pulse animation to CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(0, 19, 52, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(0, 19, 52, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(0, 19, 52, 0);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Handle form submission
+function handleSubmit() {
+    if (!isFormValid()) {
+        // Shake animation for invalid form
+        submitBtn.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            submitBtn.style.animation = '';
+            if (isFormValid()) {
+                submitBtn.style.animation = 'pulse 2s infinite';
+            }
+        }, 500);
+        
+        alert('Please complete all required fields before submitting.');
+        return;
+    }
+    
+    // Mark form as submitted
+    formState.isSubmitted = true;
+    
+    // Prepare submission data
+    const submissionData = {
+        enquiryType: formState.enquiryType,
+        ...formState.formData,
+        verified: formState.verified,
+        uploadedFiles: formState.uploadedFiles || [],
+        submittedAt: new Date().toISOString()
+    };
+    
+    // In a real app, you would send this to your server
+    console.log('Form submitted:', submissionData);
+    
+    // Show success modal instead of alert
+    showSuccessModal();
+}
+
+// Show success modal
+function showSuccessModal() {
+    successModal.style.display = 'flex';
+}
+
+// Close modal and reset form
+function closeModalAndResetForm() {
+    // Hide modal
+    successModal.style.display = 'none';
+    
+    // Reset form
+    resetForm();
+}
+
+// Reset form with smooth transition
+function resetForm() {
+    // Reset form state
+    formState = {
+        enquiryType: null,
+        formData: {
+            firstName: '',
+            lastName: '',
+            mobile: '',
+            email: '',
+            contactPref: '',
+            bestTime: '',
+            goals: '',
+            appointmentTime: '',
+            consent: false,
+            homeCategory: '',
+            propertyState: '',
+            propertyValue: '',
+            loanAmount: '',
+            employmentType: ''
+        },
+        verified: {
+            email: false,
+            mobile: false
+        },
+        uploadedFiles: [],
+        isSubmitted: false
+    };
+    
+    // Hide form sections with animation
+    hideFormSections();
+    
+    // Reset all inputs with animation
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach((input, index) => {
+        setTimeout(() => {
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else if (input.tagName === 'SELECT') {
+                input.selectedIndex = 0;
+            } else if (input.type !== 'file') {
+                input.value = '';
+            }
+        }, index * 50);
+    });
+    
+    // Reset file input and uploaded files display
+    const fileInput = document.getElementById('fileUpload');
+    if (fileInput) {
+        fileInput.value = '';
+    }
+    const uploadedFilesDiv = document.getElementById('uploadedFiles');
+    if (uploadedFilesDiv) {
+        uploadedFilesDiv.innerHTML = '';
+    }
+    
+    // Reset verification badges
+    document.getElementById('emailVerified').style.display = 'none';
+    document.getElementById('emailVerified').classList.remove('show');
+    document.getElementById('mobileVerified').style.display = 'none';
+    document.getElementById('mobileVerified').classList.remove('show');
+    
+    // Reset time slots
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.classList.remove('selected');
+    });
+    
+    // Hide years trading
+    yearsTradingGroup.style.display = 'none';
+    yearsTradingGroup.classList.remove('show');
+    
+    // Show no selection message
+    setTimeout(() => {
+        document.getElementById('noSelectionMessage').style.display = 'block';
+    }, 300);
+    
+    // Reinitialize options
+    initEnquiryOptions();
+    
+    // Update submit button
+    setTimeout(() => {
+        updateSubmitButton();
+    }, 500);
+}
     </script>
-
-
-
 </body>
 
 </html>

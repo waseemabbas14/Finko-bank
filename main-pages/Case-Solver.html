@@ -158,7 +158,6 @@ body {
     flex: 1;
     width: 100%;
     padding: 10rem 1rem !important;
-
 }
 
 @media (min-width: 768px) {
@@ -1431,274 +1430,308 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--gray-400);
 }
+
+/* PDF Generation Fix Styles */
+.pdf-generation-fix {
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    background-color: white;
+    z-index: -9999;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.pdf-report-content {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    color: #000000;
+    font-family: 'League Spartan', 'Arial', sans-serif;
+}
+
+.pdf-report-content * {
+    color: #000000 !important;
+    background-color: white !important;
+    box-shadow: none !important;
+    border-color: #000000 !important;
+}
+
+.pdf-report-content .report-section {
+    border: 1px solid #000000;
+    margin-bottom: 20px;
+}
+
+.pdf-report-content .section-title {
+    color: #001A3D !important;
+}
+
+.pdf-report-content .report-header-tag {
+    color: #FF9500 !important;
+}
+
+.pdf-report-content .report-title {
+    color: #001A3D !important;
+}
 </style>
 </head>
 <body>
 
 <!-- header container - dynamically loaded -->
 <div id="header-container"></div>
-<!-- header -->
-<!-- <div class="top">
-        <div class="read-more">
-            <p><i class="fa-solid fa-circle-exclamation"></i>Finco Capital latest financial policies and customer support
-                guidelines</p>
-            <button class="more">Read More</button>
-        </div>
-        <div class="call">
-            <p><i class="fa-solid fa-phone-flip"></i>0123456789</p>
-            <p><i class="fa-solid fa-envelope"></i>service@abc.com</p>
-        </div>
-    </div> -->
 
-<!-- header -->
-<!-- sections -->
-<!-- HERO -->
-   <main class="main-content">
-        <!-- Loan Type Selection Screen -->
-        <div id="loanTypeScreen" class="screen active">
-            <div class="loan-selector-container">
-                <div class="hero-section">
-                    <h1 class="hero-title">Identify Your <br><span class="hero-highlight">Strategic Pathway</span></h1>
-                    <div class="hero-description">
-                        <p class="hero-text">Select your lending focus to begin a framework-driven classification of your case.</p>
-                        <p class="hero-tagline">FINCO CAPITAL: Financial Confidence. Unlocked.</p>
-                    </div>
+<main class="main-content">
+    <!-- Loan Type Selection Screen -->
+    <div id="loanTypeScreen" class="screen active">
+        <div class="loan-selector-container">
+            <div class="hero-section">
+                <h1 class="hero-title">Identify Your <br><span class="hero-highlight">Strategic Pathway</span></h1>
+                <div class="hero-description">
+                    <p class="hero-text">Select your lending focus to begin a framework-driven classification of your case.</p>
+                    <p class="hero-tagline">FINCO CAPITAL: Financial Confidence. Unlocked.</p>
                 </div>
-                
-                <div class="loan-cards-grid">
-                    <div class="loan-card" data-loan-type="HOME" style="background-color: #accbff;">
-                        <div class="loan-tag">Personal</div>
-                        <div class="loan-icon">🏠</div>
-                        <div class="loan-content">
-                            <h3 class="loan-title">Home Loan</h3>
-                            <p class="loan-desc">Classification for buying, refinancing, or residential portfolio building.</p>
-                        </div>
-                        <div class="loan-cta">
-                            Begin Analysis <span class="arrow">→</span>
-                        </div>
-                    </div>
-                    
-                    <div class="loan-card" data-loan-type="COMMERCIAL" style="background-color: #FFC067;">
-                        <div class="loan-tag">Corporate</div>
-                        <div class="loan-icon">🏢</div>
-                        <div class="loan-content">
-                            <h3 class="loan-title">Commercial Lending</h3>
-                            <p class="loan-desc">Complex business debt, cashflow optimisation, and asset-backed growth.</p>
-                        </div>
-                        <div class="loan-cta">
-                            Begin Analysis <span class="arrow">→</span>
-                        </div>
-                    </div>
-                    
-                    <div class="loan-card" data-loan-type="SMSF" style="background-color: #96b85d;">
-                        <div class="loan-tag">Trust</div>
-                        <div class="loan-icon">📈</div>
-                        <div class="loan-content">
-                            <h3 class="loan-title">SMSF LRBA</h3>
-                            <p class="loan-desc">Specialised strategy for lending within your Self-Managed Super Fund.</p>
-                        </div>
-                        <div class="loan-cta">
-                            Begin Analysis <span class="arrow">→</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Questionnaire Screen -->
-        <div id="questionnaireScreen" class="screen">
-            <div class="questionnaire-container">
-                <div class="question-header">
-                    <button id="backButton" class="back-button">
-                        <span class="back-arrow">←</span> Return to Previous
-                    </button>
-                    <span class="step-counter">Step <span id="currentStep">1</span> of 4</span>
-                </div>
-
-                <div class="progress-bar">
-                    <div id="progressFill" class="progress-fill"></div>
-                </div>
-
-                <div class="question-content">
-                    <h2 id="questionText" class="question-text"></h2>
-                    
-                    <div id="multiSelectNote" class="multi-select-note">
-                        <span class="info-icon">ⓘ</span>
-                        <p>Select up to two that apply</p>
-                    </div>
-                    
-                    <div id="optionsContainer" class="options-grid">
-                        <!-- Options will be dynamically inserted here -->
-                    </div>
-                    
-                    <div id="otherInputContainer" class="other-input-container">
-                        <label>Please provide more details:</label>
-                        <textarea id="otherText" rows="4" placeholder="Tell us a bit more about your situation..."></textarea>
-                    </div>
-                    
-                    <button id="confirmButton" class="confirm-button">
-                        Continue
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Loading Screen -->
-        <div id="loadingScreen" class="screen">
-            <div class="loading-container">
-                <div class="loading-spinner">
-                    <div class="spinner-outer"></div>
-                    <div class="spinner-inner"></div>
-                </div>
-                <div class="loading-text">
-                    <h3 class="loading-title">Analysing Case Parameters...</h3>
-                    <p class="loading-subtitle">Mapping results to FINCO strategy frameworks</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div id="resultsScreen" class="screen">
-            <div class="results-container">
-                <!-- Report will be dynamically inserted here -->
             </div>
             
-            <div class="results-actions">
-                <button id="downloadPDF" class="action-button download-btn">
-                    <span class="btn-icon">📄</span> Download Report (PDF)
-                </button>
-                
-                <button id="bookSession" class="action-button primary-btn">
-                    Book a Free Expert Strategy Session
-                </button>
-                
-                <button id="resetAnalysis" class="action-button secondary-btn">
-                    Reset Analysis
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- Strategy Session Modal -->
-    <div id="sessionModal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="closeModal" class="modal-close">&times;</button>
-            
-            <div class="modal-header">
-                <div class="modal-logo">
-                    <svg viewBox="0 0 500 150" class="modal-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
-                        <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
-                        <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
-                        <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
-                        <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
-                        <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
-                        <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan', sans-serif">$</text>
-                        <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan', sans-serif; letter-spacing: -1px">FC</text>
-                        <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan', sans-serif; letter-spacing: -4px">FINC<tspan fill="#FF9500">O</tspan></text>
-                        <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan', sans-serif; letter-spacing: 10px; text-transform: uppercase">CAPITAL</text>
-                    </svg>
-                </div>
-                <h2 class="modal-title">Book Strategy Session</h2>
-                <p class="modal-subtitle">Free Expert Consultation</p>
-            </div>
-
-            <div class="modal-body">
-                <div id="formStep" class="form-step active">
-                    <form id="bookingForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Full Name *</label>
-                                <input type="text" id="fullName" required placeholder="John Doe">
-                            </div>
-                            <div class="form-group">
-                                <label>Mobile Number *</label>
-                                <input type="tel" id="mobile" required placeholder="0400 000 000">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Email Address *</label>
-                            <input type="email" id="email" required placeholder="john@example.com">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Why are you requesting this session? *</label>
-                            <textarea id="briefNote" rows="2" required placeholder="Brief explanation..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Preferred Call-back Time *</label>
-                            <select id="preferredTime" required>
-                                <option value="">Select a slot</option>
-                                <option value="Mon, 9:00 AM - 10:00 AM">Mon, 9:00 AM - 10:00 AM</option>
-                                <option value="Mon, 2:00 PM - 3:00 PM">Mon, 2:00 PM - 3:00 PM</option>
-                                <option value="Tue, 10:00 AM - 11:00 AM">Tue, 10:00 AM - 11:00 AM</option>
-                                <option value="Wed, 1:00 PM - 2:00 PM">Wed, 1:00 PM - 2:00 PM</option>
-                                <option value="Thu, 3:00 PM - 4:00 PM">Thu, 3:00 PM - 4:00 PM</option>
-                                <option value="Fri, 11:00 AM - 12:00 PM">Fri, 11:00 AM - 12:00 PM</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Additional Comments (Optional)</label>
-                            <textarea id="comments" rows="2" placeholder="Any focus areas or context..."></textarea>
-                        </div>
-                        
-                        <div class="form-note">
-                            <p>"Your personalised report will be emailed to you in PDF format."</p>
-                        </div>
-                        
-                        <button type="submit" class="form-submit">Continue to Verification</button>
-                    </form>
+            <div class="loan-cards-grid">
+                <div class="loan-card" data-loan-type="HOME" style="background-color: #accbff;">
+                    <div class="loan-tag">Personal</div>
+                    <div class="loan-icon">🏠</div>
+                    <div class="loan-content">
+                        <h3 class="loan-title">Home Loan</h3>
+                        <p class="loan-desc">Classification for buying, refinancing, or residential portfolio building.</p>
+                    </div>
+                    <div class="loan-cta">
+                        Begin Analysis <span class="arrow">→</span>
+                    </div>
                 </div>
                 
-                <div id="verificationStep" class="form-step">
-                    <div class="verification-header">
-                        <h3>Security Verification</h3>
-                        <p>Please enter the 4-digit codes sent to your email and mobile.</p>
+                <div class="loan-card" data-loan-type="COMMERCIAL" style="background-color: #FFC067;">
+                    <div class="loan-tag">Corporate</div>
+                    <div class="loan-icon">🏢</div>
+                    <div class="loan-content">
+                        <h3 class="loan-title">Commercial Lending</h3>
+                        <p class="loan-desc">Complex business debt, cashflow optimisation, and asset-backed growth.</p>
                     </div>
-                    
-                    <div class="verification-inputs">
-                        <div class="otp-group">
-                            <label>Email Code (Sent to <span id="emailDisplay"></span>)</label>
-                            <input type="text" id="emailOtp" maxlength="4" placeholder="0000" class="otp-input">
-                        </div>
-                        
-                        <div class="otp-group">
-                            <label>Mobile Code (Sent to <span id="mobileDisplay"></span>)</label>
-                            <input type="text" id="mobileOtp" maxlength="4" placeholder="0000" class="otp-input">
-                        </div>
+                    <div class="loan-cta">
+                        Begin Analysis <span class="arrow">→</span>
                     </div>
-                    
-                    <button id="verifyButton" class="verify-btn">Complete Booking</button>
                 </div>
                 
-                <div id="successStep" class="form-step">
-                    <div class="success-icon">✓</div>
-                    <div class="success-content">
-                        <h3>Booking Confirmed</h3>
-                        <p>Thank you for booking your Free Expert Strategy Session. Your personalised report is on its way to your email.</p>
+                <div class="loan-card" data-loan-type="SMSF" style="background-color: #96b85d;">
+                    <div class="loan-tag">Trust</div>
+                    <div class="loan-icon">📈</div>
+                    <div class="loan-content">
+                        <h3 class="loan-title">SMSF LRBA</h3>
+                        <p class="loan-desc">Specialised strategy for lending within your Self-Managed Super Fund.</p>
                     </div>
-                    <button id="returnToReport" class="success-btn">Return to Report</button>
+                    <div class="loan-cta">
+                        Begin Analysis <span class="arrow">→</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Questionnaire Screen -->
+    <div id="questionnaireScreen" class="screen">
+        <div class="questionnaire-container">
+            <div class="question-header">
+                <button id="backButton" class="back-button">
+                    <span class="back-arrow">←</span> Return to Previous
+                </button>
+                <span class="step-counter">Step <span id="currentStep">1</span> of 4</span>
+            </div>
 
-              <span id="currentYear" style="display: none;"></span>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
 
- 
+            <div class="question-content">
+                <h2 id="questionText" class="question-text"></h2>
+                
+                <div id="multiSelectNote" class="multi-select-note">
+                    <span class="info-icon">ⓘ</span>
+                    <p>Select up to two that apply</p>
+                </div>
+                
+                <div id="optionsContainer" class="options-grid">
+                    <!-- Options will be dynamically inserted here -->
+                </div>
+                
+                <div id="otherInputContainer" class="other-input-container">
+                    <label>Please provide more details:</label>
+                    <textarea id="otherText" rows="4" placeholder="Tell us a bit more about your situation..."></textarea>
+                </div>
+                
+                <button id="confirmButton" class="confirm-button">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
-    <!-- Main JavaScript -->
-   <script>
-    // Application State
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="screen">
+        <div class="loading-container">
+            <div class="loading-spinner">
+                <div class="spinner-outer"></div>
+                <div class="spinner-inner"></div>
+            </div>
+            <div class="loading-text">
+                <h3 class="loading-title">Analysing Case Parameters...</h3>
+                <p class="loading-subtitle">Mapping results to FINCO strategy frameworks</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <!-- Report will be dynamically inserted here -->
+        </div>
+        
+        <div class="results-actions">
+            <button id="downloadPDF" class="action-button download-btn">
+                <span class="btn-icon">📄</span> Download Report (PDF)
+            </button>
+            
+            <button id="bookSession" class="action-button primary-btn">
+                Book a Free Expert Strategy Session
+            </button>
+            
+            <button id="resetAnalysis" class="action-button secondary-btn">
+                Reset Analysis
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- PDF Generation Container (Hidden) -->
+<div id="pdfGenerationContainer" class="pdf-generation-fix">
+    <div id="pdfReportContent" class="pdf-report-content">
+        <!-- PDF content will be inserted here -->
+    </div>
+</div>
+
+<!-- Strategy Session Modal -->
+<div id="sessionModal" class="modal-overlay">
+    <div class="modal-content">
+        <button id="closeModal" class="modal-close">&times;</button>
+        
+        <div class="modal-header">
+            <div class="modal-logo">
+                <svg viewBox="0 0 500 150" class="modal-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 30C20 20 80 15 80 15C80 15 140 20 140 30V80C140 110 80 140 80 140C80 140 20 110 20 80V30Z" fill="#001A3D" />
+                    <path d="M25 35C25 28 80 20 80 20C80 20 135 28 135 35V80C135 105 80 135 80 135C80 135 25 105 25 80V35Z" stroke="#FF9500" stroke-width="3" />
+                    <circle cx="80" cy="55" r="24" stroke="#FF9500" stroke-width="6" />
+                    <rect x="76" y="75" width="8" height="48" fill="#FF9500" />
+                    <rect x="84" y="98" width="14" height="6" fill="#FF9500" />
+                    <rect x="84" y="112" width="14" height="6" fill="#FF9500" />
+                    <text x="88" y="130" fill="#FF9500" style="font: 800 24px 'League Spartan', sans-serif">$</text>
+                    <text x="80" y="63" text-anchor="middle" fill="#FF9500" style="font: bold 20px 'League Spartan', sans-serif; letter-spacing: -1px">FC</text>
+                    <text x="170" y="85" fill="#001A3D" style="font: 800 78px 'League Spartan', sans-serif; letter-spacing: -4px">FINC<tspan fill="#FF9500">O</tspan></text>
+                    <text x="170" y="122" fill="#001A3D" style="font: 700 24px 'League Spartan', sans-serif; letter-spacing: 10px; text-transform: uppercase">CAPITAL</text>
+                </svg>
+            </div>
+            <h2 class="modal-title">Book Strategy Session</h2>
+            <p class="modal-subtitle">Free Expert Consultation</p>
+        </div>
+
+        <div class="modal-body">
+            <div id="formStep" class="form-step active">
+                <form id="bookingForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number *</label>
+                            <input type="tel" id="mobile" required placeholder="0400 000 000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Why are you requesting this session? *</label>
+                        <textarea id="briefNote" rows="2" required placeholder="Brief explanation..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preferred Call-back Time *</label>
+                        <select id="preferredTime" required>
+                            <option value="">Select a slot</option>
+                            <option value="Mon, 9:00 AM - 10:00 AM">Mon, 9:00 AM - 10:00 AM</option>
+                            <option value="Mon, 2:00 PM - 3:00 PM">Mon, 2:00 PM - 3:00 PM</option>
+                            <option value="Tue, 10:00 AM - 11:00 AM">Tue, 10:00 AM - 11:00 AM</option>
+                            <option value="Wed, 1:00 PM - 2:00 PM">Wed, 1:00 PM - 2:00 PM</option>
+                            <option value="Thu, 3:00 PM - 4:00 PM">Thu, 3:00 PM - 4:00 PM</option>
+                            <option value="Fri, 11:00 AM - 12:00 PM">Fri, 11:00 AM - 12:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Comments (Optional)</label>
+                        <textarea id="comments" rows="2" placeholder="Any focus areas or context..."></textarea>
+                    </div>
+                    
+                    <div class="form-note">
+                        <p>"Your personalised report will be emailed to you in PDF format."</p>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Continue to Verification</button>
+                </form>
+            </div>
+            
+            <div id="verificationStep" class="form-step">
+                <div class="verification-header">
+                    <h3>Security Verification</h3>
+                    <p>Please enter the 4-digit codes sent to your email and mobile.</p>
+                </div>
+                
+                <div class="verification-inputs">
+                    <div class="otp-group">
+                        <label>Email Code (Sent to <span id="emailDisplay"></span>)</label>
+                        <input type="text" id="emailOtp" maxlength="4" placeholder="0000" class="otp-input">
+                    </div>
+                    
+                    <div class="otp-group">
+                        <label>Mobile Code (Sent to <span id="mobileDisplay"></span>)</label>
+                        <input type="text" id="mobileOtp" maxlength="4" placeholder="0000" class="otp-input">
+                    </div>
+                </div>
+                
+                <button id="verifyButton" class="verify-btn">Complete Booking</button>
+            </div>
+            
+            <div id="successStep" class="form-step">
+                <div class="success-icon">✓</div>
+                <div class="success-content">
+                    <h3>Booking Confirmed</h3>
+                    <p>Thank you for booking your Free Expert Strategy Session. Your personalised report is on its way to your email.</p>
+                </div>
+                <button id="returnToReport" class="success-btn">Return to Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<span id="currentYear" style="display: none;"></span>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- Main JavaScript -->
+<script>
+// Application State
 const AppState = {
     loanType: null,
     step: 0,
@@ -1908,6 +1941,8 @@ const mobileOtp = document.getElementById('mobileOtp');
 const verifyButton = document.getElementById('verifyButton');
 const returnToReport = document.getElementById('returnToReport');
 const currentYear = document.getElementById('currentYear');
+const pdfGenerationContainer = document.getElementById('pdfGenerationContainer');
+const pdfReportContent = document.getElementById('pdfReportContent');
 
 // Current selection state for questionnaire
 let currentSelectedOptions = [];
@@ -2469,19 +2504,59 @@ async function handleDownloadPDF() {
         const { jsPDF } = window.jspdf;
         const reportElement = document.querySelector('.results-container');
         
-        // Capture the report as an image
-        const canvas = await html2canvas(reportElement, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff'
+        // Create a clean version for PDF
+        const pdfHTML = reportElement.innerHTML;
+        pdfReportContent.innerHTML = pdfHTML;
+        
+        // Apply PDF-specific styles
+        const pdfElements = pdfReportContent.querySelectorAll('*');
+        pdfElements.forEach(el => {
+            // Ensure all text is black for better PDF readability
+            if (el.style) {
+                el.style.color = '#000000';
+                el.style.backgroundColor = 'white';
+            }
         });
         
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        // Wait a moment for DOM to update
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Optimized html2canvas settings for clear PDF
+        const canvas = await html2canvas(pdfReportContent, {
+            scale: 2, // High resolution
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            windowWidth: 800,
+            windowHeight: pdfReportContent.scrollHeight,
+            onclone: function(clonedDoc) {
+                // Ensure cloned document has proper styling
+                const clonedReport = clonedDoc.getElementById('pdfReportContent');
+                if (clonedReport) {
+                    clonedReport.style.width = '800px';
+                    clonedReport.style.backgroundColor = 'white';
+                    clonedReport.style.color = '#000000';
+                    
+                    // Make sure all text is visible and clear
+                    const allElements = clonedReport.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        if (el.style) {
+                            el.style.color = '#000000 !important';
+                            el.style.backgroundColor = 'white !important';
+                            el.style.boxShadow = 'none !important';
+                            el.style.borderColor = '#000000 !important';
+                        }
+                    });
+                }
+            }
+        });
+        
+        const imgData = canvas.toDataURL('image/png', 1.0);
         const pdf = new jsPDF({
-            orientation: 'p',
+            orientation: 'portrait',
             unit: 'mm',
-            format: 'a4'
+            format: 'a4',
+            compress: true
         });
         
         const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -2490,24 +2565,60 @@ async function handleDownloadPDF() {
         const imgHeight = canvas.height;
         const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
         const imgX = (pdfWidth - imgWidth * ratio) / 2;
-        const imgY = 0;
+        const imgY = 5; // Add small margin at top
         
-        pdf.addImage(imgData, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
         
+        // Add footer with reference number
         const refNumber = AppState.result.refNumber;
+        pdf.setFontSize(8);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text(`FINCO CAPITAL - Report Reference: ${refNumber}`, pdfWidth / 2, pdfHeight - 10, { align: 'center' });
+        pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, pdfWidth / 2, pdfHeight - 5, { align: 'center' });
+        
         const fileName = `FINCO-Analysis-${refNumber}.pdf`;
         pdf.save(fileName);
         
-        // Simulate email sending
-        console.log("PDF generated and saved as:", fileName);
-        console.log("Simulating email sending to customer...");
+        // Reset button
+        downloadPDF.disabled = false;
+        downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
+        
+        // Success message
+        console.log("PDF successfully generated and saved as:", fileName);
         
     } catch (error) {
         console.error('PDF Generation Error:', error);
-        alert('Failed to generate PDF. Please try again.');
-    } finally {
-        downloadPDF.disabled = false;
-        downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
+        
+        // Fallback: Try simple method if above fails
+        try {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            // Add simple text content as fallback
+            pdf.setFontSize(16);
+            pdf.setTextColor(0, 26, 61);
+            pdf.text('FINCO CAPITAL - Strategic Analysis Report', 20, 20);
+            
+            pdf.setFontSize(12);
+            pdf.setTextColor(0, 0, 0);
+            pdf.text(`Report Reference: ${AppState.result.refNumber}`, 20, 40);
+            pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 50);
+            
+            pdf.setFontSize(10);
+            pdf.text('Please view the full report online for detailed analysis.', 20, 70);
+            
+            const fileName = `FINCO-Analysis-${AppState.result.refNumber}.pdf`;
+            pdf.save(fileName);
+            
+            console.log("PDF generated using fallback method");
+            
+        } catch (fallbackError) {
+            console.error('Fallback PDF generation failed:', fallbackError);
+            alert('Failed to generate PDF. Please try again or contact support.');
+        } finally {
+            downloadPDF.disabled = false;
+            downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
+        }
     }
 }
 
@@ -2602,16 +2713,13 @@ function resetApp() {
     emailOtp.value = '';
     mobileOtp.value = '';
 }
-   </script>
+</script>
 <div id="footer-container"></div>
 <script src="../js/load-components.js"></script>
-    <!-- Scripts (same as index, adjusted paths) -->
-    <script src="../js/constants.js" defer></script>
-    <script src="../js/utils.js" defer></script>
-    <script src="../js/calculations.js" defer></script>
-    <!-- <script src="../js/ui.js" defer></script> -->
-    <script src="../js/home_extras.js" defer></script>
-    <script src="../js/eventListeners.js" defer></script>
+<script src="../js/constants.js" defer></script>
+<script src="../js/utils.js" defer></script>
+<script src="../js/calculations.js" defer></script>
+<script src="../js/home_extras.js" defer></script>
+<script src="../js/eventListeners.js" defer></script>
 </body>
-
 </html>
