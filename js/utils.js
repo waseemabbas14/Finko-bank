@@ -263,3 +263,82 @@ Please note: The results are estimates only and do not constitute an approval. I
     boot();
   }
 })();
+function getLvrBand(lvr) {
+  if (lvr < 80) return 'A';
+  if (lvr === 80) return 'B';
+  if (lvr >= 80.5 && lvr <= 84.99) return 'C';
+  if (lvr >= 85 && lvr <= 90) return 'D';
+  if (lvr > 90 && lvr <= 95) return 'E';
+  if (lvr > 95) return 'F';
+  return null;
+}
+
+const LVR_BASE_MESSAGES = {
+  A: {
+    insights: `Your LVR is within the preferred range for most lenders. No LMI applies and premium pricing is often available.`,
+    nextStep: `Your broker will structure your loan to maximise benefits from your sub-80% LVR position.`
+  },
+  B: {
+    insights: `At 80% LVR you typically avoid LMI and unlock strong lender pricing tiers.`,
+    nextStep: `Your broker will compare lenders offering premium 80% pricing.`
+  },
+  C: {
+    insights: `Your LVR sits slightly above 80%. Competitive options still exist, though premium pricing may require a lower LVR.`,
+    nextStep: `Your broker will model scenarios at your current LVR versus an 80% structure.`
+  },
+  D: {
+    insights: `Your LVR is workable with many lenders, however LMI applies and varies significantly.`,
+    nextStep: `Your broker will identify lenders most competitive in this LVR range.`
+  },
+  E: {
+    insights: `Your LVR falls into a high-LVR range where lender policies are more selective.`,
+    nextStep: `Your broker will explore reduced-LMI options and affordability strategies.`
+  },
+  F: {
+    insights: `LVR above 95% generally requires specialist lending solutions.`,
+    nextStep: `Your broker will assess guarantor, government or specialist pathways.`
+  }
+};
+
+const LOAN_TYPE_OVERLAYS = {
+  bridging: {
+    insights: `Your LVR also determines whether a peak-debt or end-debt bridging structure is appropriate.`,
+    nextStep: `Your broker will walk you through bridging structures and timing considerations.`
+  },
+  construction: {
+    insights: `Your LVR and total build cost influence lender support and drawdown policies.`,
+    nextStep: `Your broker will map repayments across construction stages.`
+  },
+  investor: {
+    insights: `Rental income treatment interacts with your LVR to determine borrowing power.`,
+    nextStep: `Your broker will compare investor-focused lenders and policies.`
+  },
+  refinance: {
+    insights: `Your LVR drives refinance pricing and eligibility for savings or rebates.`,
+    nextStep: `Your broker will benchmark your loan against current market options.`
+  },
+  upgrader: {
+    insights: `Your LVR influences whether sell-first, buy-first or bridging strategies are viable.`,
+    nextStep: `Your broker will compare upgrade pathways and associated risks.`
+  },
+  'non-resident': {
+    insights: `As a non-resident or temporary visa holder, acceptable LVR may be capped lower with many lenders. Foreign purchaser surcharges and residency rules influence borrowing capacity.`,
+    nextStep: `Your broker will identify lenders accepting your visa/residency position and confirm any applicable surcharges.`
+  },
+  fhb: {
+    insights: `Your LVR interacts with first home buyer grants and stamp duty concessions.`,
+    nextStep: `Your broker will confirm eligibility and optimise upfront costs.`
+  }
+};
+
+function buildInsightsAndNextSteps(lvr, loanType) {
+  const band = getLvrBand(Number(lvr));
+  const base = LVR_BASE_MESSAGES[band] || {};
+  const overlay = LOAN_TYPE_OVERLAYS[loanType] || {};
+
+  return {
+    insights: [base.insights, overlay.insights].filter(Boolean).join('\n\n'),
+    nextStep: [base.nextStep, overlay.nextStep].filter(Boolean).join('\n\n')
+  };
+}
+// email-service.js
