@@ -2738,121 +2738,221 @@ async function handleDownloadPDF() {
         const { jsPDF } = window.jspdf;
         const reportElement = document.querySelector('.results-container');
         
-        // Create a clean version for PDF
-        const pdfHTML = reportElement.innerHTML;
-        pdfReportContent.innerHTML = pdfHTML;
+        if (!reportElement || !reportElement.innerHTML) {
+            throw new Error('No report content found');
+        }
         
-        // Apply PDF-specific styles
-        const pdfElements = pdfReportContent.querySelectorAll('*');
-        pdfElements.forEach(el => {
-            // Ensure all text is black for better PDF readability
-            if (el.style) {
-                el.style.color = '#000000';
-                el.style.backgroundColor = 'white';
-            }
-        });
+        // Create a clone
+        const clonedElement = reportElement.cloneNode(true);
         
-        // Wait a moment for DOM to update
-        await new Promise(resolve => setTimeout(resolve, 300));
-        
-        // Optimized html2canvas settings for clear PDF
-        const canvas = await html2canvas(pdfReportContent, {
-            scale: 2, // High resolution
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff',
-            windowWidth: 800,
-            windowHeight: pdfReportContent.scrollHeight,
-            onclone: function(clonedDoc) {
-                // Ensure cloned document has proper styling
-                const clonedReport = clonedDoc.getElementById('pdfReportContent');
-                if (clonedReport) {
-                    clonedReport.style.width = '800px';
-                    clonedReport.style.backgroundColor = 'white';
-                    clonedReport.style.color = '#000000';
-                    
-                    // Make sure all text is visible and clear
-                    const allElements = clonedReport.querySelectorAll('*');
-                    allElements.forEach(el => {
-                        if (el.style) {
-                            el.style.color = '#000000 !important';
-                            el.style.backgroundColor = 'white !important';
-                            el.style.boxShadow = 'none !important';
-                            el.style.borderColor = '#000000 !important';
-                        }
-                    });
+        // Aggressive color enhancement function
+        function applyVibrantStyles(element) {
+            const classList = Array.from(element.classList || []);
+            const computed = window.getComputedStyle(element);
+            
+            // Apply all computed styles first
+            element.style.cssText = `
+                color: ${computed.color} !important;
+                background-color: ${computed.backgroundColor} !important;
+                font-size: ${computed.fontSize} !important;
+                font-weight: ${computed.fontWeight} !important;
+                font-family: ${computed.fontFamily} !important;
+                padding: ${computed.padding} !important;
+                margin: ${computed.margin} !important;
+                border: ${computed.border} !important;
+                border-radius: ${computed.borderRadius} !important;
+                line-height: ${computed.lineHeight} !important;
+                text-align: ${computed.textAlign} !important;
+                display: ${computed.display} !important;
+                width: ${computed.width} !important;
+                box-shadow: ${computed.boxShadow} !important;
+                opacity: 1 !important;
+            `;
+            
+            // Get background color for contrast check
+            const bgColor = window.getComputedStyle(element).backgroundColor;
+            const isLightBg = bgColor && !bgColor.includes('rgba(0') && !bgColor.includes('rgb(0, 0');
+            
+            // Override with explicit vibrant colors based on classes
+            classList.forEach(cls => {
+                if (cls.includes('FF9500') || cls.includes('orange')) {
+                    element.style.backgroundColor = '#FF9500 !important';
+                    element.style.color = '#FFFFFF !important'; // White text on orange
+                }
+                if (cls.includes('001A3D') || cls.includes('finco-navy') || cls.includes('navy')) {
+                    element.style.backgroundColor = '#001A3D !important';
+                    element.style.color = '#FFFFFF !important'; // White text on navy
+                }
+                if (cls.includes('656933') || cls.includes('green')) {
+                    element.style.backgroundColor = '#656933 !important';
+                    element.style.color = '#FFFFFF !important'; // White text on green
+                }
+                if (cls.includes('text-slate') || cls.includes('text-gray') || cls.includes('text-600')) {
+                    element.style.color = '#1a1a1a !important'; // Dark text
+                }
+                if (cls.includes('bg-white') || cls.includes('white') || cls.includes('bg-slate-50')) {
+                    element.style.backgroundColor = '#FFFFFF !important';
+                    element.style.color = '#000000 !important'; // Dark text on white
+                }
+                if (cls.includes('text-white')) {
+                    element.style.color = '#FFFFFF !important';
+                }
+            });
+            
+            // Force good contrast for all text elements
+            if (['P', 'SPAN', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'A'].includes(element.tagName)) {
+                const currentBg = window.getComputedStyle(element).backgroundColor;
+                // If background is light or transparent, use dark text
+                if (!currentBg.includes('rgb(0') || currentBg.includes('rgba(255') || currentBg.includes('rgba(160')) {
+                    element.style.color = '#000000 !important';
                 }
             }
+            
+            // Recursively apply to children
+            for (let child of element.children) {
+                applyVibrantStyles(child);
+            }
+        }
+        
+        // Apply aggressive styling
+        applyVibrantStyles(clonedElement);
+        
+        // Add to DOM with styling
+        const tempDiv = document.createElement('div');
+        tempDiv.style.cssText = `
+            position: absolute;
+            left: -10000px;
+            top: -10000px;
+            width: 1000px;
+            background-color: #FFFFFF !important;
+            padding: 20px;
+            box-sizing: border-box;
+        `;
+        tempDiv.appendChild(clonedElement);
+        document.body.appendChild(tempDiv);
+        
+        // Wait for styles to apply
+        await new Promise(resolve => setTimeout(resolve, 600));
+        
+        // Capture with very high quality
+        const canvas = await html2canvas(clonedElement, {
+            allowTaint: true,
+            useCORS: true,
+            backgroundColor: '#ffffff',
+            scale: 4,
+            logging: false,
+            width: 1000,
+            windowWidth: 1000,
+            windowHeight: clonedElement.scrollHeight,
+            ignoreElements: (el) => {
+                return el.classList && (el.classList.contains('results-actions') || el.classList.contains('action-button'));
+            }
         });
         
-        const imgData = canvas.toDataURL('image/png', 1.0);
-        const pdf = new jsPDF({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4',
-            compress: true
-        });
+        // Boost contrast, saturation and text clarity
+        const ctx = canvas.getContext('2d');
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
         
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-        const imgX = (pdfWidth - imgWidth * ratio) / 2;
-        const imgY = 5; // Add small margin at top
+        // Enhance image with better saturation and contrast
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i];
+            let g = data[i + 1];
+            let b = data[i + 2];
+            const a = data[i + 3];
+            
+            // Convert to HSL for saturation boost
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            const l = (max + min) / 2 / 255;
+            
+            // Increase saturation and contrast
+            if (max !== min) {
+                // Boost saturation by 40%
+                const s = l < 0.5 ? (max - min) / (max + min) : (max - min) / (510 - max - min);
+                const boostedS = Math.min(s * 1.4, 1);
+                
+                // Apply contrast enhancement
+                const contrastMult = 1.35; // 35% contrast boost
+                
+                data[i] = Math.min(255, Math.max(0, (r - 128) * contrastMult + 128));
+                data[i + 1] = Math.min(255, Math.max(0, (g - 128) * contrastMult + 128));
+                data[i + 2] = Math.min(255, Math.max(0, (b - 128) * contrastMult + 128));
+            } else {
+                // For grays, apply contrast
+                const contrastMult = 1.35;
+                data[i] = Math.min(255, Math.max(0, (r - 128) * contrastMult + 128));
+                data[i + 1] = Math.min(255, Math.max(0, (g - 128) * contrastMult + 128));
+                data[i + 2] = Math.min(255, Math.max(0, (b - 128) * contrastMult + 128));
+            }
+            
+            data[i + 3] = a;
+        }
         
-        pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+        ctx.putImageData(imageData, 0, 0);
         
-        // Add footer with reference number
+        // Remove temp element
+        document.body.removeChild(tempDiv);
+        
+        // Convert enhanced canvas to image
+        const imgData = canvas.toDataURL('image/png');
+        
+        if (!imgData || imgData.length < 100) {
+            throw new Error('Failed to capture content');
+        }
+        
+        // Create PDF
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        const imgWidth = pageWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        // Add image
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        
+        // Add pages
+        let heightLeft = imgHeight - pageHeight;
+        let position = 0;
+        
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+        
+        // Add footer
         const refNumber = AppState.result.refNumber;
-        pdf.setFontSize(8);
-        pdf.setTextColor(100, 100, 100);
-        pdf.text(`FINCO CAPITAL - Report Reference: ${refNumber}`, pdfWidth / 2, pdfHeight - 10, { align: 'center' });
-        pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, pdfWidth / 2, pdfHeight - 5, { align: 'center' });
+        const pageCount = pdf.getNumberOfPages();
+        pdf.setFontSize(9);
+        pdf.setTextColor(0, 0, 0);
         
+        for (let i = 1; i <= pageCount; i++) {
+            pdf.setPage(i);
+            pdf.text(
+                `FINCO CAPITAL | Reference: ${refNumber} | Generated: ${new Date().toLocaleDateString()}`,
+                pageWidth / 2,
+                pageHeight - 4,
+                { align: 'center' }
+            );
+        }
+        
+        // Save
         const fileName = `FINCO-Analysis-${refNumber}.pdf`;
         pdf.save(fileName);
         
-        // Reset button
         downloadPDF.disabled = false;
         downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
         
-        // Success message
-        console.log("PDF successfully generated and saved as:", fileName);
+        console.log('PDF created with vibrant colors:', fileName);
         
     } catch (error) {
-        console.error('PDF Generation Error:', error);
-        
-        // Fallback: Try simple method if above fails
-        try {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            // Add simple text content as fallback
-            pdf.setFontSize(16);
-            pdf.setTextColor(0, 26, 61);
-            pdf.text('FINCO CAPITAL - Strategic Analysis Report', 20, 20);
-            
-            pdf.setFontSize(12);
-            pdf.setTextColor(0, 0, 0);
-            pdf.text(`Report Reference: ${AppState.result.refNumber}`, 20, 40);
-            pdf.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 50);
-            
-            pdf.setFontSize(10);
-            pdf.text('Please view the full report online for detailed analysis.', 20, 70);
-            
-            const fileName = `FINCO-Analysis-${AppState.result.refNumber}.pdf`;
-            pdf.save(fileName);
-            
-            console.log("PDF generated using fallback method");
-            
-        } catch (fallbackError) {
-            console.error('Fallback PDF generation failed:', fallbackError);
-            alert('Failed to generate PDF. Please try again or contact support.');
-        } finally {
-            downloadPDF.disabled = false;
-            downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
-        }
+        console.error('PDF Error:', error);
+        alert('Error: ' + error.message);
+        downloadPDF.disabled = false;
+        downloadPDF.innerHTML = '<span class="btn-icon">📄</span> Download Report (PDF)';
     }
 }
 
