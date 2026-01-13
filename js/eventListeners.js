@@ -850,8 +850,25 @@ function initDownloadGuideButtons() {
         return;
       }
 
-      const filename = 'construction_results_' + (new Date()).toISOString().slice(0,19).replace(/[:T]/g, '-') ;
-      const success = window.downloadResultsDocument(filename);
+      const filename = 'construction_results_' + (new Date()).toISOString().slice(0,19).replace(/[:T]/g, '-');
+      const effectiveCategory = document.getElementById('loanCategory')?.value || window.lastCalc?.loanCategory || '';
+      
+      // Route to appropriate download handler based on loan category
+      let success = false;
+      if (String(effectiveCategory).toLowerCase() === 'smsf' && typeof window.downloadSMSFResultsAsPDF === 'function') {
+        console.log('📄 Routing download to SMSF handler');
+        success = window.downloadSMSFResultsAsPDF(filename.replace('construction', 'smsf'));
+      } else if (String(effectiveCategory).toLowerCase() === 'commercial' && typeof window.downloadCommercialResultsAsPDF === 'function') {
+        console.log('📄 Routing download to Commercial handler');
+        success = window.downloadCommercialResultsAsPDF(filename.replace('construction', 'commercial'));
+      } else if (typeof window.downloadResultsAsPDF === 'function') {
+        console.log('📄 Routing download to default (Home) handler');
+        success = window.downloadResultsAsPDF(filename);
+      } else if (typeof window.downloadResultsDocument === 'function') {
+        console.log('📄 Routing download to legacy handler');
+        success = window.downloadResultsDocument(filename);
+      }
+      
       if (!success) alert('Failed to create download. Check the console for details.');
     } catch (err) {
       console.error('initDownloadGuideButtons error:', err);

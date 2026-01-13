@@ -622,9 +622,15 @@
   <!-- EmailJS Library for Email Notifications (MUST load first, no defer) -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+  <!-- PDF generation libs (required for Download Construction Guide) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 
   <!-- Email Service Module - loads after EmailJS -->
   <script src="js/email-service.js" defer></script>
+  <!-- SMSF-specific email service (NO DEFER — must load synchronously before handlers) -->
+  <script src="js/email-service-smsf.js"></script>
   <script>
     // Position the flip button aligned under the right panel (#dashboardCard)
     function positionFlipControls() {

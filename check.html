@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;">
+<tr>
+<td align="center">
+
+<!-- HEADER -->
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#000;">
+<tr>
+<td width="33%" style="padding:16px;">
+  <img src="https://mediumslateblue-mantis-913186.hostingersite.com/assests/finko-removebg-preview.png"
+       width="120" style="display:block;background:#fff;">
+  <div style="font-size:12px;color:#fff;font-style:italic;margin-top:6px;">
+    Financial Confidence. Unlocked.
+  </div>
+</td>
+
+<td width="34%" align="center" style="color:#f59e0b;font-size:18px;font-weight:bold;">
+  Your Preliminary<br>SMSF Loan Finance Estimate
+</td>
+
+<td width="33%" align="right" style="padding:16px;color:#fff;font-size:12px;">
+  <strong>Ref:</strong> SMSF${Math.floor(Math.random() * 90000 + 10000)}<br>
+  <strong>Generated:</strong> ${new Date().toLocaleString('en-AU')}
+</td>
+</tr>
+</table>
+
+<!-- MAIN CARD -->
+<table width="100%" cellpadding="0" cellspacing="0"
+style="max-width:600px;background:#ffffff;border-radius:8px;padding:24px;margin-top:20px;margin-bottom:20px;">
+
+<!-- INTRO -->
+<tr>
+<td style="font-size:14px;color:#374151;line-height:1.6;">
+  Dear <strong>${formInputs.user_full_name || 'Valued Client'}</strong>,<br><br>
+  Thank you for requesting a call-back regarding your SMSF lending needs.
+</td>
+</tr>
+
+<!-- SNAPSHOT -->
+<tr>
+<td style="padding-top:30px;">
+  <div style="font-size:20px;font-weight:bold;">
+    Snapshot of your SMSF scenario
+  </div>
+  <div style="font-size:12px;color:#6b7280;margin-bottom:12px;">
+    (based on the details you entered)
+  </div>
+
+  <table width="100%" cellpadding="10" cellspacing="0"
+         style="border:1px solid #d1d5db;border-collapse:collapse;font-size:14px;">
+
+    <tr style="background:#f9fafb;">
+      <td style="border-right:1px solid #d1d5db;">Property Value</td>
+      <td style="font-weight:bold;text-align:right;">${propertyValue}</td>
+    </tr>
+
+    <tr>
+      <td style="border-right:1px solid #d1d5db;">Loan Amount</td>
+      <td style="font-weight:bold;text-align:right;">${loanAmount}</td>
+    </tr>
+
+    <tr style="background:#f9fafb;">
+      <td style="border-right:1px solid #d1d5db;">Deposit</td>
+      <td style="font-weight:bold;text-align:right;">${depositAmount}</td>
+    </tr>
+
+    <tr>
+      <td style="border-right:1px solid #d1d5db;">Loan-to-Value Ratio (LVR)</td>
+      <td style="font-weight:bold;text-align:right;">${lvr_percent}</td>
+    </tr>
+
+    <tr style="background:#f9fafb;">
+      <td style="border-right:1px solid #d1d5db;">Estimated Monthly Repayment</td>
+      <td style="font-weight:bold;text-align:right;">${monthlyRepayment}</td>
+    </tr>
+
+  </table>
+</td>
+</tr>
+
+<!-- FUNDING -->
+<tr>
+<td style="padding-top:30px;">
+  <div style="font-size:20px;font-weight:bold;">
+    SMSF Funding Breakdown
+  </div>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;">
+    <tr>
+      <td width="50%" align="center"
+          style="background:#1e293b;color:#fff;padding:12px;font-size:13px;">
+        ${(Number(lvr) || 0).toFixed(1)}% Loan
+      </td>
+      <td width="50%" align="center"
+          style="background:#22c55e;color:#fff;padding:12px;font-size:13px;">
+        ${Math.max(0, 100 - (Number(lvr) || 0)).toFixed(1)}% Deposit
+      </td>
+    </tr>
+  </table>
+</td>
+</tr>
+
+<!-- STAMP DUTY -->
+<tr>
+<td style="padding-top:30px;">
+  <div style="font-size:20px;font-weight:bold;">
+    Stamp duty considerations
+  </div>
+
+  <div style="margin-top:10px;background:#fef3c7;padding:12px;
+              border-left:4px solid #f59e0b;font-size:14px;">
+    <strong>Estimated stamp duty:</strong> ${stampDutySaving}<br>
+    <span style="font-size:12px;">
+      State: ${chosenState} (subject to confirmation)
+    </span>
+  </div>
+</td>
+</tr>
+
+<!-- INSIGHTS -->
+<tr>
+<td style="padding-top:30px;">
+  <div style="font-size:20px;font-weight:bold;color:#f59e0b;">
+    Key insights for your decision
+  </div>
+  <div style="margin-top:10px;font-size:14px;line-height:1.6;">
+    ${dynamicText.insights}
+  </div>
+</td>
+</tr>
+
+<!-- NOTES -->
+<tr>
+<td style="padding-top:30px;">
+  <div style="font-size:20px;font-weight:bold;color:#f59e0b;">
+    Important notes & assumptions
+  </div>
+  <div style="margin-top:10px;font-size:13px;color:#374151;line-height:1.6;">
+    ${dynamicText.nextStep}
+  </div>
+</td>
+</tr>
+
+<!-- CTA -->
+<tr>
+<td style="padding:26px;text-align:center;background:#001233;">
+  <div style="background:#ff9500;color:#fff;padding:16px;
+              font-size:18px;font-weight:bold;">
+    Next step:
+    <a href="tel:03169032961" style="color:#fff;text-decoration:none;">
+      20-minute SMSF Strategy Call
+    </a>
+  </div>
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+<td style="padding-top:20px;font-size:12px;color:#6b7280;text-align:center;">
+  This SMSF estimate is indicative only and not a loan offer or approval.
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
