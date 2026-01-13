@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("CM3iDUqeWtaSmwhPl");
+        })();
+    </script>
     <style>
         /* Custom modal styles */
         .success-modal {
@@ -877,6 +885,40 @@ input[type="number"] {
     20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
+/* Loading overlay for email sending */
+.email-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 19, 52, 0.9);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #ffbc00;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: white;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container50 {
@@ -1005,6 +1047,14 @@ input[type="number"] {
 </head>
 
 <body>
+    <!-- Loading Overlay -->
+    <div id="emailLoading" class="email-loading">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Sending your enquiry...</div>
+        </div>
+    </div>
+
     <!-- header container - dynamically loaded -->
     <div id="header-container"></div>
 
@@ -1205,27 +1255,27 @@ input[type="number"] {
                                 <label>Complexity Flags (Optional)</label>
                                 <div class="checkbox-group">
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="selfEmployed">
                                         Self-employed / business income
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="multipleProperties">
                                         Multiple properties / debts
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="creditIssues">
                                         Recent credit issues
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="nonStandardSecurity">
                                         Non-standard security
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="multipleApplicants">
                                         Multiple applicants / trusts
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" class="complexity-checkbox">
+                                        <input type="checkbox" class="complexity-checkbox" id="urgentSettlement">
                                         Urgent settlement
                                     </label>
                                 </div>
@@ -1403,8 +1453,15 @@ let formState = {
         homeCategory: '',
         propertyState: '',
         propertyValue: '',
-        loanAmount: '',
-        employmentType: ''
+        loanRequired: '',
+        employmentType: '',
+        yearsTrading: '',
+        self_employed: 'No',
+        multiple_properties: 'No',
+        credit_issues: 'No',
+        non_standard_security: 'No',
+        multiple_applicants: 'No',
+        urgent_settlement: 'No'
     },
     verified: {
         email: false,
@@ -1466,6 +1523,7 @@ let uploadsSection;
 let consentSection;
 let successModal;
 let modalOkButton;
+let emailLoading;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -1488,6 +1546,7 @@ document.addEventListener('DOMContentLoaded', function() {
     consentSection = document.getElementById('consentSection');
     successModal = document.getElementById('successModal');
     modalOkButton = document.getElementById('modalOkButton');
+    emailLoading = document.getElementById('emailLoading');
     
     // Initialize the form
     initEnquiryOptions();
@@ -1576,38 +1635,38 @@ function initEventListeners() {
     
     // Select inputs
     document.getElementById('contactPref').addEventListener('change', (e) => {
-        updateField('contactPref', e.target.value);
+        updateField('preferred_contact_method', e.target.value);
     });
     
     document.getElementById('bestTime').addEventListener('change', (e) => {
-        updateField('bestTime', e.target.value);
+        updateField('best_time_to_reach', e.target.value);
     });
     
     // Textarea
     document.getElementById('goals').addEventListener('input', (e) => {
-        updateField('goals', e.target.value);
+        updateField('financial_goal', e.target.value);
     });
     
     // Home enquiry fields
     document.getElementById('homeCategory').addEventListener('change', (e) => {
-        updateField('homeCategory', e.target.value);
+        updateField('home_enquiry_category', e.target.value);
     });
     
     document.getElementById('propertyState').addEventListener('change', (e) => {
-        updateField('propertyState', e.target.value);
+        updateField('property_state', e.target.value);
     });
     
     document.getElementById('propertyValue').addEventListener('input', (e) => {
-        updateField('propertyValue', e.target.value);
+        updateField('property_value', e.target.value);
     });
     
     document.getElementById('loanAmount').addEventListener('input', (e) => {
-        updateField('loanAmount', e.target.value);
+        updateField('loan_required', e.target.value);
     });
     
     // Employment type change
     employmentTypeSelect.addEventListener('change', (e) => {
-        updateField('employmentType', e.target.value);
+        updateField('employment_type', e.target.value);
         if (e.target.value === 'Self-employed') {
             // Show years trading
             yearsTradingGroup.style.display = 'block';
@@ -1634,11 +1693,28 @@ function initEventListeners() {
     });
     
     // Complexity checkboxes
-    document.querySelectorAll('.complexity-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', (e) => {
-            const field = e.target.nextSibling.textContent.trim();
-            updateField(field, e.target.checked);
-        });
+    document.getElementById('selfEmployed').addEventListener('change', (e) => {
+        updateField('self_employed', e.target.checked ? 'Yes' : 'No');
+    });
+    
+    document.getElementById('multipleProperties').addEventListener('change', (e) => {
+        updateField('multiple_properties', e.target.checked ? 'Yes' : 'No');
+    });
+    
+    document.getElementById('creditIssues').addEventListener('change', (e) => {
+        updateField('credit_issues', e.target.checked ? 'Yes' : 'No');
+    });
+    
+    document.getElementById('nonStandardSecurity').addEventListener('change', (e) => {
+        updateField('non_standard_security', e.target.checked ? 'Yes' : 'No');
+    });
+    
+    document.getElementById('multipleApplicants').addEventListener('change', (e) => {
+        updateField('multiple_applicants', e.target.checked ? 'Yes' : 'No');
+    });
+    
+    document.getElementById('urgentSettlement').addEventListener('change', (e) => {
+        updateField('urgent_settlement', e.target.checked ? 'Yes' : 'No');
     });
     
     // Upload container click handler
@@ -1870,7 +1946,7 @@ function isFormValid() {
     if (!formState.enquiryType) return false;
     
     // Check required fields
-    const requiredFields = ['firstName', 'lastName', 'mobile', 'email', 'contactPref', 'goals', 'appointmentTime'];
+    const requiredFields = ['firstName', 'lastName', 'mobile', 'email', 'preferred_contact_method', 'financial_goal', 'appointmentTime'];
     const allFieldsFilled = requiredFields.every(field => {
         const value = formState.formData[field];
         return value && value.toString().trim() !== '';
@@ -1884,13 +1960,13 @@ function isFormValid() {
     
     // Additional checks for home enquiry
     if (formState.enquiryType === 'HOME') {
-        const homeRequiredFields = ['homeCategory', 'propertyState', 'employmentType'];
+        const homeRequiredFields = ['home_enquiry_category', 'property_state', 'employment_type'];
         const homeFieldsFilled = homeRequiredFields.every(field => {
             const value = formState.formData[field];
             return value && value.toString().trim() !== '';
         });
         
-        if (formState.formData.employmentType === 'Self-employed') {
+        if (formState.formData.employment_type === 'Self-employed') {
             if (!formState.formData.yearsTrading) return false;
         }
         
@@ -1980,6 +2056,72 @@ function handleFileUpload(files) {
     }
 }
 
+// Prepare data for EmailJS
+function prepareEmailData() {
+    const uploadedFilesNames = formState.uploadedFiles.map(file => file.name).join(', ');
+    
+    return {
+        enquiry_type: formState.enquiryType,
+        first_name: formState.formData.firstName,
+        last_name: formState.formData.lastName,
+        mobile: formState.formData.mobile,
+        email: formState.formData.email,
+        preferred_contact_method: formState.formData.preferred_contact_method,
+        best_time_to_reach: formState.formData.best_time_to_reach,
+        financial_goal: formState.formData.financial_goal,
+        appointment_time: formState.formData.appointmentTime,
+        self_employed: formState.formData.self_employed,
+        multiple_properties: formState.formData.multiple_properties,
+        credit_issues: formState.formData.credit_issues,
+        non_standard_security: formState.formData.non_standard_security,
+        multiple_applicants: formState.formData.multiple_applicants,
+        urgent_settlement: formState.formData.urgent_settlement,
+        home_enquiry_category: formState.formData.home_enquiry_category || 'N/A',
+        property_state: formState.formData.property_state || 'N/A',
+        property_value: formState.formData.property_value || 'N/A',
+        loan_required: formState.formData.loan_required || 'N/A',
+        employment_type: formState.formData.employment_type || 'N/A',
+        uploaded_files: uploadedFilesNames || 'No files uploaded',
+        submitted_at: new Date().toLocaleString('en-AU', { 
+            timeZone: 'Australia/Sydney',
+            dateStyle: 'full',
+            timeStyle: 'medium'
+        })
+    };
+}
+
+// Send email via EmailJS
+async function sendEmailViaEmailJS() {
+    try {
+        // Show loading overlay
+        emailLoading.style.display = 'flex';
+        
+        const templateParams = prepareEmailData();
+        
+        console.log('Sending email with data:', templateParams);
+        
+        // Send email using EmailJS
+        const response = await emailjs.send(
+            'service_y3uxg4s',  // Service ID
+            'template_qfz4nf6', // Template ID
+            templateParams
+        );
+        
+        console.log('Email sent successfully:', response);
+        return { success: true, message: 'Email sent successfully!' };
+        
+    } catch (error) {
+        console.error('Email sending failed:', error);
+        return { 
+            success: false, 
+            message: `Failed to send email: ${error.text || error.message}` 
+        };
+    } finally {
+        // Hide loading overlay
+        emailLoading.style.display = 'none';
+    }
+}
+
 // Add shake animation to CSS
 const shakeStyle = document.createElement('style');
 shakeStyle.textContent = `
@@ -2008,8 +2150,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Handle form submission
-function handleSubmit() {
+// Handle form submission with EmailJS
+async function handleSubmit() {
     if (!isFormValid()) {
         // Shake animation for invalid form
         submitBtn.style.animation = 'shake 0.5s';
@@ -2027,25 +2169,34 @@ function handleSubmit() {
     // Mark form as submitted
     formState.isSubmitted = true;
     
-    // Prepare submission data
-    const submissionData = {
-        enquiryType: formState.enquiryType,
-        ...formState.formData,
-        verified: formState.verified,
-        uploadedFiles: formState.uploadedFiles || [],
-        submittedAt: new Date().toISOString()
-    };
+    // Disable submit button during email sending
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
     
-    // In a real app, you would send this to your server
-    console.log('Form submitted:', submissionData);
+    // Send email via EmailJS
+    const emailResult = await sendEmailViaEmailJS();
     
-    // Show success modal instead of alert
-    showSuccessModal();
+    if (emailResult.success) {
+        // Show success modal
+        showSuccessModal();
+        
+        // Log submission for debugging
+        console.log('Form submitted successfully:', prepareEmailData());
+    } else {
+        // Show error message
+        alert(`Failed to send enquiry: ${emailResult.message}\nPlease try again or contact us directly.`);
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Enquiry';
+        formState.isSubmitted = false;
+    }
 }
 
 // Show success modal
 function showSuccessModal() {
     successModal.style.display = 'flex';
+    submitBtn.textContent = 'Submit Enquiry';
 }
 
 // Close modal and reset form
@@ -2076,7 +2227,13 @@ function resetForm() {
             propertyState: '',
             propertyValue: '',
             loanAmount: '',
-            employmentType: ''
+            employmentType: '',
+            self_employed: 'No',
+            multiple_properties: 'No',
+            credit_issues: 'No',
+            non_standard_security: 'No',
+            multiple_applicants: 'No',
+            urgent_settlement: 'No'
         },
         verified: {
             email: false,
