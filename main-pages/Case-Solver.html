@@ -2,14 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="../css/calnew.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Finco Capital - Dynamic Multi-Purpose Loan Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/calnew.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("CM3iDUqeWtaSmwhPl");
+        })();
+    </script>
 <style>
    :root {
     --finco-navy: #001A3D;
@@ -43,6 +51,121 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/* Email Loading Overlay */
+.email-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 26, 61, 0.9);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #FF9500;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+/* Email Success Modal */
+.email-success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.email-success-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.5s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.email-success-icon {
+    font-size: 60px;
+    color: #10b981;
+    margin-bottom: 20px;
+    animation: bounce 1s;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-20px);}
+    60% {transform: translateY(-10px);}
+}
+
+.email-success-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #001334;
+    margin-bottom: 15px;
+}
+
+.email-success-message {
+    color: #64748b;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.email-success-button {
+    padding: 12px 40px;
+    background-color: #001334;
+    color: #ffbc00;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.email-success-button:hover {
+    background-color: #001a3d;
+    transform: translateY(-2px);
 }
 
 /* Header Styles */
@@ -1479,6 +1602,26 @@ body {
 </head>
 <body>
 
+<!-- Email Loading Overlay -->
+<div id="emailLoading" class="email-loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Sending your enquiry...</div>
+</div>
+
+<!-- Email Success Modal -->
+<div id="emailSuccessModal" class="email-success-modal">
+    <div class="email-success-content">
+        <div class="email-success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2 class="email-success-title">Thank You!</h2>
+        <p class="email-success-message">
+            Thank you for booking your Free Expert Strategy Session! FINCO CAPITAL will contact you shortly to discuss your case.
+        </p>
+        <button id="emailSuccessButton" class="email-success-button">OK</button>
+    </div>
+</div>
+
 <!-- header container - dynamically loaded -->
 <div id="header-container"></div>
 
@@ -1524,7 +1667,7 @@ body {
                     <div class="loan-icon">📈</div>
                     <div class="loan-content">
                         <h3 class="loan-title">SMSF LRBA</h3>
-                        <p class="loan-desc">Specialised strategy for lending within your Self-Managed Super Fund.</p>
+                        <p class="loan-desc">Specialised strategy for lending within a Self-Managed Super Fund.</p>
                     </div>
                     <div class="loan-cta">
                         Begin Analysis <span class="arrow">→</span>
@@ -1738,7 +1881,15 @@ const AppState = {
     answers: [],
     isProcessing: false,
     result: null,
-    selectedLoanType: null
+    selectedLoanType: null,
+    bookingFormData: null
+};
+
+// EmailJS Configuration
+const EMAILJS_CONFIG = {
+    SERVICE_ID: 'service_y3uxg4s',
+    TEMPLATE_ID: 'template_qfz4nf6',
+    PUBLIC_KEY: 'CM3iDUqeWtaSmwhPl'
 };
 
 // Questions Data
@@ -1943,6 +2094,9 @@ const returnToReport = document.getElementById('returnToReport');
 const currentYear = document.getElementById('currentYear');
 const pdfGenerationContainer = document.getElementById('pdfGenerationContainer');
 const pdfReportContent = document.getElementById('pdfReportContent');
+const emailLoading = document.getElementById('emailLoading');
+const emailSuccessModal = document.getElementById('emailSuccessModal');
+const emailSuccessButton = document.getElementById('emailSuccessButton');
 
 // Current selection state for questionnaire
 let currentSelectedOptions = [];
@@ -2012,6 +2166,12 @@ function initializeEventListeners() {
     // OTP inputs
     emailOtp.addEventListener('input', formatOtpInput);
     mobileOtp.addEventListener('input', formatOtpInput);
+    
+    // Email success modal
+    emailSuccessButton.addEventListener('click', () => {
+        emailSuccessModal.style.display = 'none';
+        sessionModal.classList.remove('active');
+    });
 }
 
 function selectLoanType(loanType) {
@@ -2352,7 +2512,8 @@ function generateMockResult() {
         caseTitle,
         sections,
         footer,
-        refNumber
+        refNumber,
+        loanType
     };
 }
 
@@ -2496,6 +2657,79 @@ function formatBoldText(text, boldClass = 'text-finco-navy font-extrabold') {
     return text.replace(/\*\*(.*?)\*\*/g, `<strong class="${boldClass}">$1</strong>`);
 }
 
+// Prepare EmailJS Data for Case Solver Booking
+function prepareEmailDataForCaseSolver(formData) {
+    const result = AppState.result;
+    const enquiryType = result.loanType === 'HOME' ? 'Home Loan Enquiry' : 
+                       result.loanType === 'COMMERCIAL' ? 'Commercial Loan Enquiry' : 
+                       'SMSF Loan Enquiry';
+    
+    return {
+        enquiry_type: enquiryType,
+        first_name: formData.fullName.split(' ')[0] || '',
+        last_name: formData.fullName.split(' ').slice(1).join(' ') || '',
+        mobile: formData.mobile,
+        email: formData.email,
+        preferred_contact_method: 'Call',
+        best_time_to_reach: formData.preferredTime,
+        financial_goal: formData.briefNote,
+        appointment_time: formData.preferredTime,
+        self_employed: 'No',
+        multiple_properties: 'No',
+        credit_issues: 'No',
+        non_standard_security: 'No',
+        multiple_applicants: 'No',
+        urgent_settlement: 'No',
+        home_enquiry_category: result.loanType === 'HOME' ? 'Case Solver Analysis' : 'N/A',
+        property_state: 'VIC',
+        property_value: 'Case Solver Analysis',
+        loan_required: 'Case Solver Analysis',
+        employment_type: 'N/A',
+        uploaded_files: 'Case Solver Report: ' + result.refNumber,
+        submitted_at: new Date().toLocaleString('en-AU', { 
+            timeZone: 'Australia/Sydney',
+            dateStyle: 'full',
+            timeStyle: 'medium'
+        }),
+        additional_comments: formData.comments || '',
+        report_reference: result.refNumber,
+        case_title: result.caseTitle.replace('# ', ''),
+        source: 'Case Solver Tool'
+    };
+}
+
+// Send email via EmailJS for Case Solver
+async function sendEmailViaEmailJS(formData) {
+    try {
+        // Show loading overlay
+        emailLoading.style.display = 'flex';
+        
+        const templateParams = prepareEmailDataForCaseSolver(formData);
+        
+        console.log('Sending Case Solver email with data:', templateParams);
+        
+        // Send email using EmailJS
+        const response = await emailjs.send(
+            EMAILJS_CONFIG.SERVICE_ID,
+            EMAILJS_CONFIG.TEMPLATE_ID,
+            templateParams
+        );
+        
+        console.log('Case Solver email sent successfully:', response);
+        return { success: true, message: 'Email sent successfully!' };
+        
+    } catch (error) {
+        console.error('Email sending failed:', error);
+        return { 
+            success: false, 
+            message: `Failed to send email: ${error.text || error.message}` 
+        };
+    } finally {
+        // Hide loading overlay
+        emailLoading.style.display = 'none';
+    }
+}
+
 async function handleDownloadPDF() {
     downloadPDF.disabled = true;
     downloadPDF.innerHTML = '<span class="btn-icon">⏳</span> Preparing...';
@@ -2622,7 +2856,7 @@ async function handleDownloadPDF() {
     }
 }
 
-function handleFormSubmit(e) {
+async function handleFormSubmit(e) {
     e.preventDefault();
     
     const formData = {
@@ -2656,7 +2890,7 @@ function formatOtpInput(e) {
     }
 }
 
-function handleVerification() {
+async function handleVerification() {
     const emailCode = emailOtp.value;
     const mobileCode = mobileOtp.value;
     
@@ -2668,24 +2902,36 @@ function handleVerification() {
     verifyButton.disabled = true;
     verifyButton.textContent = 'Confirming...';
     
-    // Simulate verification process
-    setTimeout(() => {
-        verificationStep.classList.remove('active');
-        successStep.classList.add('active');
+    try {
+        // Send email via EmailJS
+        const emailResult = await sendEmailViaEmailJS(AppState.bookingFormData);
         
-        // Simulate sending emails
-        const formData = AppState.bookingFormData;
-        console.log("SENDING EMAIL TO service@fincocapital.com.au");
-        console.log("Form Data:", formData);
-        console.log("PDF Report Reference:", AppState.result.refNumber);
-        console.log("Message: A new Free Expert Strategy Session request has been submitted. Customer details and the generated PDF report are attached for review and follow-up.");
+        if (emailResult.success) {
+            // Show success step
+            verificationStep.classList.remove('active');
+            successStep.classList.add('active');
+            
+            // Show success modal
+            setTimeout(() => {
+                emailSuccessModal.style.display = 'flex';
+            }, 500);
+            
+            // Log for debugging
+            console.log("Case Solver booking submitted successfully:", AppState.bookingFormData);
+            console.log("Report Reference:", AppState.result.refNumber);
+            
+        } else {
+            alert(`Failed to book session: ${emailResult.message}\nPlease try again or contact us directly.`);
+            verifyButton.disabled = false;
+            verifyButton.textContent = 'Complete Booking';
+        }
         
-        console.log(`SENDING EMAIL TO CUSTOMER: ${formData.email}`);
-        console.log("Message: Thank you for booking your Free Expert Strategy Session with FINCO CAPITAL. Attached is a copy of your personalised lending report for your records. One of our Specialist Brokers will review your information and contact you at your selected time.");
-        
+    } catch (error) {
+        console.error('Error in verification process:', error);
+        alert('An error occurred. Please try again.');
         verifyButton.disabled = false;
         verifyButton.textContent = 'Complete Booking';
-    }, 1500);
+    }
 }
 
 function resetApp() {
