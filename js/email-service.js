@@ -9,7 +9,7 @@ window.emailjsReady = false;
 (function () {
   /* ================= CONFIG ================= */
   const EMAILJS_SERVICE_ID = 'service_eemvkes';
-  const EMAILJS_TEMPLATE_ID = 'template_qxg4vnd';
+  const EMAILJS_TEMPLATE_ID = 'template_bbqahd7';
   const EMAILJS_PUBLIC_KEY = 'y4iEqRabCwdFRnejk';
 
   const AUTO_SEND_EMAIL_ON_CALC = false;
