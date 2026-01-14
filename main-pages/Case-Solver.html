@@ -1828,30 +1828,11 @@ body {
                         <p>"Your personalised report will be emailed to you in PDF format."</p>
                     </div>
                     
-                    <button type="submit" class="form-submit">Continue to Verification</button>
+                    <button type="submit" class="form-submit">Complete Booking</button>
                 </form>
             </div>
             
-            <div id="verificationStep" class="form-step">
-                <div class="verification-header">
-                    <h3>Security Verification</h3>
-                    <p>Please enter the 4-digit codes sent to your email and mobile.</p>
-                </div>
-                
-                <div class="verification-inputs">
-                    <div class="otp-group">
-                        <label>Email Code (Sent to <span id="emailDisplay"></span>)</label>
-                        <input type="text" id="emailOtp" maxlength="4" placeholder="0000" class="otp-input">
-                    </div>
-                    
-                    <div class="otp-group">
-                        <label>Mobile Code (Sent to <span id="mobileDisplay"></span>)</label>
-                        <input type="text" id="mobileOtp" maxlength="4" placeholder="0000" class="otp-input">
-                    </div>
-                </div>
-                
-                <button id="verifyButton" class="verify-btn">Complete Booking</button>
-            </div>
+
             
             <div id="successStep" class="form-step">
                 <div class="success-icon">✓</div>
@@ -2083,13 +2064,7 @@ const sessionModal = document.getElementById('sessionModal');
 const closeModal = document.getElementById('closeModal');
 const bookingForm = document.getElementById('bookingForm');
 const formStep = document.getElementById('formStep');
-const verificationStep = document.getElementById('verificationStep');
 const successStep = document.getElementById('successStep');
-const emailDisplay = document.getElementById('emailDisplay');
-const mobileDisplay = document.getElementById('mobileDisplay');
-const emailOtp = document.getElementById('emailOtp');
-const mobileOtp = document.getElementById('mobileOtp');
-const verifyButton = document.getElementById('verifyButton');
 const returnToReport = document.getElementById('returnToReport');
 const currentYear = document.getElementById('currentYear');
 const pdfGenerationContainer = document.getElementById('pdfGenerationContainer');
@@ -2155,17 +2130,14 @@ function initializeEventListeners() {
     // Booking form
     bookingForm.addEventListener('submit', handleFormSubmit);
     
-    // Verification
-    verifyButton.addEventListener('click', handleVerification);
+
     
     // Return to report
     returnToReport.addEventListener('click', () => {
         sessionModal.classList.remove('active');
     });
     
-    // OTP inputs
-    emailOtp.addEventListener('input', formatOtpInput);
-    mobileOtp.addEventListener('input', formatOtpInput);
+
     
     // Email success modal
     emailSuccessButton.addEventListener('click', () => {
@@ -2968,47 +2940,16 @@ async function handleFormSubmit(e) {
         preferredTime: document.getElementById('preferredTime').value
     };
     
-    // Show verification step
-    formStep.classList.remove('active');
-    verificationStep.classList.add('active');
-    
-    // Display email and mobile for verification
-    emailDisplay.textContent = formData.email;
-    mobileDisplay.textContent = formData.mobile;
-    
-    // Store form data for later use
+    // Store form data and send email directly
     AppState.bookingFormData = formData;
-}
-
-function formatOtpInput(e) {
-    // Remove non-numeric characters
-    e.target.value = e.target.value.replace(/\D/g, '');
     
-    // Limit to 4 characters
-    if (e.target.value.length > 4) {
-        e.target.value = e.target.value.substring(0, 4);
-    }
-}
-
-async function handleVerification() {
-    const emailCode = emailOtp.value;
-    const mobileCode = mobileOtp.value;
-    
-    if (emailCode.length !== 4 || mobileCode.length !== 4) {
-        alert("Please enter both 4-digit verification codes.");
-        return;
-    }
-    
-    verifyButton.disabled = true;
-    verifyButton.textContent = 'Confirming...';
-    
+    // Send email directly
     try {
-        // Send email via EmailJS
-        const emailResult = await sendEmailViaEmailJS(AppState.bookingFormData);
+        const emailResult = await sendEmailViaEmailJS(formData);
         
         if (emailResult.success) {
             // Show success step
-            verificationStep.classList.remove('active');
+            formStep.classList.remove('active');
             successStep.classList.add('active');
             
             // Show success modal
@@ -3019,20 +2960,16 @@ async function handleVerification() {
             // Log for debugging
             console.log("Case Solver booking submitted successfully:", AppState.bookingFormData);
             console.log("Report Reference:", AppState.result.refNumber);
-            
         } else {
             alert(`Failed to book session: ${emailResult.message}\nPlease try again or contact us directly.`);
-            verifyButton.disabled = false;
-            verifyButton.textContent = 'Complete Booking';
         }
-        
     } catch (error) {
-        console.error('Error in verification process:', error);
+        console.error('Error in form submission:', error);
         alert('An error occurred. Please try again.');
-        verifyButton.disabled = false;
-        verifyButton.textContent = 'Complete Booking';
     }
 }
+
+
 
 function resetApp() {
     AppState.loanType = null;
@@ -3049,15 +2986,12 @@ function resetApp() {
     // Reset modal if open
     sessionModal.classList.remove('active');
     formStep.classList.add('active');
-    verificationStep.classList.remove('active');
     successStep.classList.remove('active');
     
     // Reset form
     if (bookingForm) {
         bookingForm.reset();
     }
-    emailOtp.value = '';
-    mobileOtp.value = '';
 }
 </script>
 <div id="footer-container"></div>

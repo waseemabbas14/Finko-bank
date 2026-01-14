@@ -107,6 +107,15 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.insertBefore(headerDiv, document.body.firstChild);
   }
   
-  loadHeader('header-container');
-  loadFooter('footer-container');
+  // FIX #1: Only fetch header if not already loaded inline
+  const headerContainer = document.getElementById('header-container');
+  if (!headerContainer.innerHTML.trim()) {
+    loadHeader('header-container');
+  }
+  
+  // FIX #1: Only fetch footer if container is empty
+  const footerContainer = document.getElementById('footer-container');
+  if (!footerContainer || !footerContainer.innerHTML.trim()) {
+    loadFooter('footer-container');
+  }
 });

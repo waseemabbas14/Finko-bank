@@ -1348,46 +1348,29 @@ document.addEventListener('DOMContentLoaded', function() {
         // Start fade-out
         backContainer.classList.add('page-fade-out');
 
-        // Try multiple candidate URLs (handles different directory contexts)
-        const candidates = (window.location.pathname.indexOf('/main-pages/') !== -1)
-          ? ['../' + pageUrl, pageUrl, '/' + pageUrl]
-          : [pageUrl, '../' + pageUrl, '/' + pageUrl];
-
-        console.log('Fetch candidates:', candidates);
+        // FIX #3: Determine correct path upfront instead of guessing
+        const isMainPages = window.location.pathname.indexOf('/main-pages/') !== -1;
+        const primaryUrl = isMainPages ? '../' + pageUrl : pageUrl;
+        const fallbackUrl = isMainPages ? '/' + pageUrl : '../' + pageUrl;
+        
+        console.log('Loading back-side page:', primaryUrl);
 
         const DURATION = 300; // ms, keep in sync with CSS
-        function tryFetchCandidate(i) {
-          if (i >= candidates.length) {
-            const err = new Error('All fetch attempts failed (404 or network error)');
-            console.error('Error loading page:', err);
-            setTimeout(() => {
-              backContainer.innerHTML = '<div style="padding:20px;"><p>Error loading page: ' + err.message + '</p></div>';
-              backContainer.classList.remove('page-fade-out');
-              backContainer.classList.add('page-fade-in');
-              setTimeout(() => {
-                backContainer.classList.remove('page-fade-in');
-                backContainer.style.minHeight = '';
-              }, DURATION);
-            }, DURATION);
-            return;
-          }
-
-          const candidate = candidates[i];
-          console.log('Attempting fetch candidate:', candidate);
-          fetch(candidate)
+        
+        // FIX #2: Fetch primary URL first, with single fallback if needed (much faster than sequential retries)
+        function fetchWithFallback() {
+          fetch(primaryUrl)
             .then(response => {
-              console.log('Response status for', candidate + ':', response.status, response.statusText);
-              if (!response.ok) {
-                // Try next candidate
-                console.warn('Candidate failed, trying next:', candidate);
-                tryFetchCandidate(i + 1);
-                return null;
-              }
-              return response.text();
+              if (response.ok) return response.text();
+              // Try fallback only if primary fails
+              console.warn('Primary fetch failed, trying fallback:', fallbackUrl);
+              return fetch(fallbackUrl).then(r => {
+                if (!r.ok) throw new Error('Both fetch attempts failed');
+                return r.text();
+              });
             })
             .then(html => {
-              if (!html) return; // already handled via recursive try
-              console.log('Successfully loaded and injecting HTML from', candidate);
+              console.log('Successfully loaded back-side page');
               // Wait for fade-out to finish before swapping content
               setTimeout(() => {
                 backContainer.innerHTML = html;
@@ -1408,13 +1391,21 @@ document.addEventListener('DOMContentLoaded', function() {
               }, DURATION);
             })
             .catch(err => {
-              console.warn('Fetch error for candidate', candidate, err);
-              tryFetchCandidate(i + 1);
+              console.error('Error loading page:', err);
+              setTimeout(() => {
+                backContainer.innerHTML = '<div style="padding:20px;"><p>Error loading page: ' + err.message + '</p></div>';
+                backContainer.classList.remove('page-fade-out');
+                backContainer.classList.add('page-fade-in');
+                setTimeout(() => {
+                  backContainer.classList.remove('page-fade-in');
+                  backContainer.style.minHeight = '';
+                }, DURATION);
+              }, DURATION);
             });
         }
 
-        // Start trying candidates
-        tryFetchCandidate(0);
+        // Start fetching
+        fetchWithFallback();
       }
 
       // Expose loader to global scope so other handlers can trigger back-page loads
