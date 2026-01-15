@@ -114,6 +114,17 @@ function closeDropdown(event) {
 // Function to read URL parameters and wait for user to select state, then auto-populate category/purpose
 function applyURLParametersToForm() {
   try {
+    // ========== CRITICAL FIX: Skip if we came from dropdown navigation ==========
+    if (sessionStorage.getItem('skipURLProcessing') === 'true') {
+      console.debug('Skipping URL parameter processing (came from dropdown navigation)');
+      sessionStorage.removeItem('skipURLProcessing');
+      
+      // Also clear any pending selections
+      window.pendingURLSelection = null;
+      window.pendingDropdownSelection = null;
+      return;
+    }
+    
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     const purpose = params.get('purpose');
@@ -124,6 +135,14 @@ function applyURLParametersToForm() {
     // If no category/purpose in URL, nothing to do
     if (!category && !purpose) return;
    
+    // Check if we already processed this URL (prevent duplicates)
+    const urlKey = `${category}_${purpose}_${friendlyFront}_${frontPurpose}`;
+    if (sessionStorage.getItem('lastProcessedURL') === urlKey) {
+      console.debug('Skipping duplicate URL parameter processing');
+      return;
+    }
+    sessionStorage.setItem('lastProcessedURL', urlKey);
+    
     // Store these values to apply when user selects state
     window.pendingURLSelection = {
       category: category,
@@ -131,6 +150,8 @@ function applyURLParametersToForm() {
       friendlyFront: friendlyFront,
       openBack: openBack
     };
+    
+    console.debug('URL parameters stored for later:', window.pendingURLSelection);
    
   } catch (error) {
     console.warn('Error reading URL parameters:', error);
@@ -138,109 +159,96 @@ function applyURLParametersToForm() {
 }
 
 // Helper function to apply pending URL selection after state is selected
-function applyPendingURLSelection() {
+function applyURLParametersToForm() {
   try {
-    if (!window.pendingURLSelection) return;
-   
-    const { category, purpose, friendlyFront, openBack } = window.pendingURLSelection;
-    const loanCategorySelect = document.getElementById('loanCategory');
-    const loanPurposeSelect = document.getElementById('loanPurpose');
-   
-    // Set loan category
-    if (category && loanCategorySelect) {
-      loanCategorySelect.value = category;
-      loanCategorySelect.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-   
-    // For commercial loans, auto-select simple calculator
-    if (category === 'commercial') {
-      setTimeout(() => {
-        const commercialCalc = document.getElementById('commercialCalculatorType');
-        if (commercialCalc) {
-          commercialCalc.value = 'simple';
-          commercialCalc.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      }, 200);
-    }
-   
-    // For SMSF loans, auto-select simple calculator
-    if (category === 'smsf') {
-      setTimeout(() => {
-        const smsfCalc = document.getElementById('smsfCalculatorType');
-        if (smsfCalc) {
-          smsfCalc.value = 'simple';
-          smsfCalc.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      }, 200);
-    }
-   
-    // Set loan purpose with retries (purpose options may take time to populate)
-    if (purpose) {
-      let attempts = 0;
-      const maxAttempts = 20;
-
-      function applyPurpose() {
-        attempts++;
-        const loanPurposeSelect = document.getElementById('loanPurpose');
-
-        if (loanPurposeSelect && loanPurposeSelect.options && loanPurposeSelect.options.length > 1) {
-          // Try to find the purpose option
-          const purposeOpt = Array.from(loanPurposeSelect.options).find(o => {
-            const val = (o.value || '').trim();
-            const text = (o.textContent || '').trim().toLowerCase();
-            const friendlyCandidate = (friendlyFront || '').replace(/[_-]/g, ' ').toLowerCase();
-            const purposeCandidate = (purpose || '').replace(/[_-]/g, ' ').toLowerCase();
-
-            return val === purpose ||
-                   text.includes(purposeCandidate) ||
-                   (friendlyCandidate && text.includes(friendlyCandidate));
-          });
-
-          if (purposeOpt) {
-            loanPurposeSelect.value = purposeOpt.value;
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-
-            // If openBack is set, flip to the back panel
-            if (openBack === '1') {
-              setTimeout(() => {
-                if (window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function') {
-                  window.dashboardFlip.showBack();
-                }
-              }, 300);
-            }
-
-            // Clear pending selection
-            window.pendingURLSelection = null;
-            return;
-          }
-        }
-
-        // Retry if options not ready yet
-        if (attempts < maxAttempts) {
-          setTimeout(applyPurpose, 150);
-        }
+    // Check if we just came from a dropdown navigation
+    const cameFromDropdown = sessionStorage.getItem('dropdownNavigation');
+    if (cameFromDropdown === 'true') {
+      console.debug('Skipping URL processing - came from dropdown navigation');
+      sessionStorage.removeItem('dropdownNavigation');
+      
+      // Get the stored navigation values
+      const navCategory = sessionStorage.getItem('navCategory');
+      const navPurpose = sessionStorage.getItem('navPurpose');
+      
+      if (navCategory && navPurpose) {
+        // Apply directly without storing as pending
+        setTimeout(() => {
+          console.debug('Applying direct navigation values:', { navCategory, navPurpose });
+          applyDirectNavigation(navCategory, navPurpose);
+          sessionStorage.removeItem('navCategory');
+          sessionStorage.removeItem('navPurpose');
+        }, 100);
       }
-
-      // Ensure home_extras is loaded first when selecting Home purposes so options exist.
-      // Also handle cases where the URL provides a home purpose but not an explicit category.
-      function startApplyPurpose() { applyPurpose(); }
-      try {
-        if (category === 'home' && typeof ensureHomeExtrasLoaded === 'function') {
-          ensureHomeExtrasLoaded().then(startApplyPurpose).catch(startApplyPurpose);
-        } else {
-          startApplyPurpose();
-        }
-      } catch (e) { startApplyPurpose(); }
+      
+      return;
     }
+    
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    const purpose = params.get('purpose');
+    const friendlyFront = params.get('friendlyFront');
+    const frontPurpose = params.get('frontPurpose');
+    const openBack = params.get('openBack');
+   
+    // If no category/purpose in URL, nothing to do
+    if (!category && !purpose) return;
+    
+    console.debug('URL parameters found:', { category, purpose, friendlyFront, frontPurpose });
+   
+    // Store these values to apply when user selects state
+    window.pendingURLSelection = {
+      category: category,
+      purpose: purpose || frontPurpose,
+      friendlyFront: friendlyFront,
+      openBack: openBack
+    };
+    
+    console.debug('URL parameters stored for later:', window.pendingURLSelection);
    
   } catch (error) {
-    console.warn('Error applying pending URL selection:', error);
+    console.warn('Error reading URL parameters:', error);
   }
 }
 
+// Helper function to apply direct navigation
+function applyDirectNavigation(category, purpose) {
+  console.debug('applyDirectNavigation called:', { category, purpose });
+  
+  // Set loan category
+  const loanCategorySelect = document.getElementById('loanCategory');
+  if (loanCategorySelect) {
+    loanCategorySelect.value = category;
+    loanCategorySelect.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  
+  // Show back panel if available
+  setTimeout(() => {
+    if (window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function') {
+      if (!window.dashboardFlip.isFlipped()) {
+        window.dashboardFlip.showBack();
+      }
+    }
+    
+    // Load back page content
+    if (window.loadCategoryPage) {
+      window.loadCategoryPage(category, purpose);
+    }
+  }, 300);
+}
+
 function selectFromDropdown(event, category, purpose) {
+  // Prevent multiple simultaneous executions
+  if (window.dropdownProcessing) return;
+  window.dropdownProcessing = true;
+  
   event.preventDefault();
-  console.debug('selectFromDropdown invoked', { category: category, purpose: purpose, pathname: window.location.pathname });
+  console.debug('selectFromDropdown invoked', { 
+    category: category, 
+    purpose: purpose, 
+    pathname: window.location.pathname,
+    href: window.location.href 
+  });
 
   // Close all dropdowns
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
@@ -250,334 +258,265 @@ function selectFromDropdown(event, category, purpose) {
     btn.setAttribute('aria-expanded', 'false');
   });
 
-  // Map friendly dropdown keys to actual loanPurpose option values used by the app
+  // Map friendly dropdown keys to actual loanPurpose option values
   const purposeMap = {
     'bridging': 'home_bridging',
-    'next-home': 'home_equity', // Buy Your Next Home -> access equity from my home
+    'next-home': 'home_equity',
     'construction': 'home_repayment',
     'custom-build': 'home_repayment',
     'consolidate': 'home_consolidate',
     'equity-release': 'home_equity_release',
     'expat': 'home_expat',
-    'first-home': 'home_repayment', // First Home Buyer -> select repayment calculator
+    'first-home': 'home_repayment',
     'home-loan': 'home_borrowing',
     'investment': 'home_investment',
     'refinance': 'home_refinance',
     'reverse': 'home_reverse',
     'self-employed': 'home_repayment',
-
+    
     // Commercial mappings
-    // 'Business Line of Credit' should select the overdraft/LOC repayment scenario
     'business-loc': 'overdraft',
     'commercial-property': 'commercial_repayment',
     'debtor-finance': 'invoice_finance',
     'equipment-finance': 'equipment_asset',
     'secured-business': 'secured_business',
     'unsecured-business': 'unsecured_business',
-
+    
     // SMSF mappings
     'residential-smsf': 'smsf_residential',
     'commercial-smsf': 'smsf_commercial'
   };
 
   const translatedPurpose = purposeMap[purpose] || purpose;
-
-  // Special-case: if user clicked equity-release, expat, investment or reverse dropdowns we only select Home category
-  // and intentionally DO NOT set the loanPurpose on the front; we still load the back content.
-  const isEquityReleaseOnlyCategory = (purpose === 'equity-release' || purpose === 'expat' || purpose === 'investment' || purpose === 'reverse');
-
-  // Before applying values on the current page, check whether the current page actually contains
-  // the calculator. If not, redirect to the appropriate main-page (so the hero calculator exists).
-  const isMainPagesPath = window.location.pathname.indexOf('/main-pages/') !== -1;
-  const hasCalculatorOnCurrentPage = !!document.getElementById('loanCategory');
-
-  // Compute a conservative "backPurpose" that matches what the main pages expect
-  let mainPurpose = translatedPurpose;
-  if (purpose === 'equity-release') mainPurpose = 'home_equity_release';
-  else if (purpose === 'expat') mainPurpose = 'home_expat';
-  else if (purpose === 'investment') mainPurpose = 'home_investment';
-  else if (purpose === 'reverse') mainPurpose = 'home_reverse';
-  else if (purpose === 'first-home') mainPurpose = 'home_first_home';
-  else if (purpose === 'home-loan') mainPurpose = 'home_borrowing';
-  else if (purpose === 'refinance') mainPurpose = 'home_refinance';
-  else if (purpose === 'custom-build') mainPurpose = 'home_custom_build';
-
-  // Determine the destination main page for this category
+  
+  // Get current state
+  const stateVal = document.getElementById('stateSelect')?.value || '';
+  
+  // Determine if we need to navigate to different page
+  const currentPath = window.location.pathname;
   let targetMainPage = '';
-  if (category === 'home') targetMainPage = '/main-pages/Home-Loan.html';
-  else if (category === 'commercial') targetMainPage = '/main-pages/commercial-loan.html';
-  else if (category === 'smsf') targetMainPage = '/main-pages/smsf-loan.html';
+  let targetPageName = '';
+  
+  if (category === 'home') {
+    targetMainPage = '/main-pages/Home-Loan.html';
+    targetPageName = 'Home-Loan.html';
+  } else if (category === 'commercial') {
+    targetMainPage = '/main-pages/commercial-loan.html';
+    targetPageName = 'commercial-loan.html';
+  } else if (category === 'smsf') {
+    targetMainPage = '/main-pages/smsf-loan.html';
+    targetPageName = 'smsf-loan.html';
+  }
+  
+  // ========== SIMPLE NAVIGATION LOGIC ==========
+  // Always navigate if we're NOT already on the target page
+  const isAlreadyOnTargetPage = currentPath.includes(targetPageName);
+  console.debug('Navigation check:', {
+    currentPath: currentPath,
+    targetPageName: targetPageName,
+    targetMainPage: targetMainPage,
+    isAlreadyOnTargetPage: isAlreadyOnTargetPage
+  });
+  
+  if (targetMainPage && !isAlreadyOnTargetPage) {
+    const params = new URLSearchParams();
+    params.set('purpose', translatedPurpose);
+    params.set('category', category);
+    params.set('openBack', '1');
+    
+    // Clean and simple redirect
+    const fullUrl = targetMainPage + '?' + params.toString();
+    console.debug('NAVIGATING to:', fullUrl);
+    
+    // Use sessionStorage to prevent double processing
+    sessionStorage.setItem('dropdownNavigation', 'true');
+    sessionStorage.setItem('navCategory', category);
+    sessionStorage.setItem('navPurpose', translatedPurpose);
+    
+    // Navigate immediately
+    window.location.href = fullUrl;
+    
+    // Reset flag after delay (in case navigation fails)
+    setTimeout(() => {
+      window.dropdownProcessing = false;
+    }, 1000);
+    
+    return; // STOP all further processing
+  }
+  
+  // ========== ONLY EXECUTE THIS IF WE'RE ALREADY ON TARGET PAGE ==========
+  console.debug('Already on target page, processing locally');
+  
+  // Special cases that should not set front purpose
+  const specialCases = ['equity-release', 'expat', 'investment', 'reverse'];
+  const isSpecialCase = specialCases.includes(purpose);
+  
+  // If we're on correct page, process the selection
+  processSelection(category, purpose, translatedPurpose, isSpecialCase, stateVal);
+  
+  // Reset processing flag after delay
+  setTimeout(() => {
+    window.dropdownProcessing = false;
+  }, 500);
+}
 
-  // If the current page is NOT the destination main page, always navigate there so the main hero calculator
-  // can receive and apply the selection. This ensures clicks from Home (or any page) take the user to the correct page.
-  try {
-    const currentPath = (window.location.pathname || '').toLowerCase();
-    if (targetMainPage && !currentPath.includes(targetMainPage.toLowerCase())) {
-      const params = new URLSearchParams();
-      params.set('purpose', mainPurpose);
-      params.set('category', category);
-      params.set('openBack', '1');
-      params.set('friendly', purpose);
-
-      const stateValNow = (document.getElementById('stateSelect') && document.getElementById('stateSelect').value) || '';
-      if (!stateValNow) {
-        params.set('waitForState', '1');
-        params.set('frontPurpose', translatedPurpose);
-        params.set('friendlyFront', purpose);
-      }
-
-      console.debug('selectFromDropdown: navigating to', targetMainPage, params.toString());
-      window.location.href = targetMainPage + '?' + params.toString();
-      return; // navigation will occur
-    }
-  } catch (e) { /* ignore and continue to try in-place behavior */ }
-
-  // Update loan category select
+// Separate function to handle the actual selection processing
+function processSelection(category, originalPurpose, translatedPurpose, isSpecialCase, stateVal) {
+  console.debug('Processing selection:', { category, originalPurpose, translatedPurpose });
+  
+  // Set loan category
   const loanCategorySelect = document.getElementById('loanCategory');
-
-  // If there is a calculator on this page but it is for a different category, navigate to the correct main page
-  if (loanCategorySelect && loanCategorySelect.value && loanCategorySelect.value !== category) {
-    let mainPageUrl = '';
-    if (category === 'home') mainPageUrl = '/main-pages/Home-Loan.html';
-    else if (category === 'commercial') mainPageUrl = '/main-pages/commercial-loan.html';
-    else if (category === 'smsf') mainPageUrl = '/main-pages/smsf-loan.html';
-
-    if (mainPageUrl) {
-      const params = new URLSearchParams();
-      params.set('purpose', mainPurpose);
-      params.set('category', category);
-      params.set('openBack', '1');
-      params.set('friendly', purpose);
-
-      const stateValNow = (document.getElementById('stateSelect') && document.getElementById('stateSelect').value) || '';
-      if (!stateValNow) {
-        params.set('waitForState', '1');
-        params.set('frontPurpose', translatedPurpose);
-        params.set('friendlyFront', purpose);
+  if (loanCategorySelect && loanCategorySelect.value !== category) {
+    loanCategorySelect.value = category;
+    
+    // Use a flag to prevent re-processing
+    const event = new CustomEvent('change', { 
+      bubbles: true,
+      detail: { fromDropdown: true }
+    });
+    loanCategorySelect.dispatchEvent(event);
+    
+    // Set calculator type based on category
+    setTimeout(() => {
+      if (category === 'commercial') {
+        const commercialCalc = document.getElementById('commercialCalculatorType');
+        if (commercialCalc) {
+          commercialCalc.value = 'simple';
+          commercialCalc.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } else if (category === 'smsf') {
+        const smsfCalc = document.getElementById('smsfCalculatorType');
+        if (smsfCalc) {
+          smsfCalc.value = 'simple';
+          smsfCalc.dispatchEvent(new Event('change', { bubbles: true }));
+        }
       }
+    }, 50);
+  }
+  
+  // Set loan purpose if not a special case
+  if (!isSpecialCase) {
+    setLoanPurposeWithDelay(category, originalPurpose, translatedPurpose, stateVal);
+  }
+  
+  // Load back page content
+  if (window.loadCategoryPage) {
+    const backPurpose = getBackPurpose(originalPurpose, translatedPurpose);
+    console.debug('Loading back page:', { category, backPurpose });
+    
+    // Show back side if dashboard flip exists
+    try {
+      if (window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function') {
+        if (!window.dashboardFlip.isFlipped()) {
+          window.dashboardFlip.showBack();
+        }
+      }
+    } catch (e) {
+      console.debug('Dashboard flip error:', e);
+    }
+    
+    // Load the content
+    setTimeout(() => {
+      window.loadCategoryPage(category, backPurpose);
+    }, 100);
+  }
+}
 
-      window.location.href = mainPageUrl + '?' + params.toString();
+// Set loan purpose with a single attempt (no retries)
+function setLoanPurposeWithDelay(category, originalPurpose, translatedPurpose, stateVal) {
+  // Wait for DOM to update
+  setTimeout(() => {
+    const loanPurposeSelect = document.getElementById('loanPurpose');
+    if (!loanPurposeSelect) {
+      console.debug('Loan purpose select not found yet');
       return;
     }
-  }
-
-  if (loanCategorySelect) {
-    loanCategorySelect.value = category;
-    loanCategorySelect.dispatchEvent(new Event('change', { bubbles: true }));
-
-    // If the dropdown selection targets Commercial, auto-select the simple commercial calculator
-    if (category === 'commercial') {
-      const commercialCalc = document.getElementById('commercialCalculatorType');
-      if (commercialCalc) {
-        commercialCalc.value = 'simple';
-        commercialCalc.dispatchEvent(new Event('change', { bubbles: true }));
+    
+    // For specific purposes, set directly
+    if (originalPurpose === 'home-loan') {
+      loanPurposeSelect.value = 'home_borrowing';
+    } else if (originalPurpose === 'refinance') {
+      loanPurposeSelect.value = 'home_refinance';
+    } else if (['first-home', 'self-employed', 'custom-build', 'construction'].includes(originalPurpose)) {
+      loanPurposeSelect.value = 'home_repayment';
+    } else {
+      // Try to find matching option
+      const friendlyText = originalPurpose.replace(/[_-]/g, ' ').toLowerCase();
+      const option = Array.from(loanPurposeSelect.options).find(opt => {
+        const optText = opt.text.toLowerCase();
+        const optValue = opt.value.toLowerCase();
+        return optValue.includes(translatedPurpose.toLowerCase()) || 
+               optText.includes(friendlyText) ||
+               opt.dataset?.key === translatedPurpose;
+      });
+      
+      if (option) {
+        loanPurposeSelect.value = option.value;
+      } else if (loanPurposeSelect.querySelector(`option[value="${translatedPurpose}"]`)) {
+        loanPurposeSelect.value = translatedPurpose;
       }
     }
-
-    // If the dropdown selection targets SMSF, auto-select the simple SMSF calculator
-    if (category === 'smsf') {
-      const smsfCalc = document.getElementById('smsfCalculatorType');
-      if (smsfCalc) {
-        smsfCalc.value = 'simple';
-        smsfCalc.dispatchEvent(new Event('change', { bubbles: true }));
-      }
+    
+    // Dispatch change event only once
+    if (loanPurposeSelect.value) {
+      const event = new CustomEvent('change', {
+        bubbles: true,
+        detail: { fromDropdown: true, purpose: originalPurpose }
+      });
+      loanPurposeSelect.dispatchEvent(event);
+      console.debug('Loan purpose set to:', loanPurposeSelect.value);
     }
-  }
+  }, 150); // Single delay, no retries
+}
 
-  // Load back page immediately (don't wait for state selection)
-  if (window.loadCategoryPage) {
-      // If the dashboard flip API is available and the front is currently visible, show the back immediately
-      try {
-        if (window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function' && typeof window.dashboardFlip.isFlipped === 'function') {
-          if (!window.dashboardFlip.isFlipped()) window.dashboardFlip.showBack();
-        }
-      } catch (e) { }
-    let backPurpose = translatedPurpose;
-    if (purpose === 'equity-release') {
-      backPurpose = 'home_equity_release';
-    } else if (purpose === 'expat') {
-      backPurpose = 'home_expat';
-    } else if (purpose === 'investment') {
-      backPurpose = 'home_investment';
-    } else if (purpose === 'reverse') {
-      backPurpose = 'home_reverse';
-    } else if (purpose === 'first-home') {
-      backPurpose = 'home_first_home';
-    } else if (purpose === 'home-loan') {
-      backPurpose = 'home_borrowing';
-    } else if (purpose === 'refinance') {
-      backPurpose = 'home_refinance';
-    } else if (purpose === 'custom-build') {
-      backPurpose = 'home_custom_build';
-    }
-    window.loadCategoryPage(category, backPurpose);
-  }
+// Helper function to get back purpose
+function getBackPurpose(originalPurpose, translatedPurpose) {
+  const backPurposeMap = {
+    'equity-release': 'home_equity_release',
+    'expat': 'home_expat',
+    'investment': 'home_investment',
+    'reverse': 'home_reverse',
+    'first-home': 'home_first_home',
+    'home-loan': 'home_borrowing',
+    'refinance': 'home_refinance',
+    'custom-build': 'home_custom_build'
+  };
+  
+  return backPurposeMap[originalPurpose] || translatedPurpose;
+}
 
-  // If state is not chosen yet, store pending selection and wait for state selection
-  const stateVal = (document.getElementById('stateSelect') && document.getElementById('stateSelect').value) || '';
-  if (!stateVal) {
-    // store whether this is the equity-release special case and the translated purpose for front calculator
-    window.pendingDropdownSelection = { category, purpose: translatedPurpose, equityOnlyCategory: isEquityReleaseOnlyCategory, originalPurpose: purpose };
-    return;
-  }
+// Also add this to prevent duplicate event listeners
+function setupDropdownListeners() {
+  // Remove any existing listeners first
+  document.querySelectorAll('[data-dropdown-select]').forEach(element => {
+    const newElement = element.cloneNode(true);
+    element.parentNode.replaceChild(newElement, element);
+  });
+  
+  // Add fresh listeners
+  document.querySelectorAll('[data-dropdown-select]').forEach(element => {
+    element.addEventListener('click', function(e) {
+      const category = this.dataset.category;
+      const purpose = this.dataset.purpose;
+      
+      // Add visual feedback
+      this.classList.add('processing');
+      
+      selectFromDropdown(e, category, purpose);
+      
+      // Remove visual feedback after processing
+      setTimeout(() => {
+        this.classList.remove('processing');
+      }, 500);
+    }, { once: false }); // Keep as false but our processing flag will prevent duplicates
+  });
+}
 
-  // Update loan purpose select (use retries so the first selection reliably sets the front purpose)
-  (function applyFrontPurposeWithRetries() {
-    const maxAttempts = 14;
-    let attempts = 0;
-
-    function attempt() {
-      attempts++;
-
-      // Force loan type (category) first
-      try {
-        const lc = document.getElementById('loanCategory');
-        if (lc) {
-          lc.value = category;
-          lc.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-        // Also ensure calculator type defaults so purpose options populate
-        if (category === 'commercial') {
-          const commercialCalc = document.getElementById('commercialCalculatorType');
-          if (commercialCalc) { commercialCalc.value = 'simple'; commercialCalc.dispatchEvent(new Event('change', { bubbles: true })); }
-        }
-        if (category === 'smsf') {
-          const smsfCalc = document.getElementById('smsfCalculatorType');
-          if (smsfCalc) { smsfCalc.value = 'simple'; smsfCalc.dispatchEvent(new Event('change', { bubbles: true })); }
-        }
-      } catch (e) { /* ignore */ }
-
-      const loanPurposeSelect = document.getElementById('loanPurpose');
-
-      // If options not ready yet, retry a few times
-      if (!loanPurposeSelect || !loanPurposeSelect.options || loanPurposeSelect.options.length === 0) {
-        if (attempts < maxAttempts) return setTimeout(attempt, 120);
-        // last attempt will proceed even if options are empty
-      }
-
-      try {
-        // Special handling for certain friendly dropdown choices
-        if (purpose === 'home-loan') {
-          if (loanPurposeSelect) {
-            const borrowingOpt = Array.from(loanPurposeSelect.options).find(o => o.value === 'home_borrowing' || o.textContent.trim().toLowerCase().includes('borrowing'));
-            if (borrowingOpt) loanPurposeSelect.value = borrowingOpt.value; else loanPurposeSelect.value = 'home_borrowing';
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        } else if (purpose === 'refinance') {
-          if (loanPurposeSelect) {
-            const refinanceOpt = Array.from(loanPurposeSelect.options).find(o => o.value === 'home_refinance' || o.textContent.trim().toLowerCase().includes('refinance'));
-            if (refinanceOpt) loanPurposeSelect.value = refinanceOpt.value; else loanPurposeSelect.value = 'home_refinance';
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        } else if (purpose === 'first-home') {
-          if (loanPurposeSelect) {
-            const repaymentOpt = Array.from(loanPurposeSelect.options).find(o => o.value === 'home_repayment' || o.textContent.trim().toLowerCase().includes('repayment'));
-            if (repaymentOpt) loanPurposeSelect.value = repaymentOpt.value; else loanPurposeSelect.value = 'home_repayment';
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        } else if (purpose === 'self-employed') {
-          if (loanPurposeSelect) {
-            const repaymentOpt = Array.from(loanPurposeSelect.options).find(o => o.value === 'home_repayment' || o.textContent.trim().toLowerCase().includes('repayment'));
-            if (repaymentOpt) loanPurposeSelect.value = repaymentOpt.value; else loanPurposeSelect.value = 'home_repayment';
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        } else if (purpose === 'custom-build') {
-          if (loanPurposeSelect) {
-            const repaymentOpt = Array.from(loanPurposeSelect.options).find(o => o.value === 'home_repayment' || o.textContent.trim().toLowerCase().includes('repayment'));
-            if (repaymentOpt) loanPurposeSelect.value = repaymentOpt.value; else loanPurposeSelect.value = 'home_repayment';
-            loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        } else if (!isEquityReleaseOnlyCategory && loanPurposeSelect) {
-          // If the option exists, set it; otherwise try to find a close match (also match the friendly label)
-          const friendlyCandidate = (purpose || '').replace(/[_-]/g,' ').toLowerCase();
-          const translatedCandidate = (translatedPurpose || '').replace(/[_-]/g,' ').toLowerCase();
-          const opt = Array.from(loanPurposeSelect.options).find(o => {
-            const text = (o.textContent || '').trim().toLowerCase();
-            const val = (o.value || '').trim();
-            return val === translatedPurpose || val === purpose || (o.dataset && o.dataset.key === translatedPurpose) || text.includes(translatedCandidate) || (friendlyCandidate && text.includes(friendlyCandidate));
-          });
-          if (opt) loanPurposeSelect.value = opt.value; else loanPurposeSelect.value = translatedPurpose;
-          loanPurposeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      } catch (e) { /* ignore */ }
-
-      // Trigger back-side content load if flip panel is available
-      if (window.loadCategoryPage) {
-        try {
-          if (window.dashboardFlip && typeof window.dashboardFlip.showBack === 'function' && typeof window.dashboardFlip.isFlipped === 'function') {
-            if (!window.dashboardFlip.isFlipped()) window.dashboardFlip.showBack();
-          }
-        } catch (e) { }
-
-        let backPurpose = translatedPurpose;
-        if (purpose === 'equity-release') {
-          backPurpose = 'home_equity_release';
-        } else if (purpose === 'expat') {
-          backPurpose = 'home_expat';
-        } else if (purpose === 'investment') {
-          backPurpose = 'home_investment';
-        } else if (purpose === 'reverse') {
-          backPurpose = 'home_reverse';
-        } else if (purpose === 'first-home') {
-          backPurpose = 'home_first_home';
-        } else if (purpose === 'home-loan') {
-          backPurpose = 'home_borrowing';
-        } else if (purpose === 'refinance') {
-          backPurpose = 'home_refinance';
-        } else if (purpose === 'custom-build') {
-          backPurpose = 'home_custom_build';
-        }
-        window.loadCategoryPage(category, backPurpose);
-      }
-
-      // If we reached here and loanPurposeSelect had no options and we still haven't succeeded,
-      // try again a couple more times to cover slow option population
-      if ((!document.getElementById('loanPurpose') || document.getElementById('loanPurpose').options.length === 0) && attempts < maxAttempts) {
-        setTimeout(attempt, 160);
-      }
-    }
-
-    // Start attempts immediately — but for Home category ensure the home_extras module is loaded
-    function startAttempts() { attempt(); }
-    try {
-      if (category === 'home' && typeof ensureHomeExtrasLoaded === 'function') {
-        ensureHomeExtrasLoaded().then(startAttempts).catch(startAttempts);
-      } else {
-        startAttempts();
-      }
-    } catch (e) { startAttempts(); }
-  })();
-
-  // Final safety: ensure front loan purpose applied after a short delay (handles race conditions where options arrive late)
-  try {
-    setTimeout(() => {
-      try {
-        if (category === 'home' && !isEquityReleaseOnlyCategory) {
-          const lp = document.getElementById('loanPurpose');
-          if (!lp) return;
-          // Already correct — nothing to do
-          if ((lp.value || '').trim() === (translatedPurpose || '').trim()) return;
-
-          const friendlyCandidate = (purpose || '').replace(/[_-]/g,' ').toLowerCase();
-          const translatedCandidate = (translatedPurpose || '').replace(/[_-]/g,' ').toLowerCase();
-
-          const opt = Array.from(lp.options).find(o => {
-            const text = (o.textContent || '').trim().toLowerCase();
-            const val = (o.value || '').trim();
-            return val === translatedPurpose || val === purpose || (o.dataset && o.dataset.key === translatedPurpose) || text.includes(translatedCandidate) || (friendlyCandidate && text.includes(friendlyCandidate));
-          });
-
-          if (opt) {
-            lp.value = opt.value;
-          } else {
-            lp.value = translatedPurpose;
-          }
-          lp.dispatchEvent(new Event('change', { bubbles: true }));
-          console.debug('selectFromDropdown: SAFETY applied front purpose ->', lp.value);
-        }
-      } catch (e) { /* ignore */ }
-    }, 500);
-  } catch (e) { /* ignore */ }
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupDropdownListeners);
+} else {
+  setupDropdownListeners();
 }
 
 // Close dropdowns when clicking outside
@@ -601,6 +540,10 @@ window.hasCalculated = false;
 window.__recalcTimer = null;
 // Flag to distinguish between manual and auto-recalc
 window.isAutoRecalc = false;
+
+// Global variables to track last loaded category and purpose to prevent duplicate loads
+window.lastLoadedCategory = '';
+window.lastLoadedPurpose = '';
 
 // Helper to reset auto-recalc when scenario changes (loan type/purpose)
 window.resetAutoRecalcGate = function() {

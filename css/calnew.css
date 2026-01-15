@@ -174,7 +174,7 @@ header h1 {
   }
 
   .nav-menu {
-    gap: 15px;
+    gap: 9px;
   }
 }
 
@@ -412,7 +412,7 @@ header h1 {
 
 .nav-menu {
   display: flex;
-  gap: 14px;
+  gap: 9px;
   align-items: center;
 }
 
