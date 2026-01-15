@@ -85,7 +85,6 @@ header {
   height: auto;
   min-height: 90px;
   padding: 10px 70px;
-  mar
   flex-wrap: wrap;
   background: #6e63635d;
   position: absolute;
@@ -151,7 +150,11 @@ header h1 {
   margin-left: 0;
   width: 64% !important;
 }
-
+@media (max-width: 1200px){
+  header{
+    padding: 20px 10px !important;
+  }
+}
 @media (max-width: 1024px) {
   header {
     padding: 15px 20px !important;
@@ -296,7 +299,7 @@ header h1 {
 
 @media (max-width: 780px) {
   header {
-    padding: 10px 10px !important;
+    padding: 10px 10px;
     gap: 0;
   }
 
@@ -367,20 +370,7 @@ header h1 {
     display: block !important;
   }
 }
-@media (max-width: 1150px){
-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: auto;
-    min-height: 90px;
-  
-    flex-wrap: wrap;
-    background: #6e63635d;
-    position: absolute;
-}
-}
+
 @media (max-width: 420px) {
   header {
     display: flex;
@@ -909,7 +899,7 @@ input[readonly] {
 
 @media(min-width:980px) {
   .grid-3 {
-    grid-template-columns: 32% 34% 31%;
+    grid-template-columns: 32% 34% 32%;
     align-items: start;
   }
 }
@@ -983,6 +973,10 @@ input[readonly] {
     height: auto;
     display: block;
   }
+  .welcome-message-static {
+    width: 40% !important;
+    min-width: 100% !important;
+  }
 
   /* ensure flip control flows below the stacked panels */
   .grid-3 .flip-controls {
@@ -990,6 +984,7 @@ input[readonly] {
     margin-top: 8px;
   }
 }
+
 
 .top-image-wrapper {
   height: 293px !important;
@@ -1349,7 +1344,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #dashboardCard {
   border: 3px solid #F7931E !important;
-  background-color: #041730;
+  background-color: #001334;
   display: flex;
   flex-direction: column;
 }
@@ -1639,14 +1634,14 @@ button[type="submit"] {
 }
 
 .welcome-message-initial1 img {
-  height: 100%;
+  height: 97%;
 }
 
 .welcome-message-initial1 {
   opacity: 0;
   transform: translateY(20px);
   animation: welcomeFadeIn 1s ease-out forwards;
-  width: 100%;
+  width: 90%;
   height: 500px;
 
   border-radius: 18px;
