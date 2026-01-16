@@ -111,52 +111,6 @@ function closeDropdown(event) {
   }
 }
 
-// Function to read URL parameters and wait for user to select state, then auto-populate category/purpose
-function applyURLParametersToForm() {
-  try {
-    // ========== CRITICAL FIX: Skip if we came from dropdown navigation ==========
-    if (sessionStorage.getItem('skipURLProcessing') === 'true') {
-      console.debug('Skipping URL parameter processing (came from dropdown navigation)');
-      sessionStorage.removeItem('skipURLProcessing');
-      
-      // Also clear any pending selections
-      window.pendingURLSelection = null;
-      window.pendingDropdownSelection = null;
-      return;
-    }
-    
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    const purpose = params.get('purpose');
-    const friendlyFront = params.get('friendlyFront');
-    const frontPurpose = params.get('frontPurpose');
-    const openBack = params.get('openBack');
-   
-    // If no category/purpose in URL, nothing to do
-    if (!category && !purpose) return;
-   
-    // Check if we already processed this URL (prevent duplicates)
-    const urlKey = `${category}_${purpose}_${friendlyFront}_${frontPurpose}`;
-    if (sessionStorage.getItem('lastProcessedURL') === urlKey) {
-      console.debug('Skipping duplicate URL parameter processing');
-      return;
-    }
-    sessionStorage.setItem('lastProcessedURL', urlKey);
-    
-    // Store these values to apply when user selects state
-    window.pendingURLSelection = {
-      category: category,
-      purpose: purpose || frontPurpose,
-      friendlyFront: friendlyFront,
-      openBack: openBack
-    };
-    
-    console.debug('URL parameters stored for later:', window.pendingURLSelection);
-   
-  } catch (error) {
-    console.warn('Error reading URL parameters:', error);
-  }
-}
 
 // Helper function to apply pending URL selection after state is selected
 function applyURLParametersToForm() {
@@ -164,7 +118,9 @@ function applyURLParametersToForm() {
     // Check if we just came from a dropdown navigation
     const cameFromDropdown = sessionStorage.getItem('dropdownNavigation');
     if (cameFromDropdown === 'true') {
-      console.debug('Skipping URL processing - came from dropdown navigation');
+      console.debug('applyURLParametersToForm: detected dropdownNavigation flag (true)');
+      // keep a short-lived debug record so new page can report it
+      try { sessionStorage.setItem('navDebug', JSON.stringify({ fromDropdown: true, ts: Date.now() })); } catch(e) {}
       sessionStorage.removeItem('dropdownNavigation');
       
       // Get the stored navigation values
@@ -174,10 +130,11 @@ function applyURLParametersToForm() {
       if (navCategory && navPurpose) {
         // Apply directly without storing as pending
         setTimeout(() => {
-          console.debug('Applying direct navigation values:', { navCategory, navPurpose });
+          console.debug('applyURLParametersToForm: applying direct navigation values from sessionStorage', { navCategory, navPurpose });
           applyDirectNavigation(navCategory, navPurpose);
           sessionStorage.removeItem('navCategory');
           sessionStorage.removeItem('navPurpose');
+          try { sessionStorage.setItem('navDebug', JSON.stringify({ appliedDirectNavigation: true, ts: Date.now() })); } catch(e) {}
         }, 100);
       }
       
@@ -203,6 +160,7 @@ function applyURLParametersToForm() {
       friendlyFront: friendlyFront,
       openBack: openBack
     };
+    try { sessionStorage.setItem('navDebug', JSON.stringify({ pendingURLSelection: true, category: category, purpose: purpose || frontPurpose, ts: Date.now() })); } catch(e) {}
     
     console.debug('URL parameters stored for later:', window.pendingURLSelection);
    
@@ -498,12 +456,17 @@ function setupDropdownListeners() {
     element.addEventListener('click', function(e) {
       const category = this.dataset.category;
       const purpose = this.dataset.purpose;
-      
+      // Debug: log intent and guard state
+      try {
+        console.debug('dropdown click', { category, purpose, dropdownProcessing: !!window.dropdownProcessing, sessionDropdownFlag: sessionStorage.getItem('dropdownNavigation'), ts: Date.now() });
+        try { sessionStorage.setItem('navDebug', JSON.stringify({ click: true, category, purpose, ts: Date.now() })); } catch(e) {}
+      } catch (e) {}
+
       // Add visual feedback
       this.classList.add('processing');
-      
+
       selectFromDropdown(e, category, purpose);
-      
+
       // Remove visual feedback after processing
       setTimeout(() => {
         this.classList.remove('processing');
@@ -1203,6 +1166,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loanCategorySelect) {
       // Function to load and initialize category page
       function loadCategoryPage(category, purpose) {
+        // Normalize inputs
+        category = category || '';
+        purpose = purpose || '';
+
+        // Prevent concurrent loads
+        if (!window._loadingBackPage) window._loadingBackPage = false;
+        if (window._loadingBackPage) {
+          console.debug('loadCategoryPage: ignored - load already in progress', { category, purpose });
+          return;
+        }
+
+        // Prevent duplicate loads for same category/purpose
+        if (window.lastLoadedCategory === category && window.lastLoadedPurpose === purpose) {
+          console.debug('loadCategoryPage: ignored - already loaded', { category, purpose });
+          return;
+        }
+
         let pageUrl;
         if (category === 'home') {
           // If a specific home purpose is selected, load its dedicated page
@@ -1302,6 +1282,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // FIX #2: Fetch primary URL first, with single fallback if needed (much faster than sequential retries)
         function fetchWithFallback() {
+          // Mark load in-progress
+          window._loadingBackPage = true;
           fetch(primaryUrl)
             .then(response => {
               if (response.ok) return response.text();
@@ -1330,6 +1312,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                   backContainer.classList.remove('page-fade-in');
                   backContainer.style.minHeight = '';
+                  // mark last loaded and clear in-progress flag
+                  try {
+                    window.lastLoadedCategory = category;
+                    window.lastLoadedPurpose = purpose;
+                  } catch (e) {}
+                  window._loadingBackPage = false;
                 }, DURATION);
               }, DURATION);
             })
@@ -1342,6 +1330,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                   backContainer.classList.remove('page-fade-in');
                   backContainer.style.minHeight = '';
+                  // ensure flag cleared on error
+                  window._loadingBackPage = false;
                 }, DURATION);
               }, DURATION);
             });
@@ -1354,10 +1344,22 @@ document.addEventListener('DOMContentLoaded', function() {
       // Expose loader to global scope so other handlers can trigger back-page loads
       window.loadCategoryPage = loadCategoryPage;
       // Load initial page (banks-info by default)
-      loadCategoryPage('');
+      // Only load the default back-page when we are NOT navigating from a dropdown
+      const skipInitialLoad = sessionStorage.getItem('dropdownNavigation') === 'true' || window.location.search.indexOf('category=') !== -1 || !!window.pendingURLSelection;
+      if (!skipInitialLoad) {
+        loadCategoryPage('');
+      } else {
+        console.debug('Skipping initial back-page load due to pending navigation');
+      }
 
       // Listen for category changes
-      loanCategorySelect.addEventListener('change', function() {
+      loanCategorySelect.addEventListener('change', function(e) {
+        // When change is dispatched programmatically from the dropdown handler
+        // it includes `detail.fromDropdown` — skip the listener in that case
+        if (e && e.detail && e.detail.fromDropdown) {
+          console.debug('loanCategory change ignored (fromDropdown)');
+          return;
+        }
         const currentPurpose = document.getElementById('loanPurpose')?.value || '';
         loadCategoryPage(this.value, currentPurpose);
       });
@@ -1365,7 +1367,11 @@ document.addEventListener('DOMContentLoaded', function() {
       // Also listen for purpose changes so we can show purpose-specific back pages
       const loanPurposeSelect = document.getElementById('loanPurpose');
       if (loanPurposeSelect) {
-        loanPurposeSelect.addEventListener('change', function() {
+        loanPurposeSelect.addEventListener('change', function(e) {
+          if (e && e.detail && e.detail.fromDropdown) {
+            console.debug('loanPurpose change ignored (fromDropdown)');
+            return;
+          }
           const currentCategory = document.getElementById('loanCategory')?.value || '';
           loadCategoryPage(currentCategory, this.value);
         });
