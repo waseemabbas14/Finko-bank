@@ -2037,7 +2037,7 @@ button[type="submit"] {
 
 .welcome-message-initial {
   width: 100%;
-  min-width: 760px;
+  min-width: 655px;
   height: 198px;
   display: flex;
   flex-direction: column;
