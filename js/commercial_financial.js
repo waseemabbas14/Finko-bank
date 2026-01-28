@@ -282,7 +282,7 @@ function onFormSubmitIntercept(e) {
 
     const type = prefill.type || '';
     const bal = prefill.balance || '';
-    const rate = prefill.ratePct || (type === 'credit_card' ? '19.99' : '14.50');
+    const rate = prefill.ratePct || (type === 'credit_card' ? '19.99' : type === 'car' ? '9.99' : '14.50');
     const term = prefill.termYrs || (type === 'credit_card' ? '5' : '5');
 
     const row = document.createElement('div');

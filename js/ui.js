@@ -337,7 +337,7 @@ function showAnimatedWelcomeMessage() {
   summaryEl.innerHTML = `
     <div class="welcome-message-initial" id="welcome-message-static">
      <div class="welcome-message-initial1" style="white-space:pre-line">
-      <img src="./assests/cal-back.jpeg" alt="Calculator Background" width="100%">
+      <img src="/assests/cal-back.jpeg" alt="Calculator Background" width="100%">
     </div>
     </div>
   `;
@@ -1221,7 +1221,7 @@ function renderFields(loanType) {
           <input type="number" id="loanTerm" required min="1" max="40" step="1" placeholder="e.g. 30">
         </label>
       </div>
-      <input type="hidden" id="interestRate" value="5.99">
+      <input type="hidden" id="interestRate" value="5.5">
     `);
   } else if (loanType === "home_refinance") {
     fields.push(`
@@ -1433,6 +1433,7 @@ function renderFields(loanType) {
           <input type="text" id="annualExpenses" value="0">
         </label>
       </div>
+      <input type="hidden" id="interestRate" value="9.5">
     `);
   } else if (loanType === "secured_business") {
     fields.push(`

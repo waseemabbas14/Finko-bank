@@ -2327,7 +2327,7 @@ select#extraRepaymentFrequency:focus {
 
 /* sections */
 .section1 {
-  background-image: linear-gradient(rgba(25, 29, 48, 0.55), rgba(0, 0, 0, 0.55)), url('/assests/background.webp');
+  background-image:  url('/assests/home-page-hero.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2485,7 +2485,7 @@ select#extraRepaymentFrequency:focus {
 
 /* why section */
 .why-section {
-  padding: 0px 0px 100px 0px;
+  padding: 100px 0px 100px 0px !important;
   background: #ffffff;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -2506,6 +2506,7 @@ select#extraRepaymentFrequency:focus {
   width: 30%;
   display: flex;
   align-items: flex-start;
+  
 
 
 }
@@ -3814,4 +3815,10 @@ footer {
   font-size: 40px !important;
   padding: 10px 10px 10px 10px !important;
   color: #fc8b01;
+}
+.blog-detail-image{
+  margin-top: 100px !important;
+}
+.back-holder {
+ background-color: #faebd7 !important;
 }

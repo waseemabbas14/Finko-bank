@@ -672,7 +672,7 @@ function initConsultationButtons() {
       if (!el) return;
 
       const txt = ((el.textContent || el.innerText) || '').replace(/\s+/g, ' ').trim();
-      const isConsultationText = /free\s*consultation|book\s*a\s*consultation|get\s*a\s*free\s*consultation|consultation/i.test(txt);
+      // const isConsultationText = /free\s*consultation|book\s*a\s*consultation|get\s*a\s*free\s*consultation|consultation/i.test(txt);
       const isMarked = el.dataset && el.dataset.action === 'consultation';
       const hasClass = el.classList && (el.classList.contains('btn-consultation') || el.classList.contains('consultation-btn'));
 
@@ -978,55 +978,61 @@ document.addEventListener('DOMContentLoaded', function() {
     backContainer.dataset.role = 'back-holder';
     backContainer.className = 'panel-face back-holder';
     backContainer.innerHTML = `
-      <div class="commercial-page-container" style="padding:12px 30px;">
-        <h1>Flexible Capital. Strategic Control.</h1>
-        <p>A Business Line of Credit gives your company immediate access to working capital helping you manage cash flow with precision and flexibility. Similar to a corporate credit card, this facility allows you to draw funds as needed, up to your approved limit—while paying interest only on the amount you use.</p>
-        <p>Through Finco Capital's network of leading banks and specialist lenders, we can arrange both secured and unsecured lines of credit designed around your unique business profile and growth strategy.</p>
-        <strong>At a Glance</strong>
-        <ul>
-          <li>Borrowing capacity up to $5,000,000</li>
-          <li>Enhances and stabilises cash flow</li>
-          <li>Flexible access to funds on demand</li>
-          <li>Interest charged only on drawn amounts</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="#" class="btn btn-dark">Apply Now</a>
-          <button type="button" class="btn btn-dark btn-consultation" data-action="consultation" style="margin-left:8px">Get a Free Consultation</button>
+      <div style="background-color:#faebd7;border-radius: 10px 10px 0px 0px;">
+        <div class="top-image-wrapper" style="background-color: #0b1b33;border-radius: 10px 10px 0px 0px; height:293px;overflow:hidden;text-align:center;padding-top:5px;">
+        <img src="/assests/key.png" alt="Logo"width=100px style="margin-top:5px;"/>
+            <p style="color: #ffffff; font-size: 15px;">Financial Confidence. Unlocked</p>
         </div>
+        <div style="width:90%;margin:-151px auto 30px auto;background-color:white;">
+       <div class="commercial-page-container" style="padding:12px 30px;">
+       <h1>Welcome to FINCO CAPITAL</h1>
+       <p><b>Financial Confidence. Unlocked.</b></p>
+       <p>FINCO CAPITAL is a strategic finance brokerage built to help individuals, investors, and
+businesses make confident financial decisions in an increasingly complex lending
+environment.</p>
+       <p>We provide tailored solutions across Home Loans, Commercial Lending, and SMSF
+LRBA, combining clear advice, disciplined structuring, and forward planning — not
+guesswork or one-size-fits-all products.</p>
+       <strong>A Strategy-Led Approach to Finance</strong><br>
+        <p>At the core of FINCO CAPITAL is our Value Pyramid — a framework designed to turn
+complexity into clarity.
+We start with strong foundations: structure, borrowing power, cashflow, and risk. From
+there, we layer data-driven insights, personalised guidance, and strategic loan design —
+all with one objective:</P>
+       <p><b>inance that works with you, not against you.</b></p>
+       <p><b>Smart Tools. Better Decisions.</b></p>
+       <p>To support informed decision-making from the outset, FINCO CAPITAL offers<strong> smart
+dynamic calculators</strong> and an innovative <strong>online Case Solver</strong>. These tools allow you to
+explore scenarios, understand numbers, and see how different strategies may apply to
+your situation — before any commitment is made.</p>
+       <p><b>A Clear, Three-Step Journey</b></p>
+       <p>Every FINCO engagement follows a simple, structured pathway:</p>
         <div class="divider"></div>
-        <h2>Why Choose a Business Line of Credit</h2>
-        <p>A line of credit is an elegant solution for businesses seeking fluid access to capital without the rigidity of traditional loans. Whether managing seasonal fluctuations, covering short-term funding gaps, or seizing new opportunities, it provides continuous financial agility—keeping your business in control.</p>
-        <div class="divider"></div>
-        <h2>Eligibility &amp; Process</h2>
-        <p>At Finco Capital, we take a tailored approach to every facility. Our team analyses your business structure, financial performance, and funding objectives before matching you with the most suitable lender from our panel of major banks and non-bank specialists.</p>
-        <strong>Typical Lender Assessment Criteria</strong>
-        <ul>
-          <li><strong>Business Financials:</strong> Review of bank statements, financial reports, and balance sheets.</li>
-          <li><strong>Time in Business:</strong> Demonstrated trading history and operational stability.</li>
-          <li><strong>Serviceability:</strong> Evidence of consistent cash flow capable of servicing the facility.</li>
-          <li><strong>Credit Profile:</strong> Lenders accommodate a wide range of credit histories—from prime through to complex.</li>
-        </ul>
-        <p>Our process ensures each recommendation is transparent, efficient, and aligned with your business's long-term goals.</p>
-        <div class="divider"></div>
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq">
-          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Are there any fees?</div>
-          <div class="faq-answer">Associated fees may include application, account maintenance, or facility management costs. Finco Capital presents all possible charges from our lender partners upfront, ensuring full transparency before you proceed.</div>
-        </div>
-        <div class="faq">
-          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">How long can I access the funds for?</div>
-          <div class="faq-answer">Typically lines of credit are reviewed annually by lenders; your access period will depend on the facility terms. Speak to an advisor for a tailored timeline.</div>
-        </div>
-        <div class="faq">
-          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">What can I use it for?</div>
-          <div class="faq-answer">A business line of credit is commonly used for working capital, managing cash flow, short-term operational expenses, and seasonal inventory purchase.</div>
-        </div>
-        <div class="faq">
-          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">Is this the right solution for my business?</div>
-          <div class="faq-answer">It depends on your cashflow profile and funding needs — our advisors can assess whether a line of credit or alternate facility better suits your goals.</div>
-        </div>
-      </div>
-    `;
+
+      <h2>Step 1 — Exploration</h2>
+      <p>We use indicative inputs through calculators, the Case Solver, or enquiries to provide
+early insight and direction.</p>
+      <div class="divider"></div>
+      <h2>Step 2 — Decision</h2>
+      <p>We translate analysis into a clear, evidence-backed strategy, documented in our
+<strong>Statement of Credit Recommendation (SCR) </strong>— an industry-first approach designed
+to give homeowners and businesses clarity, transparency, and confidence before
+proceeding.</p>
+<div class="divider"></div>
+      <h2>Step 3 — Execution</h2>
+      <p>With strategy confirmed, we manage lender selection, submission, approval, and
+settlement — ensuring the solution is delivered as designed.</p>
+<p><b>Confidence Through Clarity</b></p>
+<p>FINCO CAPITAL is not about chasing rates or rushing applications.
+It’s about <strong>understanding, structuring,</strong> and <strong>positioning </strong>finance correctly — so
+decisions today continue to support your future.<br>
+Whether you’re buying a home, investing through an SMSF, or growing a business,
+FINCO CAPITAL gives you the clarity, structure, and confidence to move forward</p>
+   <p><b>Financial Confidence. Unlocked.</b></p>
+</div>
+</div>
+
+     `;
    
     // Initialize FAQ toggles for back panel
     (function(){
